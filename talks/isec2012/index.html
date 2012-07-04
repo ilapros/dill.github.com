@@ -94,7 +94,7 @@ f(x,y) = \sum_{i=1}^n \delta_i \eta(r_i) + {\color{red}\sum_{j=1}^3 \alpha_j \ph
 <div class="section slide level1" id="duchon-splines">
 <h1>Duchon splines</h1>
 <ul class="incremental">
-<li>same basis as thin plate splines</li>
+<li>same basis functions as thin plate splines</li>
 <li>modify penalty</li>
 <li>remove the linear terms</li>
 <li><em>but</em> keep it mathematically consistent</li>
@@ -140,8 +140,8 @@ What about weighting on the frequencies? \[
 <li>Letting \(w(\boldsymbol{\tau})=\lvert \boldsymbol{\tau} \rvert^{2s}\) \[
 \breve{P}_{m,2} = \int \int_{\mathbb{R}^2} \lvert \boldsymbol{\tau} \rvert^{2s} \sum_{\nu_1 + \nu_2=m} \frac{m!}{\nu_1! \nu_2!}\left ( \mathfrak{F} \frac{\partial^m f}{\partial x^{\nu_1} \partial y^{\nu_2}} \left (\boldsymbol{\tau} \right ) \right )^2 \text{d} \boldsymbol{\tau}
 \]</li>
-<li>We can now set \(s\) to “make up” for reducing \(m\) : \(m&gt;d/2-s\)</li>
-<li>\(s&gt;d/2-m \quad (s \in \mathbb{Z}/2) \quad \Rightarrow\) \(s=1/2\)</li>
+<li>We can now set \(s\) to “make up” for reducing \(m\) : \(2m&gt;d-2s\)</li>
+<li>\(s&gt;d/2-m \quad (s \in \mathbb{Z}/2) \quad \Rightarrow\) \(s=1/2, m=1\)</li>
 <li>\[
 \breve{P}_{1,2} = \int \int_{\mathbb{R}^2} \lvert \boldsymbol{\tau} \rvert \left\{ \left ( \mathfrak{F} \frac{\partial f}{\partial x} \left(\boldsymbol{\tau} \right) \right )^2 + \left (\mathfrak{F} \frac{\partial f}{\partial y}\left(\boldsymbol{\tau} \right) \right )^2 \right\} \text{d}\boldsymbol{\tau}.
 \]</li>
@@ -154,6 +154,7 @@ What about weighting on the frequencies? \[
 <img src="figure/unnamed-chunk-7.png" /><p class="caption"></p>
 </div>
 </div>
+
 
 
 </div>
