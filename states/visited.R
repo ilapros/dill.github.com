@@ -87,6 +87,7 @@ map("state",regions=gotem,add=T,fill=TRUE,col="red")
 
 map("state",regions=been,add=T,fill=TRUE,col="blue")
 
+legend(-125,30,c("visited","travelled through (land)"),c("red","blue"),bty="n")
 
 dev.off()
 
