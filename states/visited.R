@@ -35,7 +35,7 @@ gotem <- c(
 #           "montana"                        ,
 #           "nebraska"             ,
            "nevada"                         ,
-#           "new hampshire"            ,
+           "new hampshire"            ,
            "new jersey"                     ,
 #           "new mexico"                 ,
            "new york:manhattan"             ,
