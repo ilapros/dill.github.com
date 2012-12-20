@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js.gz"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div class="section slide level1" id="fork-ing-merge-ing-and-branch-ing-in-git">
+<h1><code>fork</code>-ing, <code>merge</code>-ing and <code>branch</code>-ing in <code>git</code></h1>
+<p>David L. Miller (University of Rhode Island)</p>
+<p>St Andrews R user group talk</p>
+<p>20 December 2012</p>
+</div>
+<div class="section slide level1" id="outline">
+<h1>outline</h1>
+<ul class="incremental">
+<li><code>git</code> re-cap</li>
+<li>branches (and how to think about them)</li>
+<li>merging</li>
+<li>deleting branches</li>
+<li><code>stash</code>ing</li>
+</ul>
+</div>
+<div class="section slide level1" id="why-git">
+<h1>why <code>git</code>?</h1>
+<ul class="incremental">
+<li><code>git</code> is the Delorean from <em>Back to the Future</em></li>
+<li>time travel! (no roads required)</li>
+<li><code>&lt;&lt;extended metaphor&gt;&gt;</code> <img src="delorean.jpg" /></li>
+</ul>
+</div>
+<div class="section slide level1" id="re-cap">
+<h1>re-cap</h1>
+<p>let’s start with a fresh <code>git</code> repo</p>
+<pre><code>$ mkdir ex
+$ cd ex
+$ git init
+$ touch README
+$ git add README
+$ git commit -a -m &quot;frivolous commit&quot;</code></pre>
+</div>
+<div class="section slide level1" id="why-branches">
+<h1>why branches?</h1>
+<ul class="incremental">
+<li>contexts!</li>
+<li>want to test some code but not screw other things up?</li>
+<li>save results from different parameters
+<div align="center">
+<img src="doc.jpeg">
+</div>
+</li>
+</ul>
+</div>
+<div class="section slide level1" id="branch-example-1">
+<h1>branch example (1)</h1>
+<p>Let’s make a file called <code>row.max.R</code>:</p>
+<pre><code># find the maximum in each row of a matrix -- slowly
+row.max &lt;- function(x){
+
+  result &lt;- c()
+
+  for(i in 1:nrow(x)){
+    this.max &lt;- max(x[i,])
+    result &lt;- c(result, this.max)
+  }
+  return(result)
+}</code></pre>
+</div>
+<div class="section slide level1" id="branch-example-2">
+<h1>branch example (2)</h1>
+<p>This does what you expect</p>
+<pre><code>&gt; source(&quot;row.max.R&quot;)
+&gt; row.max(matrix(1:9,3,3))
+[1] 7 8 9</code></pre>
+<p>Yay! It works!</p>
+<pre><code>$ git add row.max.R
+$ git commit -a -m &quot;Brian Ripley would be proud&quot;</code></pre>
+</div>
+<div class="section slide level1" id="branch-example-3">
+<h1>branch example (3)</h1>
+<ul class="incremental">
+<li>But wait, I heard about this thing called <code>apply()</code>…</li>
+<li>What if that’s better?</li>
+<li>How do I try that out without angering other people on my project?</li>
+<li><code>branch</code>!</li>
+</ul>
+</div>
+<div class="section slide level1" id="branch-example-4">
+<h1>branch example (4)</h1>
+<p>First make a new branch and switch to it:</p>
+<pre><code>$ git branch apply
+$ git checkout apply
+Switched to branch &#39;apply&#39;</code></pre>
+<p>You can check which branch we’re on using:</p>
+<pre><code>$ git branch
+* apply
+  master</code></pre>
+</div>
+<div class="section slide level1" id="branch-example-5">
+<h1>branch example (5)</h1>
+<p>Change the code:</p>
+<pre><code># find the maximum in each row of a matrix
+row.max &lt;- function(x){
+  return(apply(x,1,max))
+}</code></pre>
+<p>Try it:</p>
+<pre><code>&gt; source(&quot;row.max.R&quot;)
+&gt; row.max(matrix(1:9,3,3))
+[1] 7 8 9</code></pre>
+<p>Hurrah!</p>
+</div>
+<div class="section slide level1" id="branch-example-5-1">
+<h1>branch example (5)</h1>
+<p>Now, we can commit our changes to this branch</p>
+<pre><code>$ git commit -a -m &quot;now we use apply(), this is much better&quot;</code></pre>
+<p>we can switch back and forth between the branches and check where we are:</p>
+<pre><code>$ git checkout master
+$ git branch
+* master
+  apply
+$ git checkout apply
+$ git branch
+  master
+* apply</code></pre>
+</div>
+<div class="section slide level1" id="branching---when-is-it-useful">
+<h1>branching - when is it useful?</h1>
+<ul class="incremental">
+<li>multiple sim results</li>
+<li>want to check different parameter values</li>
+<li>need to be careful with results if you want to access them all at once
+<div align="center">
+<img src="still-of-christopher-lloyd-in-back-to-the-future-part-ii.jpg" height=50%>
+</div>
+</li>
+</ul>
+</div>
+<div class="section slide level1" id="aside-i-started-this-but-i-hate-it">
+<h1>(aside) I started this, but I hate it</h1>
+<p>nuke everything that’s not committed</p>
+<pre><code>$ git reset --hard HEAD</code></pre>
+<p>(this works anytime, but be careful!)</p>
+</div>
+<div class="section slide level1" id="i-have-lots-of-branches-whats-next">
+<h1>I have lots of branches – what’s next?</h1>
+
+<div align="center">
+<img src="merge-dsm.png" width=100%>
+</div>
+
+
+
+</div>
+<div class="section slide level1" id="merging-very-easy">
+<h1>merging – very easy</h1>
+<p>say we prefer <code>apply</code>, how do we make that our new <code>master</code>?</p>
+<pre><code>$ git checkout apply
+$ git merge --strategy=ours master
+$ git checkout master
+$ git merge apply</code></pre>
+</div>
+<div class="section slide level1" id="merging-easy">
+<h1>merging – easy</h1>
+<p>if changes are disjoint we <em>fast-forward</em></p>
+<pre><code>$ git commit -a -m &quot;some changes&quot;
+$ git checkout master
+$ git merge apply</code></pre>
+</div>
+<div class="section slide level1" id="merging-hard">
+<h1>merging – hard</h1>
+<p>what if there were non-trivial changes?</p>
+<p>attempt merge as before, BUT get this error:</p>
+<pre><code>CONFLICT (content): Merge conflict in yourfile.R
+Automatic merge failed; fix conflicts and then commit the result.</code></pre>
+<p>find conflicting files with <code>git status</code></p>
+<p>then, in file:</p>
+<pre><code> &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:mergetest
+ some code here
+ =======
+ this is different code but in the same place...
+ &gt;&gt;&gt;&gt;&gt;&gt;&gt; 4e2b407f501b68f8588aa645acafffa0224b9b78:mergetest</code></pre>
+<p>delete what you don’t want then <code>git commit -a</code></p>
+</div>
+<div class="section slide level1" id="deleting-branches">
+<h1>deleting branches</h1>
+<p>To remove a local branch from your machine:</p>
+<pre><code>git branch -d the_local_branch</code></pre>
+<div align="center">
+<img src="Lot65_bttf_marty_dave_linda_photo.jpg" height=50%>
+</div>
+
+
+</div>
+<div class="section slide level1" id="remember-all-changes-are-local">
+<h1>remember: all changes are local</h1>
+<p>push your new branch back to github</p>
+<pre><code>$ git push origin apply</code></pre>
+<p>remove a remote branch:</p>
+<pre><code>git push origin :the_remote_branch</code></pre>
+</div>
+<div class="section slide level1" id="reverting">
+<h1>reverting</h1>
+<p><code>checkout</code> the commit you want</p>
+<pre><code>$ git checkout e680ce8393934b0294268263074a0d4bd12ccf03</code></pre>
+<p>time travel!</p>
+<p>SHA-1 is king</p>
+<p>github is a good GUI for finding hashes</p>
+</div>
+<div class="section slide level1" id="forking">
+<h1>forking</h1>
+<ul class="incremental">
+<li>instead of branching, if you don’t have write access</li>
+<li>“fork it”</li>
+<li>copies repo to your github repos</li>
+<li>then use a “pull request” to merge</li>
+<li>all handled by github</li>
+</ul>
+</div>
+<div class="section slide level1" id="git-stash-for-quick-storage">
+<h1><code>git stash</code> for quick storage</h1>
+<ul class="incremental">
+<li>working on something</li>
+<li>need to do something else but don’t want to commit</li>
+<li><code>stash</code> then come back to it</li>
+<li><code>HEAD</code> goes back to the last commit</li>
+</ul>
+</div>
+<div class="section slide level1" id="stash-example">
+<h1><code>stash</code> example</h1>
+<pre><code>$ git stash save &quot;work in progress&quot;
+# work on something else
+$ git commit -a -m &quot;fixed!&quot;
+$ git stash pop
+# back to where we were</code></pre>
+</div>
+<div class="section slide level1" id="end">
+<h1>end</h1>
+<div class="background">
+<img src="back-to-the-future-DeLorean.jpg" width=100%>
+</div>
+
+
+
+
+
+</div>
+</body>
+</html>
