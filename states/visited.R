@@ -14,7 +14,7 @@ gotem <- c(
 #           "delaware"   ,
            "district of columbia",
            "florida",
-#           "georgia"                        ,
+           "georgia"                        ,
 #           "idaho"      ,
            "illinois",
            "indiana",
