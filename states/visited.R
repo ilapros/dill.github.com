@@ -9,7 +9,7 @@ gotem <- c(
 #           "arizona",
 #           "arkansas",
            "california",
-#           "colorado"   ,
+           "colorado"   ,
 #           "connecticut"                    ,
 #           "delaware"   ,
            "district of columbia",
@@ -55,7 +55,7 @@ gotem <- c(
 #           "south dakota"                   ,
 #           "tennessee"          ,
            "texas"                          ,
-#           "utah"         ,
+           "utah"         ,
 #           "vermont"                        ,
            "virginia:chesapeake"        ,
            "virginia:chincoteague"          ,
@@ -71,9 +71,24 @@ gotem <- c(
 NA
           )
 
+# add in alaska
+#ak <- map("world2Hires",region="usa:Alaska",plot=FALSE)
+ak <- maps:::map.poly("world2",region="usa:Alaska",as.polygon=TRUE)
+# centre on 0,0
+ak$x <- ak$x-mean(ak$x,na.rm=TRUE)
+ak$y <- ak$y-mean(ak$y,na.rm=TRUE)
+contr <- 0.5 # make it smaller
+ak$x <- (ak$x*contr-110)
+ak$y <- (ak$y*contr+20)
+
 # colour the ones I've been through
 been <- c("Connecticut",
-          "Delaware"
+          "Delaware",
+           "washington:san juan island"     ,
+           "washington:lopez island"      ,
+           "washington:orcas island"        ,
+           "washington:whidbey island"    ,
+           "washington:main"
          )
 
 
@@ -81,13 +96,16 @@ been <- c("Connecticut",
 png("states.png",600,400)
 
 # plot everything
-map("state")
+plot(c(-130,-65),c(15,50),type="n",asp=1,axes=FALSE,xlab="",ylab="")
+map("state",add=TRUE)
+polygon(ak$x,ak$y,border=FALSE,col="red")
+lines(ak$x,ak$y)
 
 map("state",regions=gotem,add=T,fill=TRUE,col="red")
 
 map("state",regions=been,add=T,fill=TRUE,col="blue")
 
-legend(-125,30,c("visited","travelled through (land)"),c("red","blue"),bty="n")
+legend(-95,25,c("visited","travelled through\n (train/airport)"),c("red","blue"),bty="n")
 
 dev.off()
 
