@@ -57,7 +57,6 @@ obs.dat <- obs.dat[obs.dat$survey_year == 1,]
  * Detecting SA
  * Methods for dealing with SA
  * Conclusions
- * References
 
 # DSM refresher (I)
  * Collect distance data on (a) species
@@ -94,10 +93,10 @@ obs.dat <- obs.dat[obs.dat$survey_year == 1,]
 
 
 # Example data - Nantucket Sound
+ * Massachusetts Audubon Society survey
  * Aerial (strip transect!) surveys of seabirds 2003-2006
  * ~12 surveys per year
- * One year of data (but all 12 surveys)
- * Long tailed ducks only
+ * Only looking at: Long tailed ducks, 1 year
  * Work in progress!
  * "Analysed" as part of Cape Wind
 
@@ -155,7 +154,7 @@ for(tid in c(2,3,6,8)){
 
 # Detecting SA
 
-Fitting a simple (and not that good!) model:
+Fitting a simple (and not very good!) model:
 ```{r cache=TRUE,echo=FALSE}
 # transect within survey id (used for correlogram)
 seg.dat$tr.s.id <- as.numeric(seg.dat$survey)*1000+as.numeric(seg.dat$transect)
@@ -188,8 +187,8 @@ dsm.cor(ltdu.tw, max.lag=18, Transect.Label="tr.s.id", Segment.Label="segment", 
  * Location smooths?
  * Along-transect smooths?
  * Correlation structures in `gamm`
- * Need `engine="gamm"`
- * `correlation=...`
+    - Need: `engine="gamm"`
+    - `correlation=...`
 
 
 # Correlation structures
@@ -204,7 +203,6 @@ dsm.cor(ltdu.tw, max.lag=18, Transect.Label="tr.s.id", Segment.Label="segment", 
  * "spatial" structures are more like kriging
  * Correlation is a 1-D effect *along* the transect
  * Counts are time series along the transects
- * GEE-type approach
 
 # Model formulation
 
@@ -214,7 +212,8 @@ $$
 
  * <font color="green">fixed effects</font>
  * <font color="blue">smooth terms</font>
- * <font color="purple">error</font> -- **this is the interesting bit!**
+ * <font color="purple">random effects</font>
+ * <font color="red">error</font> -- **this is the interesting bit!**
     - $e_i = \phi_1 e_{i-1} + \ldots + \phi_p e_{i-p} +\epsilon_{i}$
 
 # AR and ARMA

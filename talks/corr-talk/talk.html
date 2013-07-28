@@ -49,7 +49,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Detecting SA</li>
 <li>Methods for dealing with SA</li>
 <li>Conclusions</li>
-<li>References</li>
 </ul>
 </div>
 <div id="dsm-refresher-i" class="slide section level1">
@@ -98,10 +97,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="example-data---nantucket-sound" class="slide section level1">
 <h1>Example data - Nantucket Sound</h1>
 <ul>
+<li>Massachusetts Audubon Society survey</li>
 <li>Aerial (strip transect!) surveys of seabirds 2003-2006</li>
 <li>~12 surveys per year</li>
-<li>One year of data (but all 12 surveys)</li>
-<li>Long tailed ducks only</li>
+<li>Only looking at: Long tailed ducks, 1 year</li>
 <li>Work in progress!</li>
 <li>“Analysed” as part of Cape Wind</li>
 </ul>
@@ -145,7 +144,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 <div id="detecting-sa" class="slide section level1">
 <h1>Detecting SA</h1>
-<p>Fitting a simple (and not that good!) model:</p>
+<p>Fitting a simple (and not very good!) model:</p>
 <pre class="sourceCode r"><code class="sourceCode r">ltdu.tw &lt;-<span class="st"> </span><span class="kw">dsm</span>(N ~<span class="st"> </span><span class="kw">s</span>(x, y, <span class="dt">k =</span> <span class="dv">100</span>), <span class="dt">ddf.obj =</span> <span class="ot">NULL</span>, 
   seg.dat1, obs.dat1, <span class="dt">strip.width =</span> (<span class="dv">107</span> *<span class="st"> </span><span class="dv">2</span>)/<span class="dv">1000</span>, 
   <span class="dt">select =</span> <span class="ot">TRUE</span>, <span class="dt">method =</span> <span class="st">&quot;REML&quot;</span>, <span class="dt">family =</span> <span class="kw">Tweedie</span>(<span class="dt">p =</span> <span class="fl">1.5</span>))</code></pre>
@@ -162,9 +161,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Ignore(!)</li>
 <li>Location smooths?</li>
 <li>Along-transect smooths?</li>
-<li>Correlation structures in <code>gamm</code></li>
-<li>Need <code>engine=&quot;gamm&quot;</code></li>
+<li>Correlation structures in <code>gamm</code>
+<ul>
+<li>Need: <code>engine=&quot;gamm&quot;</code></li>
 <li><code>correlation=...</code></li>
+</ul></li>
 </ul>
 </div>
 <div id="correlation-structures" class="slide section level1">
@@ -186,7 +187,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>“spatial” structures are more like kriging</li>
 <li>Correlation is a 1-D effect <em>along</em> the transect</li>
 <li>Counts are time series along the transects</li>
-<li>GEE-type approach</li>
 </ul>
 </div>
 <div id="model-formulation" class="slide section level1">
@@ -197,7 +197,8 @@ N_i = \color{green}{\mathbf{X_i\beta}} + \color{blue}{\sum_k f_k(\mathbf{x}_i)} 
 <ul>
 <li><font color="green">fixed effects</font></li>
 <li><font color="blue">smooth terms</font></li>
-<li><font color="purple">error</font> – <strong>this is the interesting bit!</strong>
+<li><font color="purple">random effects</font></li>
+<li><font color="red">error</font> – <strong>this is the interesting bit!</strong>
 <ul>
 <li><span class="math">\(e_i = \phi_1 e_{i-1} + \ldots + \phi_p e_{i-p} +\epsilon_{i}\)</span></li>
 </ul></li>
@@ -339,7 +340,8 @@ N_i = \color{green}{\mathbf{X_i\beta}} + \color{blue}{\sum_k f_k(\mathbf{x}_i)} 
 </ul></li>
 <li>in <code>dsm</code>: <a href="http://github.com/dill/dsm">github.com/dill/dsm</a></li>
 <li>new wiki pages appearing soon!</li>
-<li><a href="http://dill.github.com/talks/corr-talk/talk.html">dill.github.com/talks/corr-talk/talk.html</a></li>
+<li>talk: <a href="http://dill.github.com/talks/corr-talk/talk.html">dill.github.com/talks/corr-talk/talk.html</a></li>
+<li>code: <a href="https://raw.github.com/dill/dill.github.com/master/talks/corr-talk/talk.Rmd">raw.github.com/dill/dill.github.com/master/talks/corr-talk/talk.Rmd</a></li>
 </ul>
 </div>
 </body>
