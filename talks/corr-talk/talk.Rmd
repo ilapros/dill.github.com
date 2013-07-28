@@ -181,13 +181,12 @@ ltdu.tw <- dsm(N~s(x,y,k=100),
 dsm.cor(ltdu.tw, max.lag=18, Transect.Label="tr.s.id", Segment.Label="segment", ylim=c(-0.1,1), resid.type="scaled.pearson")
 ```
 
-Looking for a "nugget" effect.
-
-
 
 # Dealing with SA in `dsm`
 
  * Ignore(!)
+ * Location smooths?
+ * Along-transect smooths?
  * Correlation structures in `gamm`
  * Need `engine="gamm"`
  * `correlation=...`
@@ -220,9 +219,11 @@ $$
 
 # AR and ARMA
  * AR(1):
+     - Estimate lag 1 autocorrelation ($\phi$), decreases with lag ($k$)
      - $h(k,\phi) = \phi^k, \quad k=0,1,\ldots, \quad \phi \in (-1,+1)$
      - `correlation=corAR1(form=~segment|transect|survey)`
  * ARMA(p,q)
+     - As above, but with $p$ parameters
      - $h(k,\phi) = \phi_1h(\vert k-1 \vert,\mathbf{\phi})+ \ldots + \phi_ph(\vert k-p \vert,\mathbf{\phi}), \quad k=0,1,\ldots, \quad \phi \in (-1,+1)$
      - `correlation=corARMA(form=~segment|transect|survey,p=p)`
 
@@ -230,7 +231,7 @@ $$
 
 # Correlation structures in `dsm`
 
-```{r cache=TRUE, echo=FALSE, results="hide",message=FALSE,tidy=FALSE}
+```{r cache=TRUE, results="hide",message=FALSE,tidy=FALSE}
 ltdu.tw.cor <- dsm(N~ s(x,y,k=100),
              ddf.obj=NULL, seg.dat1, obs.dat1,
              strip.width=(107*2)/1000,engine="gamm",
@@ -238,21 +239,36 @@ ltdu.tw.cor <- dsm(N~ s(x,y,k=100),
              family=Tweedie(p=1.5))
 ```
 
+# Did that do anything?
+ * check with correlogram (`dsm.cor`)
+ * look at CI for correlation effect (`intervals`)
 
 # What is the value of $\phi$?
 
+<small>
 ```{r cache=TRUE}
 intervals(ltdu.tw.cor$lme)
 ```
+</small>
 
 # AR(p) models
+```{r cache=TRUE, results="hide",message=FALSE,tidy=FALSE}
+ltdu.tw.cor2 <- dsm(N~ s(x,y,k=100),
+             ddf.obj=NULL, seg.dat1, obs.dat1,
+             strip.width=(107*2)/1000,engine="gamm",
+             correlation=corARMA(p=2,form=~segment|tr.s.id),
+             family=Tweedie(p=1.5))
+```
+
+# AR(p) models - `dsm.cor`
 
 ```{r cache=TRUE, echo=FALSE, results="hide",message=FALSE}
 par(mfrow=c(2,3))
 dsm.cor(ltdu.tw,max.lag=18,Transect.Label="tr.s.id",Segment.Label="segment",ylim=c(-0.1,1),resid.type="scaled.pearson")
 dsm.cor(ltdu.tw.cor,max.lag=18,Transect.Label="tr.s.id",Segment.Label="segment",ylim=c(-0.1,1),resid.type="normalized",main=paste0("AR(",1,")"))
+dsm.cor(ltdu.tw.cor2,max.lag=18,Transect.Label="tr.s.id",Segment.Label="segment",ylim=c(-0.1,1),resid.type="normalized",main=paste0("AR(",2,")"))
 
-for(ar.p in 2:5){
+for(ar.p in 3:5){
 
 ltdu.tw.cor <- dsm(N~ s(x,y,k=100),
              ddf.obj=NULL, seg.dat1, obs.dat1,
@@ -266,10 +282,14 @@ dsm.cor(ltdu.tw.cor,max.lag=18,Transect.Label="tr.s.id",Segment.Label="segment",
 }
 ```
 
+# What are the values of the $\phi$s?
 
-# Did that do anything?
- * check with correlogram (`dsm.cor`)
- * look at CI for correlation effect (`intervals`)
+<small>
+```{r cache=TRUE}
+intervals(ltdu.tw.cor$lme)
+```
+</small>
+
 
 
 # Limitations
@@ -286,5 +306,14 @@ dsm.cor(ltdu.tw.cor,max.lag=18,Transect.Label="tr.s.id",Segment.Label="segment",
 # Conclusions
  * Correlation can be tricky to deal with
  * Data structure is very important
+ * Slow/numerical problems
+ * General approach:
+    - build GAM (all terms, use `select`, select response distn)
+    - refit with GAMM ("best" model)
+    - add in correlation (remove non-sig terms, add in others?)
+ * in `dsm`: [github.com/dill/dsm](http://github.com/dill/dsm)
+ * new wiki pages appearing soon!
+ * talk: [dill.github.com/talks/corr-talk/talk.html](http://dill.github.com/talks/corr-talk/talk.html)
+ * code: [raw.github.com/dill/dill.github.com/master/talks/corr-talk/talk.Rmd](https://raw.github.com/dill/dill.github.com/master/talks/corr-talk/talk.Rmd)
 
 

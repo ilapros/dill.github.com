@@ -155,12 +155,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dsm.cor</span>(ltdu.tw, <span class="dt">max.lag =</span> <span class="dv">18</span>, <span class="dt">Transect.Label =</span> <span class="st">&quot;tr.s.id&quot;</span>, 
   <span class="dt">Segment.Label =</span> <span class="st">&quot;segment&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(-<span class="fl">0.1</span>, <span class="dv">1</span>), <span class="dt">resid.type =</span> <span class="st">&quot;scaled.pearson&quot;</span>)</code></pre>
 <p><img src="figure/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="600" style="display: block; margin: auto;" /></p>
-<p>Looking for a “nugget” effect.</p>
 </div>
 <div id="dealing-with-sa-in-dsm" class="slide section level1">
 <h1>Dealing with SA in <code>dsm</code></h1>
 <ul>
 <li>Ignore(!)</li>
+<li>Location smooths?</li>
+<li>Along-transect smooths?</li>
 <li>Correlation structures in <code>gamm</code></li>
 <li>Need <code>engine=&quot;gamm&quot;</code></li>
 <li><code>correlation=...</code></li>
@@ -207,11 +208,13 @@ N_i = \color{green}{\mathbf{X_i\beta}} + \color{blue}{\sum_k f_k(\mathbf{x}_i)} 
 <ul>
 <li>AR(1):
 <ul>
+<li>Estimate lag 1 autocorrelation (<span class="math">\(\phi\)</span>), decreases with lag (<span class="math">\(k\)</span>)</li>
 <li><span class="math">\(h(k,\phi) = \phi^k, \quad k=0,1,\ldots, \quad \phi \in (-1,+1)\)</span></li>
 <li><code>correlation=corAR1(form=~segment|transect|survey)</code></li>
 </ul></li>
 <li>ARMA(p,q)
 <ul>
+<li>As above, but with <span class="math">\(p\)</span> parameters</li>
 <li><span class="math">\(h(k,\phi) = \phi_1h(\vert k-1 \vert,\mathbf{\phi})+ \ldots + \phi_ph(\vert k-p \vert,\mathbf{\phi}), \quad k=0,1,\ldots, \quad \phi \in (-1,+1)\)</span></li>
 <li><code>correlation=corARMA(form=~segment|transect|survey,p=p)</code></li>
 </ul></li>
@@ -219,9 +222,22 @@ N_i = \color{green}{\mathbf{X_i\beta}} + \color{blue}{\sum_k f_k(\mathbf{x}_i)} 
 </div>
 <div id="correlation-structures-in-dsm" class="slide section level1">
 <h1>Correlation structures in <code>dsm</code></h1>
+<pre class="sourceCode r"><code class="sourceCode r">ltdu.tw.cor &lt;-<span class="st"> </span><span class="kw">dsm</span>(N~<span class="st"> </span><span class="kw">s</span>(x,y,<span class="dt">k=</span><span class="dv">100</span>),
+             <span class="dt">ddf.obj=</span><span class="ot">NULL</span>, seg.dat1, obs.dat1,
+             <span class="dt">strip.width=</span>(<span class="dv">107</span>*<span class="dv">2</span>)/<span class="dv">1000</span>,<span class="dt">engine=</span><span class="st">&quot;gamm&quot;</span>,
+             <span class="dt">correlation=</span><span class="kw">corAR1</span>(<span class="dt">form=</span>~segment|tr.s.id),
+             <span class="dt">family=</span><span class="kw">Tweedie</span>(<span class="dt">p=</span><span class="fl">1.5</span>))</code></pre>
+</div>
+<div id="did-that-do-anything" class="slide section level1">
+<h1>Did that do anything?</h1>
+<ul>
+<li>check with correlogram (<code>dsm.cor</code>)</li>
+<li>look at CI for correlation effect (<code>intervals</code>)</li>
+</ul>
 </div>
 <div id="what-is-the-value-of-phi" class="slide section level1">
 <h1>What is the value of <span class="math">\(\phi\)</span>?</h1>
+<p><small></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">intervals</span>(ltdu.tw.cor$lme)</code></pre>
 <pre><code>## Approximate 95% confidence intervals
 ## 
@@ -247,17 +263,53 @@ N_i = \color{green}{\mathbf{X_i\beta}} + \color{blue}{\sum_k f_k(\mathbf{x}_i)} 
 ##  Within-group standard error:
 ## lower  est. upper 
 ## 4.777 4.925 5.078</code></pre>
+<p></small></p>
 </div>
 <div id="arp-models" class="slide section level1">
 <h1>AR(p) models</h1>
-<p><img src="figure/unnamed-chunk-11.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="600" style="display: block; margin: auto;" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">ltdu.tw.cor2 &lt;-<span class="st"> </span><span class="kw">dsm</span>(N~<span class="st"> </span><span class="kw">s</span>(x,y,<span class="dt">k=</span><span class="dv">100</span>),
+             <span class="dt">ddf.obj=</span><span class="ot">NULL</span>, seg.dat1, obs.dat1,
+             <span class="dt">strip.width=</span>(<span class="dv">107</span>*<span class="dv">2</span>)/<span class="dv">1000</span>,<span class="dt">engine=</span><span class="st">&quot;gamm&quot;</span>,
+             <span class="dt">correlation=</span><span class="kw">corARMA</span>(<span class="dt">p=</span><span class="dv">2</span>,<span class="dt">form=</span>~segment|tr.s.id),
+             <span class="dt">family=</span><span class="kw">Tweedie</span>(<span class="dt">p=</span><span class="fl">1.5</span>))</code></pre>
 </div>
-<div id="did-that-do-anything" class="slide section level1">
-<h1>Did that do anything?</h1>
-<ul>
-<li>check with correlogram (<code>dsm.cor</code>)</li>
-<li>look at CI for correlation effect (<code>intervals</code>)</li>
-</ul>
+<div id="arp-models---dsm.cor" class="slide section level1">
+<h1>AR(p) models - <code>dsm.cor</code></h1>
+<p><img src="figure/unnamed-chunk-12.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="600" style="display: block; margin: auto;" /></p>
+</div>
+<div id="what-are-the-values-of-the-phis" class="slide section level1">
+<h1>What are the values of the <span class="math">\(\phi\)</span>s?</h1>
+<p><small></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">intervals</span>(ltdu.tw.cor$lme)</code></pre>
+<pre><code>## Approximate 95% confidence intervals
+## 
+##  Fixed effects:
+##                lower   est. upper
+## X(Intercept)  4.0189 4.1296 4.240
+## Xs(x,y)Fx1   -0.7741 0.2647 1.303
+## Xs(x,y)Fx2   -0.5512 0.5989 1.749
+## attr(,&quot;label&quot;)
+## [1] &quot;Fixed effects:&quot;
+## 
+##  Random Effects:
+##   Level: g 
+##            lower est. upper
+## sd(Xr - 1)  1368 1991  2893
+## 
+##  Correlation structure:
+##         lower     est.    upper
+## Phi1  0.10547  0.13736 0.149715
+## Phi2  0.02723  0.06401 0.089353
+## Phi3  0.06255  0.10842 0.147595
+## Phi4 -0.01678  0.02502 0.063891
+## Phi5 -0.09576 -0.04454 0.006907
+## attr(,&quot;label&quot;)
+## [1] &quot;Correlation structure:&quot;
+## 
+##  Within-group standard error:
+## lower  est. upper 
+## 4.730 4.881 5.038</code></pre>
+<p></small></p>
 </div>
 <div id="limitations" class="slide section level1">
 <h1>Limitations</h1>
@@ -278,6 +330,16 @@ N_i = \color{green}{\mathbf{X_i\beta}} + \color{blue}{\sum_k f_k(\mathbf{x}_i)} 
 <ul>
 <li>Correlation can be tricky to deal with</li>
 <li>Data structure is very important</li>
+<li>Slow/numerical problems</li>
+<li>General approach:
+<ul>
+<li>build GAM (all terms, use <code>select</code>, select response distn)</li>
+<li>refit with GAMM (“best” model)</li>
+<li>add in correlation (remove non-sig terms, add in others?)</li>
+</ul></li>
+<li>in <code>dsm</code>: <a href="http://github.com/dill/dsm">github.com/dill/dsm</a></li>
+<li>new wiki pages appearing soon!</li>
+<li><a href="http://dill.github.com/talks/corr-talk/talk.html">dill.github.com/talks/corr-talk/talk.html</a></li>
 </ul>
 </div>
 </body>
