@@ -298,12 +298,11 @@ intervals(ltdu.tw.cor$lme)
     - exploits smooth-random effect equivalence
     - uses penalised quasi-likelihood (PQL)
     - relatively numerically unstable (in `mgcv` terms)
- * Can't include `select`, `paraPen` and other terms
+ * Can't include `select`, `paraPen` and other "cool stuff"
 
 
 
 # Conclusions
- * Correlation can be tricky to deal with
  * Data structure is very important
  * Slow/numerical problems
  * General approach:
