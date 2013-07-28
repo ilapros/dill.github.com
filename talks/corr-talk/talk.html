@@ -64,7 +64,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 <div id="dsm-refresher-ii" class="slide section level1">
 <h1>DSM refresher (II)</h1>
-<p><img src="process1.png" align="center"></p>
+<div class="figure">
+<img src="process1.png" />
+</div>
 </div>
 <div id="dsm-refresher-iii" class="slide section level1">
 <h1>DSM refresher (III)</h1>
@@ -104,8 +106,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>“Analysed” as part of Cape Wind</li>
 </ul>
 </div>
-<div id="general-area" class="slide section level1">
-<h1>General area</h1>
+<div id="nantucket-sound" class="slide section level1">
+<h1>Nantucket Sound</h1>
 <p><img src="figure/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="600" style="display: block; margin: auto;" /></p>
 </div>
 <div id="transects" class="slide section level1">
@@ -116,7 +118,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1>How does SA manifest itself in DSMs?</h1>
 <ul>
 <li>Segment definition is arbitrary</li>
-<li>Adjacent segments are (almost definitely) correlated</li>
+<li>Adjacent segments are correlated</li>
 <li>(Maybe proximate transects are correlated?)</li>
 </ul>
 </div>
@@ -127,40 +129,31 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="heirarchical-nature" class="slide section level1">
 <h1>Heirarchical nature</h1>
 <ul>
+<li>Structure is important</li>
 <li>Sample labels/units must be correct</li>
 <li>Segment 1 in year 1 and year 2 are <strong>different</strong></li>
-<li>Structure is important</li>
 <li>Make sure the data makes <strong>sense</strong>!</li>
 </ul>
-</div>
-<div id="nomenclature" class="slide section level1">
-<h1>Nomenclature</h1>
-<ul>
-<li><code>Sample.Label</code> - unique sample id</li>
-<li><code>segment</code> - segment id (may be sampled many times)</li>
-<li><code>transect</code> - transect id (may be sampled many times)</li>
-<li><code>survey</code> - survey id, collection of transects (many visits, over time)</li>
-</ul>
+<table><tr><td>
+<img src="seg-tr.png" />
+</td> <td>
+<img src="spacer.png" />
+</td> <td>
+<img src="seg-tr-su.png" />
+</td></tr></table>
+
 </div>
 <div id="detecting-sa" class="slide section level1">
 <h1>Detecting SA</h1>
 <p>Fitting a simple (and not that good!) model:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># transect within survey id (used for</span>
-<span class="co"># correlogram)</span>
-seg.dat$tr.s.id &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(seg.dat$survey) *<span class="st"> </span><span class="dv">1000</span> +<span class="st"> </span>
-<span class="st">  </span><span class="kw">as.numeric</span>(seg.dat$transect)
-
-s.ids &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">13</span>)[-<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">12</span>)]
-seg.dat1 &lt;-<span class="st"> </span>seg.dat[seg.dat$survey %in%<span class="st"> </span>s.ids, ]
-obs.dat1 &lt;-<span class="st"> </span>obs.dat[obs.dat$survey %in%<span class="st"> </span>s.ids, ]
-seg.dat1 &lt;-<span class="st"> </span>seg.dat1[<span class="kw">order</span>(seg.dat1$tr.s.id, seg.dat1$segment), 
-  ]</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">ltdu.tw &lt;-<span class="st"> </span><span class="kw">dsm</span>(N ~<span class="st"> </span><span class="kw">s</span>(x, y, <span class="dt">k =</span> <span class="dv">100</span>), <span class="dt">ddf.obj =</span> <span class="ot">NULL</span>, 
   seg.dat1, obs.dat1, <span class="dt">strip.width =</span> (<span class="dv">107</span> *<span class="st"> </span><span class="dv">2</span>)/<span class="dv">1000</span>, 
   <span class="dt">select =</span> <span class="ot">TRUE</span>, <span class="dt">method =</span> <span class="st">&quot;REML&quot;</span>, <span class="dt">family =</span> <span class="kw">Tweedie</span>(<span class="dt">p =</span> <span class="fl">1.5</span>))</code></pre>
 </div>
 <div id="residual-autocorrelogram-in-dsm" class="slide section level1">
 <h1>Residual autocorrelogram in <code>dsm</code></h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dsm.cor</span>(ltdu.tw, <span class="dt">max.lag =</span> <span class="dv">18</span>, <span class="dt">Transect.Label =</span> <span class="st">&quot;tr.s.id&quot;</span>, 
+  <span class="dt">Segment.Label =</span> <span class="st">&quot;segment&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(-<span class="fl">0.1</span>, <span class="dv">1</span>), <span class="dt">resid.type =</span> <span class="st">&quot;scaled.pearson&quot;</span>)</code></pre>
 <p><img src="figure/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="600" style="display: block; margin: auto;" /></p>
 <p>Looking for a “nugget” effect.</p>
 </div>
@@ -195,6 +188,20 @@ seg.dat1 &lt;-<span class="st"> </span>seg.dat1[<span class="kw">order</span>(se
 <li>GEE-type approach</li>
 </ul>
 </div>
+<div id="model-formulation" class="slide section level1">
+<h1>Model formulation</h1>
+<p><span class="math">\[
+N_i = \color{green}{\mathbf{X_i\beta}} + \color{blue}{\sum_k f_k(\mathbf{x}_i)} + \color{red}{\mathbf{Z_ib}} + \color{purple}{e_i} 
+\]</span></p>
+<ul>
+<li><font color="green">fixed effects</font></li>
+<li><font color="blue">smooth terms</font></li>
+<li><font color="purple">error</font> – <strong>this is the interesting bit!</strong>
+<ul>
+<li><span class="math">\(e_i = \phi_1 e_{i-1} + \ldots + \phi_p e_{i-p} +\epsilon_{i}\)</span></li>
+</ul></li>
+</ul>
+</div>
 <div id="ar-and-arma" class="slide section level1">
 <h1>AR and ARMA</h1>
 <ul>
@@ -207,20 +214,6 @@ seg.dat1 &lt;-<span class="st"> </span>seg.dat1[<span class="kw">order</span>(se
 <ul>
 <li><span class="math">\(h(k,\phi) = \phi_1h(\vert k-1 \vert,\mathbf{\phi})+ \ldots + \phi_ph(\vert k-p \vert,\mathbf{\phi}), \quad k=0,1,\ldots, \quad \phi \in (-1,+1)\)</span></li>
 <li><code>correlation=corARMA(form=~segment|transect|survey,p=p)</code></li>
-</ul></li>
-</ul>
-</div>
-<div id="model-formulation" class="slide section level1">
-<h1>Model formulation</h1>
-<p><span class="math">\[
-N_i = \color{green}{\mathbf{X_i\beta}} + \color{blue}{\sum_k f_k(\mathbf{x}_i)} + \color{red}{\mathbf{Z_ib}} + \color{purple}{e_i} 
-\]</span></p>
-<ul>
-<li><font color="green">fixed effects</font></li>
-<li><font color="blue">smooth terms</font></li>
-<li><font color="purple">error</font> – <strong>this is the interesting bit!</strong>
-<ul>
-<li><span class="math">\(e_i = \phi e_{i-1} + \epsilon_{i}\)</span></li>
 </ul></li>
 </ul>
 </div>
