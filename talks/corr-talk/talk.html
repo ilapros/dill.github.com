@@ -103,6 +103,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Only looking at: Long tailed ducks, 1 year</li>
 <li>Work in progress!</li>
 <li>“Analysed” as part of Cape Wind</li>
+<li>(Thanks to Mark Trinder!)</li>
 </ul>
 </div>
 <div id="nantucket-sound" class="slide section level1">
@@ -159,12 +160,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1>Dealing with SA in <code>dsm</code></h1>
 <ul>
 <li>Ignore(!)</li>
-<li>Location smooths?</li>
-<li>Along-transect smooths?</li>
+<li>Location smooths? (<em>i.e.</em> <code>s(x,y)</code> terms)</li>
+<li>Along-transect smooths? (<em>i.e.</em> <code>s(y, by=transect)</code>)</li>
 <li>Correlation structures in <code>gamm</code>
 <ul>
-<li>Need: <code>engine=&quot;gamm&quot;</code></li>
-<li><code>correlation=...</code></li>
+<li>Options in <code>dsm</code>: <code>engine=&quot;gamm&quot;</code> and <code>correlation=...</code></li>
 </ul></li>
 </ul>
 </div>
@@ -185,6 +185,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1>Correlation structures (II)</h1>
 <ul>
 <li>“spatial” structures are more like kriging</li>
+<li>Confounding? Truly spatial information?</li>
 <li>Correlation is a 1-D effect <em>along</em> the transect</li>
 <li>Counts are time series along the transects</li>
 </ul>
