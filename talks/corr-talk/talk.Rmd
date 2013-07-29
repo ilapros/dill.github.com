@@ -99,6 +99,7 @@ obs.dat <- obs.dat[obs.dat$survey_year == 1,]
  * Only looking at: Long tailed ducks, 1 year
  * Work in progress!
  * "Analysed" as part of Cape Wind
+ * (Thanks to Mark Trinder!)
 
 
 # Nantucket Sound
@@ -184,11 +185,10 @@ dsm.cor(ltdu.tw, max.lag=18, Transect.Label="tr.s.id", Segment.Label="segment", 
 # Dealing with SA in `dsm`
 
  * Ignore(!)
- * Location smooths?
- * Along-transect smooths?
+ * Location smooths? (*i.e.* `s(x,y)` terms)
+ * Along-transect smooths? (*i.e.* `s(y, by=transect)`)
  * Correlation structures in `gamm`
-    - Need: `engine="gamm"`
-    - `correlation=...`
+    - Options in `dsm`: `engine="gamm"` and `correlation=...`
 
 
 # Correlation structures
@@ -201,6 +201,7 @@ dsm.cor(ltdu.tw, max.lag=18, Transect.Label="tr.s.id", Segment.Label="segment", 
 
 # Correlation structures (II)
  * "spatial" structures are more like kriging
+ * Confounding? Truly spatial information?
  * Correlation is a 1-D effect *along* the transect
  * Counts are time series along the transects
 
