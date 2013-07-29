@@ -215,7 +215,9 @@ $$
  * <font color="blue">smooth terms</font>
  * <font color="purple">random effects</font>
  * <font color="red">error</font> -- **this is the interesting bit!**
-    - $e_i = \phi_1 e_{i-1} + \ldots + \phi_p e_{i-p} +\epsilon_{i}$
+    - make error depend on previous observation:
+    - *e.g.* $e_i = \phi_1 e_{i-1} + \epsilon_{i}$
+    - *e.g.* $e_i = \phi_1 e_{i-1} + \ldots + \phi_p e_{i-p} +\epsilon_{i}$
 
 # AR and ARMA
  * AR(1):
