@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>dsm.var.prop. dsm 2.1.3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+  Mark V. Bravington, Sharon L. Hedley. Bugs added by David
+  L. Miller.
+">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">dsm 2.1.3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Variance propogation for DSM models</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre>dsm.var.prop(dsm.obj, pred.data, off.set, seglen.varname = "Effort", type.pred = "response")</pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>dsm.obj</dt>
+      <dd>an object returned from running
+  <code><a href='dsm.html'>dsm</a></code>.</dd>
+      <dt>pred.data</dt>
+      <dd>either: a single prediction grid or list
+  of prediction grids. Each grid should be a
+  <code>data.frame</code> with the same columns as the original
+  data.</dd>
+      <dt>off.set</dt>
+      <dd>a a vector or list of vectors with as many
+  elements as there are in <code>pred.data</code>. Each vector is
+  as long as the number of rows in the corresponding
+  element of <code>pred.data</code>. These give the area
+  associated with each prediction point.</dd>
+      <dt>seglen.varname</dt>
+      <dd>name for the column which holds the
+  segment length (default value "Effort").</dd>
+      <dt>type.pred</dt>
+      <dd>should the predictions be on the
+  "response" or "link" scale?  (default "response").</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+      
+      <p>a list with elements <table><tr><td><code>model</code> </td>
+<td> the
+  fitted model object</td>
+</tr><tr><td> <code>pred.var</code> </td>
+<td> covariances
+  of the regions given in <code>pred.data</code>. Diagonal
+  elements are the variances in order</td>
+</tr><tr><td> <code>bootstrap</code>
+  </td>
+<td> logical, always <code>FALSE</code></td>
+</tr><tr><td> <code>pred.data</code>
+  </td>
+<td> as above</td>
+</tr><tr><td> <code>off.set</code> </td>
+<td> as above</td>
+</tr><tr><td>
+  <code>model</code></td>
+<td> the fitted model with the extra term</td>
+</tr><tr><td>
+  <code>dsm.object</code> </td>
+<td> the original model, as above</td>
+</tr><tr><td>
+  <code>model.check</code> </td>
+<td> simple check of subtracting the
+  coefficients of the two models to see if there is a large
+  difference</td>
+</tr><tr><td> <code>deriv</code> </td>
+<td> numerically calculated
+  Hessian of the offset</td>
+</tr></table></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Rather than use a bootstrap to calculate the variance in
+  a <code>dsm</code> model, use the clever variance propogation
+  trick from Williams et al. (2011).</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+      
+      <p>The idea is to refit the spatial model but including the
+  Hessian of the offset as an extra term. Variance
+  estimates using this new model can then be used to
+  calculate the variance of abundance estimates which
+  incorporate detection function uncertainty. Further
+  mathematical details are given in the paper in the
+  references below.</p>
+  
+      <p>Many prediction grids can be supplied by supplying a list
+  of <code>data.frame</code>s to the function.</p>
+  
+      <p>Based on (much more general) code from Mark Bravington
+  and Sharon Hedley.</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+      
+      <p>Williams, R., Hedley, S.L., Branch, T.A., Bravington,
+  M.V., Zerbini, A.N. and Findlay, K.P. (2011). Chilean
+  Blue Whales as a Case Study to Illustrate Methods to
+  Estimate Abundance and Evaluate Conservation Status of
+  Rare Species. Conservation Biology 25(3), 526-535.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## <strong>Not run</strong>: #  library(Distance)#  library(dsm)# #  # load the Gulf of Mexico dolphin data (see ?mexdolphins)#  data(mexdolphins)# #  # fit a detection function and look at the summary#  hr.model <- ds(mexdolphins$distdata, max(mexdolphins$distdata$distance),#                 key = "hr", adjustment = NULL)#  summary(hr.model)# #  # fit a simple smooth of x and y#  mod1 <- dsm(N~s(x,y), hr.model, mexdolphins$segdata, mexdolphins$obsdata)# #  # Calculate the offset...#  off.set <- 444*1000*1000# #  # Calculate the variance#  mod1.var <- dsm.var.prop(mod1, mexdolphins$pred, off.set)# #  # summary over the whole area in mexdolphins$pred# #  # Plot a map of the CV#  #   need to format the prediction data with split#  mod1.var.map <- dsm.var.prop(mod1,#                  split(mexdolphins$pred,1:nrow(mexdolphins$pred)), off.set)#  plot(mod1.var.map)# ## <strong>End(Not run)</strong></div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>dsm.var.prop</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+    
+    <h2>Author</h2>
+    
+  Mark V. Bravington, Sharon L. Hedley. Bugs added by David
+  L. Miller.
+
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>predict.dsm. dsm 2.1.3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+  David L. Miller
+">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">dsm 2.1.3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Predict from a fitted density surface model</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre>predict(object, newdata = NULL, off.set = NULL, type = "response", ...)</pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>object</dt>
+      <dd>a fitted <code><a href='dsm.html'>dsm</a></code> object as
+  produced by <code>dsm()</code>.</dd>
+      <dt>newdata</dt>
+      <dd>spatially referenced covariates e.g.  sea
+  temperature, depth, distance to shore, etc.  Note
+  covariates in this dataframe must have names *identical*
+  to variable names used in fitting the GAM.</dd>
+      <dt>off.set</dt>
+      <dd>area of each of the cells in the
+  prediction grid. Ignored if if their is already a column
+  in <code>newdata</code> called <code>off.set</code>.  The link
+  function is applied to the offset inside this function.</dd>
+      <dt>type</dt>
+      <dd>what scale should the results be on. The
+  default is <code>"response"</code> and is almost always what
+  you want.</dd>
+      <dt>...</dt>
+      <dd>any other arguments passed to
+  <code><a href='http://www.inside-r.org/r-doc/mgcv/predict.gam'>predict.gam</a></code> or <code><a href='http://www.inside-r.org/r-doc/stats/predict.glm'>predict.glm</a></code>.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+      
+      <p>predicted values on the response scale
+  (density/abundance).</p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Make predictions outside (or inside) the covered area.</p>
+  
+    </div>
+      </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>predict.dsm</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+    
+    <h2>Author</h2>
+    
+  David L. Miller
+
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
