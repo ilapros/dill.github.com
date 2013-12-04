@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="David L Miller" />
+  <title>Functional programming in R</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="slidy.css" />
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  
+  
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js.gz"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title">Functional programming in <code>R</code></h1>
+  <p class="author">
+David L Miller
+  </p>
+  <p class="date">St Andrews useR group, 12 December 2013</p>
+</div>
+<div id="section" class="slide section level2">
+<h1></h1>
+<div class="quote">
+<p><em>If we wish to count lines of code, we should not regard them as “lines produced” but as “lines spent”</em><br/></p>
+Edsger W. Dijkstra
+</div>
+
+
+</div>
+<div id="section-1" class="slide section level2">
+<h1></h1>
+<div class="quote">
+This <em>is not</em> a talk about writing fast code
+</div>
+
+
+</div>
+<div id="section-2" class="slide section level2">
+<h1></h1>
+<div class="quote">
+This <em>is</em> a talk about writing code for humans to read
+</div>
+
+
+</div>
+<div id="section-3" class="slide section level2">
+<h1></h1>
+<div class="quote">
+This <em>is</em> a talk about writing code for humans to maintain
+</div>
+
+
+</div>
+<div id="section-4" class="slide section level2">
+<h1></h1>
+<div class="quote">
+This <em>is</em> a talk about writing less code
+</div>
+
+
+</div>
+<div id="why-is-programming-terrible" class="slide section level2">
+<h1>Why is programming terrible?</h1>
+<h3 id="obfuscation">Obfuscation</h3>
+<ul>
+<li>bending (someone else’s) functions to your will</li>
+<li>complex flow control (<code>{</code> and <code>}</code> tryanny)</li>
+<li>“what does this function do?”</li>
+<li>“quick” fixes</li>
+</ul>
+<h3 id="duplication">Duplication</h3>
+<ul>
+<li>write 10 times, modify 9 times</li>
+<li>copy and paste coding</li>
+<li>typos (failure of duplication)</li>
+</ul>
+</div>
+<div id="section-5" class="slide section level2">
+<h1></h1>
+<div class="quote">
+What is “functional” programming?
+</div>
+
+
+
+</div>
+<div id="getting-closer-to-the-mathematics" class="slide section level2">
+<h1>Getting closer to the mathematics</h1>
+<p><code>sum(x-mean(x))^2</code></p>
+<p><strong>looks like</strong></p>
+<p><span class="math">\(\left(\sum_{i=1}^n \left(x_i-\frac{\sum_{j=1}^n x_j}{n}\right)\right)^2\)</span></p>
+<p>Compare this to:</p>
+<!--?prettify-->
+
+<pre><code>x.mean &lt;- mean(x)
+
+result &lt;- 0
+
+for(i in 1:length(x)){
+  result &lt;- result + x[i]-x.mean
+}
+
+result &lt;- result^2</code></pre>
+</div>
+<div id="section-6" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Focus is on what we <em>do</em> <strong>not</strong> on <em>implementation</em>
+</div>
+
+
+</div>
+<div id="section-7" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Four examples of functional ideas
+</div>
+
+
+</div>
+<div id="youre-probably-already-doing-this" class="slide section level2">
+<h1>You’re probably already doing this…</h1>
+<pre><code>data.mean &lt;- apply(data, 1, mean)</code></pre>
+<p>(<em>A function as an argument to a function</em>)</p>
+<p>Instead of</p>
+<!--?prettify-->
+
+<pre><code>data.mean &lt;- numeric(nrow(data))
+
+for(i in 1:nrow(data)){
+  data.mean[i] &lt;- mean(data[i,])
+}</code></pre>
+</div>
+<div id="what-about-this" class="slide section level2">
+<h1>What about this?</h1>
+<!--?prettify-->
+
+<pre><code>apply(data, 1, function(x) sum(x^2))</code></pre>
+<p>(<em>Anonymous functions</em>)</p>
+<p>Instead of</p>
+<!--?prettify-->
+
+<pre><code>sum.sq &lt;- function(x) sum(x^2)
+apply(data, 1, sum.sq)</code></pre>
+</div>
+<div id="what-about" class="slide section level2">
+<h1>What about?</h1>
+<!--?prettify-->
+
+<pre><code>my.stats &lt;- list(mean,sd,median)
+
+lapply(my.stats,function(f,x) apply(x,1,f), x=data)</code></pre>
+<p>(<em><code>list</code> of functions, example of functional</em>)</p>
+<p>Rather than</p>
+<!--?prettify-->
+
+<pre><code>apply(data,1,mean)
+apply(data,1,sd)
+apply(data,1,median)</code></pre>
+</div>
+<div id="a-little-more-esoteric" class="slide section level2">
+<h1>A little more esoteric</h1>
+<!--?prettify-->
+
+<pre><code>sum.poly &lt;- function(order){
+  function(x) sum(x^order)
+}
+
+sum.sq &lt;- sum.poly(2)
+
+apply(data, 1, sum.sq)</code></pre>
+<p>(<em>Closure</em>)</p>
+<p>Rather than</p>
+<!--?prettify-->
+
+<pre><code>sum.sq &lt;- function(x) sum(x^2)
+
+apply(data, 1, sum.sq)</code></pre>
+</div>
+<div id="section-8" class="slide section level2">
+<h1></h1>
+<div class="quote">
+First class functions
+</div>
+
+
+
+</div>
+<div id="first-class-functions-can-be" class="slide section level2">
+<h1>“First class” functions can be…</h1>
+<ul>
+<li>passed as arguments to other functions</li>
+<li>anonymous</li>
+<li>assigned to variables and stored in <code>list</code>s</li>
+<li>returned from other functions</li>
+</ul>
+</div>
+<div id="section-9" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Closures
+</div>
+
+
+</div>
+<div id="closures" class="slide section level2">
+<h1>Closures</h1>
+<p>Okay, what happened in that last example?</p>
+<!--?prettify-->
+
+<pre><code>sum.poly &lt;- function(order){
+  function(x) sum(x^order)
+}
+
+sum.sq &lt;- sum.poly(2)
+
+apply(data, 1, sum.sq)</code></pre>
+<p><code>sum.sq</code> <strong>encloses</strong> the <code>environment</code> of <code>sum.poly</code></p>
+<!--?prettify-->
+
+<pre><code>&gt; as.list(environment(sum.sq))
+$order
+[1] 2</code></pre>
+<h3 id="function-factories">“Function factories”</h3>
+</div>
+<div id="section-10" class="slide section level2">
+<h1></h1>
+<div class="quote">
+When is this actually useful?
+</div>
+
+
+</div>
+<div id="likelihoods" class="slide section level2">
+<h1>Likelihoods</h1>
+<!--?prettify-->
+
+<pre><code>ll.point &lt;- function(pars,data,c.vec){
+  ll(pars,data)*c.vec
+}
+
+ll.line &lt;- function(pars,data){
+  ll(pars,data)
+}
+
+obj.fcn &lt;- function(pars,data,c.vec,transect){
+  if(transect==&quot;point&quot;){
+    ll.point(pars,data,c.vec)
+  }else{
+    ll.line(pars,data)
+  }
+}</code></pre>
+</div>
+<div id="compare-to" class="slide section level2">
+<h1>Compare to</h1>
+<!--?prettify-->
+
+<pre><code>obj.fcn &lt;- function(transect){
+  function(pars,data,c.vec){
+    # function stuff
+    if(transect==&quot;point&quot;){
+      # ...
+    }else{
+      # ...
+    }
+  }
+}</code></pre>
+</div>
+<div id="when-are-closures-useful" class="slide section level2">
+<h1>When are closures useful?</h1>
+<ul>
+<li>setting an option once</li>
+<li>large memory overhead</li>
+<li>many <code>if()</code>s</li>
+<li>writing “wrappers”</li>
+<li>function composition</li>
+</ul>
+</div>
+<div id="section-11" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Functionals
+</div>
+ 
+
+</div>
+<div id="functions-that-take-functions-and-return-numbers" class="slide section level2">
+<h1>Functions that take functions and return numbers</h1>
+<ul>
+<li>remove <code>for</code> loops</li>
+<li>simple situations use <code>apply</code> and co.</li>
+<li>what about more complicated situations?</li>
+<li><em>split-apply-combine</em> pattern</li>
+</ul>
+</div>
+<div id="a-functional-functionals-example" class="slide section level2">
+<h1>A functional functionals example</h1>
+<p>Want row means of a <code>data.frame</code> but only for columns in a range, range varies per row.</p>
+<!--?prettify-->
+
+<pre><code>mean(data[1,2:9])
+mean(data[2,4:11])
+...</code></pre>
+<p><code>Map</code> takes <code>list</code>s and applies <code>f</code> to their elements in sync</p>
+<!--?prettify-->
+
+<pre><code>Map(function(x,ind) mean(x[ind]), split(data,1:nrow(data)),indices)</code></pre>
+<p>where</p>
+<!--?prettify-->
+
+<pre><code>&gt; indices
+$`1`
+[1] 6 7
+
+$`2`
+[1] 2 7</code></pre>
+</div>
+<div id="section-12" class="slide section level2">
+<h1></h1>
+<div class="quote">
+State
+</div>
+
+
+</div>
+<div id="states-and-side-effects" class="slide section level2">
+<h1>States and side effects</h1>
+<!--?prettify-->
+
+<pre><code>&gt; f(2)
+[1] 4</code></pre>
+<p>But…</p>
+<!--?prettify-->
+
+<pre><code>&gt; g(3)
+&gt; f(2)
+[1] 6</code></pre>
+<p>Um.</p>
+</div>
+<div id="states-and-side-effects-1" class="slide section level2">
+<h1>States and side effects</h1>
+<ul>
+<li><code>g</code> is changing “state” in the program</li>
+<li>functional programming is a generalisation of “globals are bad”</li>
+<li>programs that don’t rely on state are easier to debug</li>
+<li>programs that don’t rely on state are easier to parallelise</li>
+</ul>
+</div>
+<div id="sometimes-state-is-useful" class="slide section level2">
+<h1>Sometimes state is useful</h1>
+<!--?prettify-->
+
+<pre><code>new_counter &lt;- function() {
+  i &lt;- 0
+  function() {
+    i &lt;&lt;- i + 1
+    i
+  }
+}
+counter_one &lt;- new_counter()
+counter_two &lt;- new_counter()</code></pre>
+<!--?prettify-->
+
+<pre><code>&gt; counter_one()
+[1] 1
+&gt; counter_one()
+[1] 2
+&gt; counter_two()
+[1] 1</code></pre>
+</div>
+<div id="recap" class="slide section level2">
+<h1>Recap</h1>
+<ul>
+<li>Functional ideas can:
+<ul>
+<li>make programs shorter</li>
+<li>more like the mathematics they implement</li>
+<li>remove messy control flow</li>
+<li>avoid implementing object system for small problems</li>
+</ul></li>
+<li>closures: take data and return a function</li>
+<li>functionals: take functions and return data</li>
+</ul>
+</div>
+<div id="references" class="slide section level2">
+<h1>References</h1>
+<ul>
+<li>Hadley Wickham’s <a href="http://adv-r.had.co.nz/Functional-programming.html">adv-r book</a></li>
+<li>Brian Lee Yung Rowe <a href="http://cartesianfaith.com/2013/09/21/preview-of-my-book-modeling-data-with-functional-programming-in-r/">Modeling Data With Functional Programming In R</a></li>
+<li><a href="http://www.defmacro.org/ramblings/fp.html">Functional programming for the rest of us</a></li>
+</ul>
+</div>
+</body>
+</html>
