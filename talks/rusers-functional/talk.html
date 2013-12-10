@@ -256,8 +256,10 @@ ll.line &lt;- function(pars,data){
 obj.fcn &lt;- function(pars,data,c.vec,transect){
   if(transect==&quot;point&quot;){
     ll.point(pars,data,c.vec)
-  }else{
+  }else if(transect==&quot;line&quot;){
     ll.line(pars,data)
+  }else{
+    stop()
   }
 }</code></pre>
 </div>
@@ -269,6 +271,8 @@ obj.fcn &lt;- function(pars,data,c.vec,transect){
   function(pars,data,c.vec){
     # function stuff
     if(transect==&quot;point&quot;){
+      # ...
+    }else if(transect==&quot;line&quot;){
       # ...
     }else{
       # ...
@@ -311,19 +315,14 @@ Functionals
 <pre><code>mean(data[1,2:9])
 mean(data[2,4:11])
 ...</code></pre>
-<p><code>Map</code> takes <code>list</code>s and applies <code>f</code> to their elements in sync</p>
+<p><code>Map(f,...)</code> takes <code>list</code>s and applies <code>f</code> to their elements in sync</p>
 <!--?prettify-->
 
-<pre><code>Map(function(x,ind) mean(x[ind]), split(data,1:nrow(data)),indices)</code></pre>
-<p>where</p>
-<!--?prettify-->
+<pre><code>indices &lt;- list(3:9, c(1,2), 9:12)
 
-<pre><code>&gt; indices
-$`1`
-[1] 6 7
-
-$`2`
-[1] 2 7</code></pre>
+Map(function(x,ind) mean(x[ind]),
+    split(data,1:nrow(data)),
+    indices)</code></pre>
 </div>
 <div id="section-12" class="slide section level2">
 <h1></h1>
@@ -390,6 +389,7 @@ counter_two &lt;- new_counter()</code></pre>
 </ul></li>
 <li>closures: take data and return a function</li>
 <li>functionals: take functions and return data</li>
+<li>you can do some pretty weird/cool stuff with functions in R</li>
 </ul>
 </div>
 <div id="references" class="slide section level2">
@@ -398,6 +398,8 @@ counter_two &lt;- new_counter()</code></pre>
 <li>Hadley Wickham’s <a href="http://adv-r.had.co.nz/Functional-programming.html">adv-r book</a></li>
 <li>Brian Lee Yung Rowe <a href="http://cartesianfaith.com/2013/09/21/preview-of-my-book-modeling-data-with-functional-programming-in-r/">Modeling Data With Functional Programming In R</a></li>
 <li><a href="http://www.defmacro.org/ramblings/fp.html">Functional programming for the rest of us</a></li>
+<li><a href="http://www.cs.utexas.edu/users/EWD/transcriptions/EWD04xx/EWD469.html">Edsger Dijkstra - Programming methodologies, their objectives and their nature</a> (EWD469)</li>
+<li><a href="http://www.cs.utexas.edu/users/EWD/transcriptions/EWD10xx/EWD1036.html">Edsger Dijkstra - On the cruelty of really teaching computing science</a> (EWD1036)</li>
 </ul>
 </div>
 </body>

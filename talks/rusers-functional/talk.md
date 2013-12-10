@@ -219,8 +219,10 @@ Okay, what happened in that last example?
     obj.fcn <- function(pars,data,c.vec,transect){
       if(transect=="point"){
         ll.point(pars,data,c.vec)
-      }else{
+      }else if(transect=="line"){
         ll.line(pars,data)
+      }else{
+        stop()
       }
     }
 
@@ -232,6 +234,8 @@ Okay, what happened in that last example?
       function(pars,data,c.vec){
         # function stuff
         if(transect=="point"){
+          # ...
+        }else if(transect=="line"){
           # ...
         }else{
           # ...
@@ -272,22 +276,15 @@ Want row means of a `data.frame` but only for columns in a range, range varies p
     mean(data[2,4:11])
     ...
 
-`Map` takes `list`s and applies `f` to their elements in sync
+`Map(f,...)` takes `list`s and applies `f` to their elements in sync
 
 <!--?prettify-->
 
-    Map(function(x,ind) mean(x[ind]), split(data,1:nrow(data)),indices)
-
-where
-
-<!--?prettify-->
-
-    > indices
-    $`1`
-    [1] 6 7
+    indices <- list(3:9, c(1,2), 9:12)
     
-    $`2`
-    [1] 2 7
+    Map(function(x,ind) mean(x[ind]),
+        split(data,1:nrow(data)),
+        indices)
 
 ##
 
@@ -354,7 +351,7 @@ Um.
     - avoid implementing object system for small problems
   * closures: take data and return a function
   * functionals: take functions and return data
-  
+  * you can do some pretty weird/cool stuff with functions in R  
 
 
 ## References
@@ -362,5 +359,6 @@ Um.
  * Hadley Wickham's [adv-r book](http://adv-r.had.co.nz/Functional-programming.html)
  * Brian Lee Yung Rowe [Modeling Data With Functional Programming In R](http://cartesianfaith.com/2013/09/21/preview-of-my-book-modeling-data-with-functional-programming-in-r/)
  * [Functional programming for the rest of us](http://www.defmacro.org/ramblings/fp.html)
-
+ * [Edsger Dijkstra - Programming methodologies, their objectives and their nature](http://www.cs.utexas.edu/users/EWD/transcriptions/EWD04xx/EWD469.html) (EWD469)
+ * [Edsger Dijkstra - On the cruelty of really teaching computing science](http://www.cs.utexas.edu/users/EWD/transcriptions/EWD10xx/EWD1036.html) (EWD1036)
 
