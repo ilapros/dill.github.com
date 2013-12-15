@@ -43,7 +43,7 @@
   * Double observer surveys using Piper Super Cubs
   * 1238, 35km transects, 2001-2003
 
-<img src="images/cub-EB.JPG" height=500px>
+<img src="images/cub-EB-1024.JPG" height=500px>
 
 ## 1238 transects
 
