@@ -241,7 +241,7 @@ Pilot search type: divides the pilots into 2 groups, with one group searching fa
   * Dunn, PK, and GK Smyth. Randomized Quantile Residuals. Journal of Computational and Graphical Statistics 5, no. 3 (1996): 236–244.
   * Miller, DL, ML Burt, EA Rexstad and L Thomas. Spatial Models for Distance Sampling Data: Recent Developments and Future Directions. Methods in Ecology and Evolution 4, no. 11 (2013): 1001–1010.
 
-Talk available at [](http://dill.github.com/talks/akbears/talk.html)
+Talk available at [http://dill.github.com/talks/akbears/talk.html](http://dill.github.com/talks/akbears/talk.html)
 
 
 ## Thanks
