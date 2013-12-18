@@ -270,7 +270,7 @@ Pilot search type: 2 groups, with one group searching further out.
 ## Abundance estimate for GMU13E
 
   * MRDS estimate: ~1500 black bears
-  * DSM estiamte: ~1200 black bears
+  * DSM estiamte: ~1200 black bears (968 - 1635), CV ~13%)
   * Not a *huge* difference, so why bother?
 
 ## Abundance map
