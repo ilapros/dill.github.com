@@ -18,6 +18,7 @@
   * Use existing data (no $ for new surveys)
   * Biological interpretability
   * HUGE area
+  * Understandable to managers
 
 ![](images/akinus.jpg)
 
@@ -246,9 +247,16 @@ Pilot search type: 2 groups, with one group searching further out.
 ## Selecting smooth terms
 
   * REML smoothness estimation
+  * AIC model selection (usual REML constraints)
   * (approximate) $p$-values
   * extra penalty
   * biological plausability
+
+## Final model
+
+  * bivariate smooth of location
+  * smooth of elevation
+  * bivariate smooth of slope and aspect
 
 
 ## 
@@ -263,6 +271,9 @@ Pilot search type: 2 groups, with one group searching further out.
 
 # Abundance estimate for GMU13E
 
+  * MRDS estimate: ~1500 black bears
+  * DSM estiamte: ~1200 black bears
+  * Not a *huge* difference, so why bother?
 
 ## Abundance map
 
@@ -270,11 +281,14 @@ Pilot search type: 2 groups, with one group searching further out.
 
 ## CV map
 
-
+<img src="images/bl-map-0.01.png" height=700px>
 
 ## Conclusion
 
-  * 
+  * Two-stage models can be useful!
+    - split modelling
+    - split work
+  * Spatial component is v. helpful for managers
 
 
 ## Future work
