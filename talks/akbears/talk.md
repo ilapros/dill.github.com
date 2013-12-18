@@ -7,7 +7,7 @@
   * 5<sup>th</sup> largest dam in the world
   * On the Susitna river in South-Central Alaska
   * AK Fish & Game contracted to provide black and brown bear numbers
-  * Earl Becker, Becky Strauch, DLM to investigate data from 2001-2003
+  * Earl Becker & DLM to investigate data from 2001-2003
 
 <img src="images/mesteveearl.jpg" height=450px>
 
@@ -85,20 +85,64 @@
   * Correct for detectibility (and $g(0)\neq1$)
   * Fit a GAM
 
+<img src="images/tr1.png">
+
+## Spatial modelling using DSM
+
+  * Segment transects (GIS, 43,838)
+  * Allocate counts to segments
+  * Correct for detectibility (and $g(0)\neq1$)
+  * Fit a GAM
+
+<img src="images/tr2.png">
+
+## Spatial modelling using DSM
+
+  * Segment transects (GIS, 43,838)
+  * Allocate counts to segments
+  * Correct for detectibility (and $g(0)\neq1$)
+  * Fit a GAM
+
+<img src="images/tr3.png">
+
+
+## Spatial modelling using DSM
+
+  * Segment transects (GIS, 43,838)
+  * Allocate counts to segments
+  * Correct for detectibility (and $g(0)\neq1$)
+  * Fit a GAM
+
+<img src="images/tr3.png">
+<p align="center" style="font-size:3em">X</p>
+<p align="center" style="font-size:3em">$\hat{p}(\mathbf{z})$</p>
+
+
+
 
 ## Distance sampling
 
   * Double observer model *a la* Borchers et al (2006)
   * Independent observers, with point independence
   * Partial likelihood:
-      - Mark-recapture: $\mathcal{L}_\omega(\mathbf{\theta}) = \prod_{i=1}^{n\bullet} \frac{\mathbb{P}\left[ \mathbf{\omega}_i \vert y_i, \mathbf{z}_i\right]}{p_\bullet(y_i,\mathbf{z}_i)}$
-      - Detection function: $\mathcal{L}_{y\vert\mathbf{z}}(\mathbf{\theta}) = \prod_{i=1}^{n\bullet} \frac{p_\bullet(y_i,\mathbf{z}_i) \pi(y_i)}{p_\bullet(y_i,\mathbf{z}_i)}$
+      <!--- Mark-recapture: $\mathcal{L}_\omega(\mathbf{\theta}) = \prod_{i=1}^{n\bullet} \frac{\mathbb{P}\left[ \mathbf{\omega}_i \vert y_i, \mathbf{z}_i\right]}{p_\bullet(y_i,\mathbf{z}_i)}$
+      - Detection function: $\mathcal{L}_{y\vert\mathbf{z}}(\mathbf{\theta}) = \prod_{i=1}^{n\bullet} \frac{p_\bullet(y_i,\mathbf{z}_i) \pi(y_i)}{p_\bullet(y_i,\mathbf{z}_i)}$-->
+      - Mark-recapture: estimate $\mathbb{P}[\text{detection at apex}]$
+      - Detection function: estimate detection probabilities
   * Use ML for both.
   * Estimate per-segment abundance using Horvitz-Thompson
+  $$
+  \hat{N}_j = \sum_{i \in \text{ transect } j}\frac{s_i}{p_i}
+  $$
+
+
+## {.cover}
+
+<img class="cover" src="images/stevecub.jpg">
+
 
 ## Detection function
 
-  * Observers are in the same plane -- not independent
   * 2-part normal detection function (Becker & Christ, in prep)
   * Avoid heavy left truncation (discard ~30% data)
   * Modelling by EB
@@ -110,7 +154,7 @@
   * Saw 373 groups 8.4-711.8m
   * Truncate at 22m and 450m, leaving 351 groups
   * Group size 1-3 (lone bears, sow w. cubs)
-  * 1402m elevational cutoff.
+  * 1402m elevational cutoff
 
 <img src="images/brown-walk.jpg" height=420px>
 
@@ -120,12 +164,12 @@
     - distance
     - indicator for distance greater than the mode (required to make the distribution gamma-like)
     - log of search distance
-    - pilot search type.
+    - pilot search type
   * Mode at about 129 metres
 
-Search distance: distance from the transect to the farthest location searched.
+Search distance: distance from line to the furthest location.
 
-Pilot search type: divides the pilots into 2 groups, with one group searching farther out.
+Pilot search type: 2 groups, with one group searching further out.
 
 
 
@@ -190,8 +234,18 @@ Pilot search type: divides the pilots into 2 groups, with one group searching fa
   * Less problems with artefacts
   * (Thanks to Natalie Kelly at CSIRO for the tip)
 
+## `gam.check`
+
+![](images/check.png)
+
+## `rqgam.check`
+
+![](images/rqcheck.png)
+
+
 ## Selecting smooth terms
 
+  * REML smoothness estimation
   * (approximate) $p$-values
   * extra penalty
   * biological plausability
