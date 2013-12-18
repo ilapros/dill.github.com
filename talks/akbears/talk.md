@@ -115,8 +115,6 @@
   * Fit a GAM
 
 <img src="images/tr3.png">
-<p align="center" style="font-size:3em">X</p>
-<p align="center" style="font-size:3em">$\hat{p}(\mathbf{z})$</p>
 
 
 
