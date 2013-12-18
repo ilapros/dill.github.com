@@ -267,7 +267,7 @@ Pilot search type: 2 groups, with one group searching further out.
 ![](images/elevation.png)
 
 
-# Abundance estimate for GMU13E
+## Abundance estimate for GMU13E
 
   * MRDS estimate: ~1500 black bears
   * DSM estiamte: ~1200 black bears
