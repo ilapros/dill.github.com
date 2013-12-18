@@ -286,12 +286,15 @@ Pilot search type: 2 groups, with one group searching further out.
   * Two-stage models can be useful!
     - split modelling
     - split work
+  * Large areas, makes sense
+  * Variance estimation is still a bit ropey
   * Spatial component is v. helpful for managers
 
 
 ## Future work
 
   * Paper write-up
+  * Integrate all this stuff into Distance proper
   * Already a lot of spatially explicit data available
 
 
