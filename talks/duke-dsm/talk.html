@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="David L Miller (CREEM, University of St Andrews)" />
+  <title>Density surface models</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="slidy.css" />
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  
+  
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js.gz"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title">Density surface models</h1>
+  <p class="author">
+David L Miller (CREEM, University of St Andrews)
+  </p>
+  <p class="date">Duke University, 13 February 2014</p>
+</div>
+<div id="who-is-this-guy" class="slide section level2">
+<h1>Who is this guy?</h1>
+<ul>
+<li>Statistician by training (St Andrews)</li>
+<li>PhD University of Bath, w. Simon Wood</li>
+<li>Postdoc, University of Rhode Island</li>
+<li>Research fellow at CREEM</li>
+<li>Developer of distance sampling software</li>
+</ul>
+</div>
+<div id="section" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Spatial modelling
+</div>
+
+
+</div>
+<div id="what-do-we-want-to-do" class="slide section level2">
+<h1>What do we want to do?</h1>
+<ul>
+<li>Relate covariates to animal abundance</li>
+<li>Estimate abundance in a spatially explicit way</li>
+<li>Calculate uncertainty</li>
+<li>Interpretability to biologists/ecologists</li>
+<li>Often using mixed/historical data</li>
+</ul>
+</div>
+<div id="section-1" class="slide section level2 cover">
+<h1></h1>
+<p><img src="images/davecub.jpg" class="cover"></p>
+</div>
+<div id="section-2" class="slide section level2 cover">
+<h1></h1>
+<p><img src="images/outwindow.jpg" class="cover"></p>
+</div>
+<div id="line-transects" class="slide section level2">
+<h1>Line transects</h1>
+<p><img src="images/ri-transects.png" width=440px> <img src="images/ak-transects.png" width=480px></p>
+</div>
+<div id="data-setup" class="slide section level2">
+<h1>Data setup</h1>
+<div align="center">
+<img src="images/dsmproc.png">
+</div>
+
+
+</div>
+<div id="some-problems" class="slide section level2">
+<h1>Some “problems”</h1>
+<ul>
+<li>How to model covariate effects?</li>
+<li>Model (term) selection</li>
+<li>Reponse distribution</li>
+<li>Uncertain detection</li>
+<li>Availability</li>
+<li>Autocorrelation</li>
+</ul>
+</div>
+<div id="section-3" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Density surface models
+</div>
+
+
+
+
+</div>
+<div id="how-do-we-deal-with-detectability" class="slide section level2">
+<h1>How do we deal with detectability?</h1>
+<ul>
+<li>Distance sampling! – Fit detection functions</li>
+<li>Estimate <span class="math">\(\mathbb{P}(\text{ detection } | \text{ object at distance } x) = g(x)\)</span></li>
+<li>Calculate average detection probability = <span class="math">\(\frac{1}{w}\int_0^w g(x) \text{ d}x\)</span> (where <span class="math">\(w\)</span> is truncation distance)</li>
+</ul>
+<p> </p>
+<p> </p>
+<div align="center">
+<img src="images/distance-data.png" width=240px> <img src="images/detection-functions.png" width=540px>
+</div>
+
+</div>
+<div id="distance-sampling" class="slide section level2">
+<h1>Distance sampling</h1>
+<ul>
+<li>Lots of other stuff going on here!</li>
+<li>Covariates that affect detectability</li>
+<li>Double observer (<span class="math">\(g(0)&lt;1\)</span>)</li>
+<li>Detection function formulations</li>
+</ul>
+<p> </p>
+<div align="center">
+<img src="images/covar-df.png" width=780px>
+</div>
+
+</div>
+<div id="distance-sampling-software" class="slide section level2">
+<h1>Distance sampling software</h1>
+<ul>
+<li>Distance for Windows (6.2 out soon!)
+<ul>
+<li>Easy to use Windows software</li>
+<li>Len Thomas, Eric Rexstad, Laura Marshall</li>
+</ul></li>
+<li><code>Distance</code> R package
+<ul>
+<li>Simple way to fit detection functions</li>
+<li>Me!</li>
+</ul></li>
+<li><code>mrds</code> R package
+<ul>
+<li>More complex analyses - double observer surveys</li>
+<li>Jeff Laake, me</li>
+</ul></li>
+</ul>
+<div align="right">
+<img src="images/logo-big.gif" height=250px>
+</div>
+
+</div>
+<div id="two-pages-generalized-additive-models-i" class="slide section level2">
+<h1>Two pages generalized additive models (I)</h1>
+<p><span class="math">\[
+\mathbb{E}(n_j) = \exp \left\{ \beta_0 + \sum_k f_k(z_{jk}) \right\}
+\]</span></p>
+<ul>
+<li><span class="math">\(n_j\)</span> has some count distribution (quasi-Poisson, Tweedie, negative binomial)</li>
+<li><span class="math">\(f_k\)</span> are <em>smooth</em> functions (splines <span class="math">\(\Rightarrow f_k(x)=\sum_l \beta_l b_l(x)\)</span>)</li>
+<li><span class="math">\(f_k\)</span> can just be fixed effects <span class="math">\(\Rightarrow\)</span> GLM</li>
+<li>Add-in random effects, correlation structures <span class="math">\(\Rightarrow\)</span> GAMM</li>
+</ul>
+</div>
+<div id="two-pages-generalized-additive-models-ii" class="slide section level2">
+<h1>Two pages generalized additive models (II)</h1>
+<div align="center">
+<img src="images/splines.png" width=800px>
+</div>
+
+<p>Minimise distance between data and model while minimizing:</p>
+<p><span class="math">\[
+\lambda_k \int_\Omega \frac{\partial^2 f_k(z_k)}{\partial z_k^2} \text{ d}z_k
+\]</span></p>
+<div align="center"><h2>
+“just wiggly enough”
+</h2></div>
+
+
+</div>
+<div id="density-surface-models" class="slide section level2">
+<h1>Density surface models</h1>
+<p>Two options for response:</p>
+<h2>
+<span class="math">\(n_j\)</span> - raw counts per segment
+</h2>
+
+<p>model offset = <em>effective area</em> (<span class="math">\(\hat{p}_j A_j\)</span>)</p>
+<p> </p>
+<h2>
+<span class="math">\(\hat{n}_j\)</span> - H-T estimate per segment
+</h2>
+
+<p><span class="math">\[
+\hat{n}_j = \sum_{\text{groups in segment } j} \frac{s_j}{\hat{p}_j}
+\]</span></p>
+<p>model offset = segment area</p>
+<p>Limitation: covariates in the detection function</p>
+</div>
+<div id="density-surface-models-1" class="slide section level2">
+<h1>Density surface models</h1>
+<p>“Count” model:</p>
+<p><span class="math">\[
+\mathbb{E}(n_j) = A_j \hat{p}_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
+\]</span></p>
+<p> </p>
+<p>“Estimated count” model:</p>
+<p><span class="math">\[
+\mathbb{E}(\hat{n}_j) = A_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
+\]</span></p>
+</div>
+<div id="the-dsm-package" class="slide section level2">
+<h1>The <code>dsm</code> package</h1>
+<ul>
+<li>Design “inspired by” (“stolen from”) <code>mgcv</code></li>
+<li>Easy to build simple models, possible to build complex ones</li>
+<li><p>Syntax example:</p>
+<pre><code>model &lt;- dsm(count ~ s(x,k=10) + s(depth,k=6),
+             detection.function,
+             segment.data,
+             observation.data,
+             family=negbin(theta=0.1))</code></pre></li>
+<li><p>Utility functions: variance estimation, plotting, prediction etc</p></li>
+</ul>
+</div>
+<div id="section-4" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Case study I - Seabirds in RI waters
+</div>
+
+</div>
+<div id="case-study-i---seabirds-in-ri-waters" class="slide section level2">
+<h1>Case study I - Seabirds in RI waters</h1>
+<p><img src="images/ri-transects.png" width=640px></p>
+</div>
+<div id="ri-seabirds---aims" class="slide section level2">
+<h1>RI seabirds - Aims</h1>
+<ul>
+<li>Wind development in RI/MA waters</li>
+<li>Map of usage</li>
+<li>Estimate uncertainty</li>
+<li>Combine maps (Zonation)</li>
+</ul>
+<div align="center">
+<img src="images/loon.jpg" width=580px>
+</div>
+
+<p><small>Photo by <a href="http://www.flickr.com/photos/jackanapes/44534740/in/photolist-4WfCm-5fGWY-5kcwt-gYsVe-gYsVf-rfrFy-wk8SY-Bbkf9-CJGoH-JAwGP-WnzZb-2KrNkj-3YEz3W-49jRDt-49jSgD-49jThH-4eYB5g-4f3AbJ-4iejaL-4iejgf-4nFVgg-4rqKb8-4znidm-4BSyxi-4BWPZw-4Dtb18-4DxqB5-4DxqMY-4EBCuB-4EGy24-4EGy8F-4ELPWu-4KM4T1-5byKfc-5dK7xM-5BmTVz-5GpYcr-5GpZw2-5MEqxV-5Pkq76-76qvBB-76qvNH-76uqKf-7qJ5CU-7v8iXi-7vngHz-dTvFyn-dN222q-dN1Nuj-8oFmQZ-8oFmXD/">jackanapes on flickr</a> (<a href="http://creativecommons.org/licenses/by-nc-nd/2.0/deed.en_GB">CC BY-NC-ND</a>)</small></p>
+</div>
+<div id="ri-seabirds---detection-function-modelling" class="slide section level2">
+<h1>RI seabirds - Detection function modelling</h1>
+<div align="center">
+<img src="images/ri-hr-detfct.png">
+</div>
+
+
+</div>
+<div id="ri-seabirds---spatial-covariates" class="slide section level2">
+<h1>RI seabirds - Spatial covariates</h1>
+<p><img src="images/ri-plot-phimedian.png" width=400px><img src="images/ri-plot-distancelandkm.png" width=400px></p>
+<p><img src="images/ri-plot-roughness.png" width=400px><img src="images/ri-plot-depthm.png" width=400px></p>
+</div>
+<div id="ri-seabirds---the-model" class="slide section level2">
+<h1>RI seabirds - The model</h1>
+<ul>
+<li>Availability
+<ul>
+<li>correction factor from previous experimental work</li>
+<li><span class="math">\(p_j \times \mathbb{P}(\text{available for detection})\)</span></li>
+</ul></li>
+<li>Term selection by approximate <span class="math">\(p\)</span>-values</li>
+<li>Covariates are collinear (curvilinear)
+<ul>
+<li><code>select</code> - extra penalty</li>
+<li>REML - better optimisation objective</li>
+</ul></li>
+</ul>
+<div align="center">
+<img src="images/gcvreml.png" width=700px>
+</div>
+
+<p><small>From Fig. 1 of Wood (2011)</small></p>
+</div>
+<div id="ri-seabirds---covariate-effects" class="slide section level2">
+<h1>RI seabirds - Covariate effects</h1>
+<div align="center">
+<img src="images/ri-smooths.png" width=700px>
+</div>
+
+
+</div>
+<div id="ri-seabirds---results" class="slide section level2">
+<h1>RI seabirds - Results</h1>
+<div align="center">
+<img src="images/ri-plot-loon-preds.png" width=700px>
+</div>
+
+</div>
+<div id="ri-seabirds---uncertainty" class="slide section level2">
+<h1>RI seabirds - Uncertainty</h1>
+<div align="center">
+<img src="images/ri-plot-loon-cv.png" width=700px>
+</div>
+
+</div>
+<div id="section-5" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Case study II - black bears in Alaska
+</div>
+
+
+</div>
+<div id="case-study-ii---black-bears-in-ak" class="slide section level2">
+<h1>Case study II - black bears in AK</h1>
+<ul>
+<li>Area of 26,482 km<sup>2</sup> (~ size of VT/MA)</li>
+<li>Double observer surveys using Piper Super Cubs</li>
+<li>1238, 35km transects, 2001-2003</li>
+</ul>
+<div align="center">
+<img src="images/cub-EB-1024.JPG" height=500px>
+</div>
+
+</div>
+<div id="section-6" class="slide section level2">
+<h1></h1>
+<div align="center">
+<img src="images/ak-talk.png" height=770px>
+</div>
+
+
+
+</div>
+<div id="transects" class="slide section level2">
+<h1>1238 transects</h1>
+<p><img src="images/ak-transects.png" height=650px></p>
+</div>
+<div id="survey-protocol" class="slide section level2">
+<h1>Survey protocol</h1>
+<ul>
+<li>Surveys in Spring, bears are there, but not too much foliage</li>
+<li>Generally search uphill</li>
+<li>Double observer (Borchers et al, 2006)</li>
+<li>Curtain between pilot and observer; light system</li>
+<li>Go off transect and circle to ID</li>
+</ul>
+<div align="center">
+<img src="images/cubwindow.jpg" height=370px>
+</div>
+
+
+</div>
+<div id="black-bears" class="slide section level2">
+<h1>Black bears</h1>
+<ul>
+<li>Truncate at 22m and 450m, leaving 351 groups (out of ~44,000 segments)</li>
+<li>Group size 1-3 (lone bears, sow w. cubs)</li>
+<li>1402m elevational cutoff</li>
+</ul>
+<div align="center">
+<img src="images/mybb.jpg" height=450px>
+</div>
+
+
+</div>
+<div id="section-7" class="slide section level2 cover">
+<h1></h1>
+<p><img class="cover" src="images/cov-elev.png"></p>
+</div>
+<div id="section-8" class="slide section level2 cover">
+<h1></h1>
+<p><img class="cover" src="images/cov-slope.png"></p>
+</div>
+<div id="section-9" class="slide section level2 cover">
+<h1></h1>
+<p><img class="cover" src="images/cov-aspect.png"></p>
+</div>
+<div id="section-10" class="slide section level2 cover">
+<h1></h1>
+<p><img class="cover" src="images/cov-spawn.dist.png"></p>
+</div>
+<div id="section-11" class="slide section level2 cover">
+<h1></h1>
+<p><img class="cover" src="images/cov-veg.mode.png"></p>
+</div>
+<div id="section-12" class="slide section level2 cover">
+<h1></h1>
+<p><img class="cover" src="images/cov-rveg.mode.png"></p>
+</div>
+<div id="final-model" class="slide section level2">
+<h1>Final model</h1>
+<ul>
+<li>bivariate smooth of location</li>
+<li>smooth of elevation</li>
+<li>bivariate smooth of slope and aspect</li>
+</ul>
+<p> </p>
+<div align="center">
+<img src="images/tprs.png" /> <img src="images/tensor.png" />
+</div>
+
+</div>
+<div id="section-13" class="slide section level2">
+<h1></h1>
+<div align="center">
+<img src="images/elevation.png">
+</div>
+
+
+</div>
+<div id="section-14" class="slide section level2">
+<h1></h1>
+<div align="center">
+<img src="images/slope-aspect.png">
+</div>
+
+
+</div>
+<div id="abundance-estimate-for-gmu13e" class="slide section level2">
+<h1>Abundance estimate for GMU13E</h1>
+<ul>
+<li>MRDS estimate: ~1500 black bears</li>
+<li>DSM estimate: ~1200 black bears (968 - 1635, CV ~13%)</li>
+<li>Not a <em>huge</em> difference, so why bother?</li>
+</ul>
+</div>
+<div id="abundance-map" class="slide section level2">
+<h1>Abundance map</h1>
+<div class="figure">
+<img src="images/bl-map.png" />
+</div>
+</div>
+<div id="cv-map" class="slide section level2">
+<h1>CV map</h1>
+<p><img src="images/bl-map-0.01.png" height=700px></p>
+</div>
+<div id="conclusions" class="slide section level2">
+<h1>Conclusions</h1>
+<ul>
+<li>Flexible spatial models
+<ul>
+<li>GLMs + random effects + smooths + other extras</li>
+<li>autocorrelation can be modelled</li>
+</ul></li>
+<li>Large areas, makes sense</li>
+<li>Spatial component is v. helpful for managers</li>
+<li>Two-stage models can be useful!</li>
+<li>Estimating temporal trends</li>
+</ul>
+</div>
+<div id="references" class="slide section level2">
+<h1>References</h1>
+<ul>
+<li>Borchers, DL, JL Laake, C Southwell, and CGM Paxton. Accommodating Unmodeled Heterogeneity in Double‐Observer Distance Sampling Surveys. Biometrics 62, no. 2 (2006): 372–378.</li>
+<li>Miller, DL, ML Burt, EA Rexstad and L Thomas. Spatial Models for Distance Sampling Data: Recent Developments and Future Directions. Methods in Ecology and Evolution 4, no. 11 (2013): 1001–1010.</li>
+<li>Winiarski, KJ, ML Burt, Eric Rexstad, DL Miller, CL Trocki, PWC Paton, and SR McWilliams. Integrating Aerial and Ship Surveys of Marine Birds Into a Combined Density Surface Model: a Case Study of Wintering Common Loons. The Condor 116, no. 2 (2014): 149–161.</li>
+<li>Winiarski, KJ, DL Miller, PWC Paton, and SR McWilliams. A Spatial Conservation Prioritization Approach for Protecting Marine Birds Given Proposed Offshore Wind Energy Development. Biological Conservation 169 (2014): 79–88.</li>
+</ul>
+<p> </p>
+<div align="center">
+Talk available at <a href="http://dill.github.com/talks/duke-dsm/talk.html">http://dill.github.com/talks/duke-dsm/talk.html</a>
+</div>
+
+
+</div>
+<div id="thanks" class="slide section level2">
+<h1>Thanks</h1>
+<ul>
+<li>Rhode Island: Kris Winiarski, Peter Paton, Scott McWilliams</li>
+<li>Alaska: Earl Becker, Becky Strauch, Mike Litzen, Dave Filkill</li>
+<li>Elsewhere: Mark Bravington, Natalie Kelly, Eric Rexstad, Louise Burt, Len Thomas, Steve Buckland</li>
+</ul>
+<div align="center">
+<img src="images/kris.jpg" width=300px> <img src="images/mesteveearl.jpg" width=450px>
+</div>
+
+
+</div>
+<div id="randomised-quantile-residuals" class="slide section level2">
+<h1>Randomised quantile residuals</h1>
+<ul>
+<li>Goodness of fit testing</li>
+<li>Dunn, PK, and GK Smyth. Randomized Quantile Residuals. Journal of Computational and Graphical Statistics 5, no. 3 (1996): 236–244.</li>
+<li>Back transform for <strong>exactly</strong> Normal residuals</li>
+<li>Less problems with artefacts</li>
+<li>(Thanks to Natalie Kelly at CSIRO for the tip)</li>
+</ul>
+</div>
+<div id="gam.check" class="slide section level2">
+<h1><code>gam.check</code></h1>
+<div class="figure">
+<img src="images/check.png" />
+</div>
+</div>
+<div id="rqgam.check" class="slide section level2">
+<h1><code>rqgam.check</code></h1>
+<div class="figure">
+<img src="images/rqcheck.png" />
+</div>
+</div>
+</body>
+</html>
