@@ -94,6 +94,12 @@ Density surface models
 </div>
 
 
+</div>
+<div id="section-4" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Detection
+</div>
 
 
 </div>
@@ -148,9 +154,20 @@ Density surface models
 <img src="images/logo-big.gif" height=250px>
 </div>
 
+
+</div>
+<div id="section-5" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Generalized additive models
+</div>
+
+
+
 </div>
 <div id="two-pages-generalized-additive-models-i" class="slide section level2">
 <h1>Two pages generalized additive models (I)</h1>
+<p>If we are modelling counts:</p>
 <p><span class="math">\[
 \mathbb{E}(n_j) = \exp \left\{ \beta_0 + \sum_k f_k(z_{jk}) \right\}
 \]</span></p>
@@ -159,6 +176,7 @@ Density surface models
 <li><span class="math">\(f_k\)</span> are <em>smooth</em> functions (splines <span class="math">\(\Rightarrow f_k(x)=\sum_l \beta_l b_l(x)\)</span>)</li>
 <li><span class="math">\(f_k\)</span> can just be fixed effects <span class="math">\(\Rightarrow\)</span> GLM</li>
 <li>Add-in random effects, correlation structures <span class="math">\(\Rightarrow\)</span> GAMM</li>
+<li>Wood (2006) is a good intro book</li>
 </ul>
 </div>
 <div id="two-pages-generalized-additive-models-ii" class="slide section level2">
@@ -177,35 +195,25 @@ Density surface models
 
 
 </div>
-<div id="density-surface-models" class="slide section level2">
-<h1>Density surface models</h1>
-<p>Two options for response:</p>
+<div id="two-options-for-response" class="slide section level2">
+<h1>Two options for response</h1>
 <h2>
 <span class="math">\(n_j\)</span> - raw counts per segment
 </h2>
 
-<p>model offset = <em>effective area</em> (<span class="math">\(\hat{p}_j A_j\)</span>)</p>
+<p><span class="math">\[
+\mathbb{E}(n_j) = A_j \hat{p}_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
+\]</span></p>
 <p> </p>
 <h2>
 <span class="math">\(\hat{n}_j\)</span> - H-T estimate per segment
 </h2>
 
 <p><span class="math">\[
-\hat{n}_j = \sum_{\text{groups in segment } j} \frac{s_j}{\hat{p}_j}
-\]</span></p>
-<p>model offset = segment area</p>
-<p>Limitation: covariates in the detection function</p>
-</div>
-<div id="density-surface-models-1" class="slide section level2">
-<h1>Density surface models</h1>
-<p>“Count” model:</p>
-<p><span class="math">\[
-\mathbb{E}(n_j) = A_j \hat{p}_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
-\]</span></p>
-<p> </p>
-<p>“Estimated count” model:</p>
-<p><span class="math">\[
 \mathbb{E}(\hat{n}_j) = A_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
+\]</span></p>
+<p><span class="math">\[
+\hat{n}_j = \sum_{i \text{ in segment } j} \frac{s_i}{\hat{p}_i}
 \]</span></p>
 </div>
 <div id="the-dsm-package" class="slide section level2">
@@ -222,7 +230,7 @@ Density surface models
 <li><p>Utility functions: variance estimation, plotting, prediction etc</p></li>
 </ul>
 </div>
-<div id="section-4" class="slide section level2">
+<div id="section-6" class="slide section level2">
 <h1></h1>
 <div class="quote">
 Case study I - Seabirds in RI waters
@@ -303,7 +311,7 @@ Case study I - Seabirds in RI waters
 </div>
 
 </div>
-<div id="section-5" class="slide section level2">
+<div id="section-7" class="slide section level2">
 <h1></h1>
 <div class="quote">
 Case study II - black bears in Alaska
@@ -323,7 +331,7 @@ Case study II - black bears in Alaska
 </div>
 
 </div>
-<div id="section-6" class="slide section level2">
+<div id="section-8" class="slide section level2">
 <h1></h1>
 <div align="center">
 <img src="images/ak-talk.png" height=770px>
@@ -364,27 +372,27 @@ Case study II - black bears in Alaska
 
 
 </div>
-<div id="section-7" class="slide section level2 cover">
+<div id="section-9" class="slide section level2 cover">
 <h1></h1>
 <p><img class="cover" src="images/cov-elev.png"></p>
 </div>
-<div id="section-8" class="slide section level2 cover">
+<div id="section-10" class="slide section level2 cover">
 <h1></h1>
 <p><img class="cover" src="images/cov-slope.png"></p>
 </div>
-<div id="section-9" class="slide section level2 cover">
+<div id="section-11" class="slide section level2 cover">
 <h1></h1>
 <p><img class="cover" src="images/cov-aspect.png"></p>
 </div>
-<div id="section-10" class="slide section level2 cover">
+<div id="section-12" class="slide section level2 cover">
 <h1></h1>
 <p><img class="cover" src="images/cov-spawn.dist.png"></p>
 </div>
-<div id="section-11" class="slide section level2 cover">
+<div id="section-13" class="slide section level2 cover">
 <h1></h1>
 <p><img class="cover" src="images/cov-veg.mode.png"></p>
 </div>
-<div id="section-12" class="slide section level2 cover">
+<div id="section-14" class="slide section level2 cover">
 <h1></h1>
 <p><img class="cover" src="images/cov-rveg.mode.png"></p>
 </div>
@@ -401,7 +409,7 @@ Case study II - black bears in Alaska
 </div>
 
 </div>
-<div id="section-13" class="slide section level2">
+<div id="section-15" class="slide section level2">
 <h1></h1>
 <div align="center">
 <img src="images/elevation.png">
@@ -409,7 +417,7 @@ Case study II - black bears in Alaska
 
 
 </div>
-<div id="section-14" class="slide section level2">
+<div id="section-16" class="slide section level2">
 <h1></h1>
 <div align="center">
 <img src="images/slope-aspect.png">

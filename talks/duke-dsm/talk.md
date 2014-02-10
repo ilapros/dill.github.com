@@ -59,6 +59,9 @@
 <div class="quote">Density surface models</div>
 
 
+##
+
+<div class="quote">Detection</div>
 
 
 ## How do we deal with detectability?
@@ -103,7 +106,16 @@
 
 <div align="right"><img src="images/logo-big.gif" height=250px></div>
 
+
+##
+
+<div class="quote">Generalized additive models</div>
+
+
+
 ## Two pages generalized additive models (I)
+
+If we are modelling counts:
 
 $$
 \mathbb{E}(n_j) = \exp \left\{ \beta_0 + \sum_k f_k(z_{jk}) \right\}
@@ -113,7 +125,7 @@ $$
   * $f_k$ are *smooth* functions (splines $\Rightarrow f_k(x)=\sum_l \beta_l b_l(x)$)
   * $f_k$ can just be fixed effects $\Rightarrow$ GLM
   * Add-in random effects, correlation structures $\Rightarrow$ GAMM
-
+  * Wood (2006) is a good intro book
 
 
 ## Two pages generalized additive models (II)
@@ -129,37 +141,22 @@ $$
 <div align="center"><h2>"just wiggly enough"</h2></div>
 
 
-## Density surface models
-
-Two options for response: 
+## Two options for response 
 
 <h2>$n_j$ - raw counts per segment</h2>
 
-model offset = *effective area* ($\hat{p}_j A_j$)
+$$
+\mathbb{E}(n_j) = A_j \hat{p}_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
+$$
+
 
 &nbsp;
 
 <h2>$\hat{n}_j$ - H-T estimate per segment</h2>
 
 $$
-\hat{n}_j = \sum_{\text{groups in segment } j} \frac{s_j}{\hat{p}_j}
+\hat{n}_j = \sum_{i \text{ in segment } j} \frac{s_i}{\hat{p}_i}
 $$
-
-model offset = segment area
-
-Limitation: covariates in the detection function
-
-## Density surface models
-
-"Count" model:
-
-$$
-\mathbb{E}(n_j) = A_j \hat{p}_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
-$$
-
-&nbsp;
-
-"Estimated count" model:
 
 $$
 \mathbb{E}(\hat{n}_j) = A_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
