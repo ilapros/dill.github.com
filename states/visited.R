@@ -10,7 +10,7 @@ gotem <- c(
 #           "arkansas",
            "california",
            "colorado"   ,
-#           "connecticut"                    ,
+           "connecticut"                    ,
 #           "delaware"   ,
            "district of columbia",
            "florida",
@@ -82,13 +82,12 @@ ak$x <- (ak$x*contr-110)
 ak$y <- (ak$y*contr+20)
 
 # colour the ones I've been through
-been <- c("Connecticut",
-          "Delaware",
-           "washington:san juan island"     ,
-           "washington:lopez island"      ,
-           "washington:orcas island"        ,
-           "washington:whidbey island"    ,
-           "washington:main"
+been <- c("Delaware",
+          "washington:san juan island"     ,
+          "washington:lopez island"      ,
+          "washington:orcas island"        ,
+          "washington:whidbey island"    ,
+          "washington:main"
          )
 
 
