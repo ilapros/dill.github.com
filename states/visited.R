@@ -51,7 +51,7 @@ gotem <- c(
 #           "oregon"                         ,
            "pennsylvania",
            "rhode island",
-#           "south carolina"     ,
+           "south carolina"     ,
 #           "south dakota"                   ,
 #           "tennessee"          ,
            "texas"                          ,
