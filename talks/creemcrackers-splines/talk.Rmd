@@ -176,6 +176,7 @@ te(x,y,t, bs=c("tp","cr"), d=c(2,1), k=c(100,10))
   - for factors: multiple smooths
   - for numerics: "parametric" tensor 
   - need to add parameteric term
+  - can use `id=` to "link" smooths to have same (estimated) parameters
 
 ```
 s(x,y,bs="tp",by=as.factor(year)) + as.factor(year)
@@ -272,7 +273,8 @@ s(x3) 9.000 1.233   1.037    0.68
      - smooth $\leftrightarrow$ random effect relation
      - numerically unstable? (pers. opp.)
      - autocorrelogram can save you some stress :)
-
+  * use `nb` for `negbin` and `tw` for `Tweedie` if you want their parameters estimated with smoothing pars
+  * `select=TRUE` adds extra smoothing to *every* term, meaning smooths can be estimated as 0 effect
 
 
 
