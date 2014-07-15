@@ -201,7 +201,7 @@ the default options are (almost definitely) wrong
   - by default `gam` uses GCV for smoothing parameter selection
   - GCV prone to overfitting (Wood, 2011)
   - GCV also problematic w. correlated covariates (Wood, 2006; pers. obsn.)
-  - REML better -- BUT can only compare nested models (ML?)
+  - REML better -- BUT can only compare models w. same parametric terms (ML?)
 
 \centering
 \includegraphics[width=\textwidth]{gcvreml.png}
