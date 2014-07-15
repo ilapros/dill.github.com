@@ -139,15 +139,21 @@ s(x,bs="re")
   - sometimes spatial smoothers curl up at the edges
   - Duchon splines limit nullspace in 2D+
 
+```
+s(x,y,..., bs="ds", k=M+k.def, m=c(1,.5) knots=NULL)
+```
+
 \centering
 \includegraphics[width=\textwidth]{duchonexample.png}
 
 
 ## tensor products
 
-  - tprs multivariate but assume isotropy
+  - tprs multivariate but assumes isotropy
   - are space and time the same? (hint: NO)
+  - different smoothing parameters
   - "push" 2D spatial smoother through time
+  - Marra et al (2011) give an example
 
 ```
 te(x,y,t, bs=c("tp","cr"), d=c(2,1), k=c(100,10))
@@ -251,7 +257,10 @@ s(x3) 9.000 1.233   1.037    0.68
 \centering
 \includegraphics[height=0.6\textheight]{nicegamcheck.png}
 
-## I've probably talked for too long already...
+
+# I've probably talked for too long already...
+
+## Other stuff
 
   * randomised quantile residuals (Dunn and Smyth, 1996)
   * `bam` for big additive models (Wood et al, 2014)
@@ -269,8 +278,21 @@ s(x3) 9.000 1.233   1.037    0.68
 
 ## References (for later)
 
+\small
 
-Almost all figures stolen from Wood (2006) or (2011)
+Dunn, P K, and G K Smyth. Randomized Quantile Residuals. Journal of Computational and Graphical Statistics 5(3) (1996): 236–244.        
+
+Marra, G, DL Miller, and L Zanin. Modelling the Spatiotemporal Distribution of the Incidence of Resident Foreign Population. Statistica Neerlandica 66(2) (2011): 133–160.
+
+Wood, SN. Thin Plate Regression Splines. Journal of the Royal Statistical Society. Series B 65(1) (2003): 95–114.
+
+Wood, SN. Generalized Additive Models: an Introduction with R, Chapman & Hall/CRC, 2006.
+                
+Wood, SN. Fast Stable Restricted Maximum Likelihood and Marginal Likelihood Estimation of Semiparametric Generalized Linear Models. Journal of the Royal Statistical Society. Series B 73(1) (2011): 3–36.
+
+Wood, SN, Y Goude, and S Shaw. Generalized Additive Models for Large Data Sets. Journal of the Royal Statistical Society Series C (2014).
+
+*Almost all figures stolen from Wood (2006) or (2011)*
 
 ## Thanks!
 
