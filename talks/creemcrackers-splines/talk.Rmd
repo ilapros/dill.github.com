@@ -16,15 +16,15 @@ SPOILER ALERT
 your model is probably some kind of (fancy) GLM
 
 
-## General setup of GAMs in `mgcv`
+# General setup of GAMs in `mgcv` (and my brain)
 
-*All models are wrong, but most are of the form*:
+## General setup
 
 \begin{equation*}
 y = X\beta + \epsilon \qquad \text{with penalty } \beta^\text{T}S\beta
 \end{equation*}
 
-refer to this as a "linear model", in the sense that $X\beta$ is linear
+I think of this as "linear", in the sense that $X\beta$ is linear
 
 $X$ includes a column for each parametric covariate, plus one for each basis evaluation (at knots or pseudo-knots).
 
@@ -48,12 +48,13 @@ D^m f(x) = \frac{\partial^2 f(x)}{\partial x^2}
 
 ## How many different bases?
 
-Currently 17 in `mgcv`:
+Currently ~17 (some bases are v. similar or inter-related) in `mgcv`:
 
 ```
 "ad", "sf", "cc", "so", "cp", "sos", "cr", "sw", "cs",
 "t2", "ds", "tensor", "mrf", "tp", "ps", "ts", "re"
 
+?smooth.terms
 ?smooth.construct.*.smooth.spec
 ?gam.models
 ```
@@ -72,8 +73,10 @@ s(x,bs="cr",k=10,knots=NULL)
 
 without `knots`, knots are placed evenly over `x`
 
+`cp` basis "more optimal" (see tprs)
+
 \centering
-\includegraphics[width=0.85\textwidth]{cubic.png}
+\includegraphics[width=0.75\textwidth]{cubic.png}
 
 ## thin plate splines
 
@@ -150,10 +153,16 @@ s(x,bs="re")
 te(x,y,t, bs=c("tp","cr"), d=c(2,1), k=c(100,10))
 ```
 
-## tensor products
+## tensor products (space-time)
 
 \centering
 \includegraphics[height=\textheight]{italy.png}
+
+
+## tensor products (slope-aspect)
+
+\centering
+\includegraphics[height=0.8\textheight]{slope-aspect.png}
 
 ## `by=`
 
@@ -189,8 +198,6 @@ the default options are (almost definitely) wrong
 
 \centering
 \includegraphics[width=\textwidth]{gcvreml.png}
-
-
 
 
 ## how do I best control flexibility?
@@ -236,7 +243,7 @@ s(x3) 9.000 1.233   1.037    0.68
 ## how do I know when I've got it right? 
 
 * `plot` the `gam` object -- over/under-fitting?
-* looking at `gam.check`
+* looking at `gam.check` (brain scan example in Wood 2006)
     - left column -- response distribution correct?
     - right column -- non-constant variance?
 * plot residuals vs. covariates
@@ -246,19 +253,24 @@ s(x3) 9.000 1.233   1.037    0.68
 
 ## I've probably talked for too long already...
 
-* randomised quantile residuals (Dunn and Smyth 1996)
-* `bam` for big additive models
-* `gamm` when you have "many" random effects or correlation
-   - correlation specified as in `lme`
-   - useful link: [http://glmm.wikidot.com/faq#modelspec](http://glmm.wikidot.com/faq#modelspec)
+  * randomised quantile residuals (Dunn and Smyth, 1996)
+  * `bam` for big additive models (Wood et al, 2014)
+     - can do AR1 correlation structures (in order)
+  * `gamm` when you have "many" random effects or correlation
+     - correlation specified as in `lme`
+     - useful link: [http://glmm.wikidot.com/faq#modelspec](http://glmm.wikidot.com/faq#modelspec)
+     - e.g. `correlation=corAR1(form=~segment|tr.su)`
+     - smooth $\leftrightarrow$ random effect relation
+     - numerically unstable? (pers. opp.)
+     - autocorrelogram can save you some stress :)
 
 
-
-## gam/gamm/gamm4 "default" options DO NOT seem optimal to me.
 
 
 ## References (for later)
 
+
+Almost all figures stolen from Wood (2006) or (2011)
 
 ## Thanks!
 
