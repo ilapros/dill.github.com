@@ -303,7 +303,7 @@ Wood, SN, Y Goude, and S Shaw. Generalized Additive Models for Large Data Sets. 
 
 Talk available at:
 
-[converged.yt/talks/creemcrackers-splines/talk.pdf](http:/converged.yt/talks/creemcrackers-splines/talk.pdf)
+[converged.yt/talks/creemcrackers-splines/talk.pdf](http://converged.yt/talks/creemcrackers-splines/talk.pdf)
 
 
 
