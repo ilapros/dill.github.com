@@ -163,10 +163,15 @@ this_day
 
 ```{r}
 year_start <- ymd("2014/01/01")
-click_secs <- rep(cumsum(rpois(100,1000)),2)+rpois(200,10)
+click_secs <- cumsum(rpois(100,1000))+rpois(200,5)*
+  rpois(200,10)
 click_times <- year_start+dseconds(click_secs)
-counts <- round_date(click_times,"minute")
-table(counts)
+click_mins <- round_date(click_times,"minute")
+hh <- hist(click_mins,
+breaks=min(click_mins) + 
+    (0:(new_interval(min(click_mins),max(click_mins))
+    /dminutes(1)))*dminutes(1),
+    freq=TRUE, plot=FALSE)
 ```
 
 
