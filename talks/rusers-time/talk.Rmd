@@ -1,0 +1,193 @@
+% Funtimes (and fundates) with `lubridate` 
+% David Lawrence Miller
+% CREEM, University of St Andrews
+
+
+
+```{r knitr-setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+```
+
+# Dates and times are complicated
+
+# Dates and times in R are worse
+
+
+## Familiar?
+
+```{r}
+this_date <- "2014-03-31"
+day <- sub("\\d{4}-\\d{2}-(\\d{2})","\\1",this_date)
+sub("\\d{2}$",as.numeric(day)+1,this_date)
+```
+
+## What about...
+
+```{r}
+this_date <- as.numeric(strsplit("2014-02-28","-")[[1]])
+that_date <- as.numeric(strsplit("2014-03-01","-")[[1]])
+
+secs <- 
+  sum(that_date * c(365*24*60*60,30*24*60*60,24*60*60)) -
+  sum(this_date * c(365*24*60*60,30*24*60*60,24*60*60))
+secs
+secs/(60*60*24)
+```
+
+
+
+
+##
+
+\centering
+\includegraphics[width=\textwidth]{lubridate-paper.png}
+
+# An important lie
+
+# Human-readable dates can be specified in universally understood formats like 05/07/11
+
+## parsing dates
+
+if you know the format:
+
+```{r}
+library(lubridate)
+ymd("2004-12-03")
+# as American-style date
+mdy("03/04/11")
+# as Euro-style date
+dmy("03/04/11")
+```
+
+
+## extracting parts of dates
+
+```{r}
+today <- now()
+today
+month(today)
+month(today, label = TRUE, abbr = FALSE)
+```
+
+## arithmetic 
+
+```{r}
+tomorrow <- today + days(1)
+tomorrow
+month_from_today <- today + months(1)
+month_from_today 
+```
+
+## rounding
+
+```{r}
+this.date <- ymd_hms("2004-04-08 12:54:15")
+round_date(this.date,"hour")
+floor_date(this.date,"hour")
+```
+
+## sequences
+
+```{r}
+today + (0:5) * days(1)
+```
+
+## Some more lies 
+
+- There are always 24 hours in a day
+- Months have either 30 or 31 days
+- February is always 28 days long
+- Years have 365 days
+- There is a leap year every year divisible by 4
+
+
+## instants, durations and periods
+
+- a date-time is an *instant*
+- what if we want to specify a length of time
+- *durations* are exact time spans recorded in seconds
+- *periods* are inexact measures (seconds in a month changes)
+
+
+## intervals
+
+```{r}
+dave_age <- new_interval(ymd_h("1986-01-29 03"), now())
+dave_age %/% years(1)
+dave_age %/% weeks(2)
+dave_age / dweeks(1)
+```
+
+## lies about timezones
+
+- Britain uses GMT
+- Time zones always differ by a whole hour
+- The offsets between two time zones will remain constant
+
+
+## timezones
+
+```{r}
+dave_time <- ymd_h("2014-03-09 06")
+dave_time <- force_tz(dave_time,"America/New_York")
+eric_time <- ymd_h("2014-03-09 11")
+eric_time <- force_tz(eric_time,"Europe/London")
+interval(dave_time,eric_time)/dhours(1)
+with_tz(eric_time,tz="America/New_York")
+```
+
+
+## things I don't like
+
+```{r}
+# arghhh!
+wday(today)
+
+# I think this should thow an error
+this_day <- ymd("2014-02-28")
+day(this_day) <- 34
+this_day
+```
+
+
+
+## example problem (Tiago)
+
+ - seconds since the beginning of year when click had been detected
+ - convert to click counts per minute
+ - change summer -> winter time, time had gone from 00:00 to 01:00
+ - the minutes do not exist for R!
+
+
+## example problem (Tiago)
+
+```{r}
+year_start <- ymd("2014/01/01")
+click_secs <- rep(cumsum(rpois(100,1000)),2)+rpois(200,10)
+click_times <- year_start+dseconds(click_secs)
+counts <- round_date(click_times,"minute")
+table(counts)
+```
+
+
+## Credit
+
+- Noah Sussman's excellent (and unbelievable) list of untruths about time [http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time](http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time)
+- Noah's follow-up article [http://infiniteundo.com/post/25509354022/more-falsehoods-programmers-believe-about-time-wisdom](http://infiniteundo.com/post/25509354022/more-falsehoods-programmers-believe-about-time-wisdom)
+- Dates and times made easy with `lubridate` by Grolemund & Wickham [http://www.jstatsoft.org/v40/i03](http://www.jstatsoft.org/v40/i03)
+
+
+
+## Thanks!
+
+\Large
+\centering
+
+Talk available at:
+
+[converged.yt/talks/rusers-time/talk.pdf](http://converged.yt/talks/rusers-time/talk.pdf)
+
+`.Rmd` available
+
+[converged.yt/talks/rusers-time/talk.Rmd](http://converged.yt/talks/rusers-time/talk.Rmd)
+
