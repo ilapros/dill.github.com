@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="David Lawrence Miller (&amp; Len Thomas)" />
+  <title>Mixture model detection functions</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="slidy.css" />
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title">Mixture model detection functions</h1>
+  <p class="author">
+David Lawrence Miller (&amp; Len Thomas)
+  </p>
+  <p class="date">CREEM, University of St Andrews</p>
+</div>
+<div class="slide section level2">
+
+<div class="quote">
+Distance sampling
+</div>
+</div>
+<div id="distance-sampling" class="slide section level2">
+<h1>Distance sampling</h1>
+<div class="figure">
+<img src="distance-animation.gif" />
+</div>
+</div>
+<div id="detection-functions" class="slide section level2">
+<h1>Detection functions</h1>
+<ul>
+<li>Essentially want to compute “correction factor”</li>
+<li>Model <span class="math">\(\mathbb{P} \left[ \text{animal detected } \vert \text{ object at distance } y\right] = g(y;\boldsymbol{\theta})\)</span></li>
+<li>Calculate the average probability of detection:</li>
+</ul>
+<p><span class="math">\[
+P_a = \frac{1}{w} \int_0^w g(y;\boldsymbol{\theta}) \text{d}y
+\]</span></p>
+<ul>
+<li>Horvitz-Thompson-type estimators <span class="math">\(\Rightarrow \hat{N}\)</span></li>
+</ul>
+</div>
+<div id="detection-functions-1" class="slide section level2">
+<h1>Detection functions</h1>
+<div class="figure">
+<img src="df.png" />
+</div>
+</div>
+<div id="criteria-for-detection-functions" class="slide section level2">
+<h1>Criteria for detection functions</h1>
+<ol style="list-style-type: decimal">
+<li>flexible (<em>wide variety of shapes</em>)</li>
+<li>efficient (<em>few parameters)</em></li>
+<li>flat at 0 distance (<em>detect what’s in front of you)</em></li>
+<li>monotonic non-increasing with increasing <span class="math">\(y\)</span> (<em>not easier to see far away things)</em></li>
+</ol>
+</div>
+<div id="key-plus-adjustment-models" class="slide section level2">
+<h1>Key plus adjustment models</h1>
+<p><span class="math">\[
+g(y) = k(y)\left( 1+ \alpha_K(y)\right)
+\]</span></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">key</th>
+<th align="left"><span class="math">\(k(y)\)</span></th>
+<th align="left">adjustment</th>
+<th align="left"><span class="math">\(\alpha_K(y)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">uniform</td>
+<td align="left"><span class="math">\(1/w\)</span></td>
+<td align="left">cosine</td>
+<td align="left"><span class="math">\(\sum_{k=1}^K a_k \cos(k \pi y/w)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"> </td>
+<td align="left"> </td>
+<td align="left">Simple polynomial</td>
+<td align="left"><span class="math">\(\sum_{k=1}^K a_k (y/w)^{2k}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">half-normal</td>
+<td align="left"><span class="math">\(\exp\left(-\frac{y^2}{2 \sigma^2}\right)\)</span></td>
+<td align="left">cosine</td>
+<td align="left"><span class="math">\(\sum_{k=2}^K a_k \cos(k \pi y/w)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"> </td>
+<td align="left"> </td>
+<td align="left">Hermite polynomial</td>
+<td align="left"><span class="math">\(\sum_{k=2}^K a_k H_{2k}(y/\sigma)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">hazard-rate</td>
+<td align="left"><span class="math">\(1-\exp\left[-\left(\frac{y}{\sigma}\right)^{-b}\right]\)</span></td>
+<td align="left">cosine</td>
+<td align="left"><span class="math">\(\sum_{k=2}^K a_k \cos(k \pi y/w)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"> </td>
+<td align="left"> </td>
+<td align="left">Simple polynomial</td>
+<td align="left"><span class="math">\(\sum_{k=2}^K a_k (y/w)^{2k}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="ka-models" class="slide section level2">
+<h1>K+A models</h1>
+<p>For example, a half-normal w. cosine adjustments <span class="math">\[
+g(y) = \exp\left(-\frac{y^2}{2 \sigma^2}\right) \left(1 + \sum_{k=2}^K a_k \cos(k \pi y/w)\right)
+\]</span></p>
+<ul>
+<li>Select number of adjustments (<span class="math">\(K\)</span>) by forward-AIC</li>
+<li>Estimate <span class="math">\(\sigma\)</span>, <span class="math">\(\{a_k\}\)</span> by maximum likelihood</li>
+<li>Can include covariates other than distance (see later)</li>
+</ul>
+</div>
+<div id="detection-functions-2" class="slide section level2">
+<h1>Detection functions</h1>
+<div class="figure">
+<img src="dfopts.png" />
+</div>
+</div>
+<div id="section" class="slide section level2">
+<h1> </h1>
+<div class="quote">
+Monotonicity
+</div>
+</div>
+<div id="example-humpback-whales" class="slide section level2">
+<h1>Example: Humpback whales</h1>
+<div class="figure">
+<img src="humpback.png" />
+</div>
+</div>
+<div id="constrained-optimisation" class="slide section level2">
+<h1>Constrained optimisation</h1>
+<ul>
+<li>K+A models are not necessarily monotonic</li>
+<li>check <span class="math">\(g(y_i)\geq g(y_{i+1})\)</span> and that <span class="math">\(g(y_{i+1})\geq 0\)</span> for <span class="math">\(i=1,\ldots,M-1\)</span></li>
+<li>perform optimisation s.t. constraints</li>
+<li>NLPQL (DISTANCE; Schittkowski, 1986) or SOLNP (<code>mrds</code>; Ye, 1987)</li>
+<li><span class="math">\(M\)</span>++ <span class="math">\(\Rightarrow\)</span> computing time ++</li>
+</ul>
+</div>
+<div id="software-plug-mrdscheck.mono" class="slide section level2">
+<h1>Software plug: <code>mrds:::check.mono</code></h1>
+<div class="figure">
+<img src="pilot-monocheck.png" />
+</div>
+</div>
+<div id="covariate-models" class="slide section level2">
+<h1>Covariate models</h1>
+<ul>
+<li>Including covariates in the detection function makes this worse</li>
+<li>Observe covariates <span class="math">\(\mathbf{z}_i\)</span> for observation <span class="math">\(i\)</span></li>
+<li>Affect detection via scale parameter</li>
+</ul>
+<p><span class="math">\[
+\sigma_{i} = \exp\left( \beta_{0} + \sum_{k=1}^K \beta_k z_{ik}\right)
+\]</span></p>
+<ul>
+<li>Estimate <span class="math">\({\beta_k}\)</span></li>
+<li>Average detection per unique <span class="math">\(\mathbf{z}_i\)</span>:</li>
+</ul>
+<p><span class="math">\[
+p(\mathbf{z}_i) = \frac{1}{w} \int_0^w g(y,\mathbf{z}_i;\boldsymbol{\theta}) \text{d}y
+\]</span></p>
+</div>
+<div id="section-1" class="slide section level2">
+<h1></h1>
+<div class="figure">
+<img src="covar-df.png" />
+</div>
+</div>
+<div id="monotonicity-for-covariate-models" class="slide section level2">
+<h1>Monotonicity for covariate models</h1>
+<ul>
+<li>constrained optimisation not possible</li>
+<li>too many combinations!</li>
+<li>continuous covariates – which values to check?</li>
+<li>“hard” optimisation problem</li>
+</ul>
+</div>
+<div id="example-long-finned-pilot-whales-i" class="slide section level2">
+<h1>Example: Long-finned pilot whales (I)</h1>
+<div class="figure">
+<img src="pilot1.png" />
+</div>
+</div>
+<div id="example-long-finned-pilot-whales-ii" class="slide section level2">
+<h1>Example: Long-finned pilot whales (II)</h1>
+<div class="figure">
+<img src="pilot2.png" />
+</div>
+</div>
+<div id="section-2" class="slide section level2">
+<h1> </h1>
+<div class="quote">
+Mixture models
+</div>
+</div>
+<div id="mixture-models" class="slide section level2">
+<h1>Mixture models</h1>
+<p>Sum of <span class="math">\(J\)</span> monotonic detection functions:</p>
+<p><span class="math">\[
+g(y,\mathbf{z}; \boldsymbol{\theta}, \boldsymbol{\phi}) = \sum_{j=1}^J \phi_j g_j(y,\mathbf{z}; \boldsymbol{\theta}_j),
+\]</span></p>
+<p><span class="math">\[
+\text{where} \sum_j \phi_j = 1
+\]</span></p>
+<p>Letting <span class="math">\(g\)</span> be half-normal:</p>
+<p><span class="math">\[
+g(y,\mathbf{z}; \boldsymbol{\theta}, \boldsymbol{\phi}) = \sum_{j=1}^J \phi_j \exp \Big( - \frac{y^2}{2\sigma_j(\mathbf{z})^2} \Big).
+\]</span></p>
+<p>Any sum of monotone functions is a monotone function</p>
+</div>
+<div id="section-3" class="slide section level2">
+<h1> </h1>
+<div class="quote">
+How do mixtures do?
+</div>
+</div>
+<div id="revisit-humpback-whales-mrds" class="slide section level2">
+<h1>Revisit: Humpback whales (<code>mrds</code>)</h1>
+<div class="figure">
+<img src="humpback.png" />
+</div>
+</div>
+<div id="revisit-humpback-whales-mmds" class="slide section level2">
+<h1>Revisit: Humpback whales (<code>mmds</code>)</h1>
+<div class="figure">
+<img src="mix-humpback.png" />
+</div>
+</div>
+<div id="revisit-long-finned-pilot-whales-mrds" class="slide section level2">
+<h1>Revisit: Long-finned pilot whales (<code>mrds</code>)</h1>
+<div class="figure">
+<img src="pilot1.png" />
+</div>
+</div>
+<div id="revisit-long-finned-pilot-whales-mrds-1" class="slide section level2">
+<h1>Revisit: Long-finned pilot whales (<code>mrds</code>)</h1>
+<div class="figure">
+<img src="pilot2.png" />
+</div>
+</div>
+<div id="revisit-long-finned-pilot-whales-mmds" class="slide section level2">
+<h1>Revisit: Long-finned pilot whales (<code>mmds</code>)</h1>
+<div class="figure">
+<img src="mix-fin.png" />
+</div>
+</div>
+<div id="in-practice" class="slide section level2">
+<h1>In practice</h1>
+<ul>
+<li>Include mixtures as a candidate model</li>
+<li>Select number of components by AIC</li>
+<li>Compare with K+A via AIC as usual</li>
+<li>(Large simulation showed good results vs. <code>mrds</code>)</li>
+</ul>
+</div>
+<div id="section-4" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Conclusions
+</div>
+</div>
+<div id="section-5" class="slide section level2">
+<h1></h1>
+<div class="quote">
+monotonicity can cause problems
+</div>
+</div>
+<div id="section-6" class="slide section level2">
+<h1></h1>
+<div class="quote">
+<p>you might not realise</p>
+that there are problems
+</div>
+</div>
+<div id="section-7" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Paper submitted to PLoS ONE
+</div>
+</div>
+<div id="section-8" class="slide section level2">
+<h1></h1>
+<div class="quote">
+R package on CRAN – <code>mmds</code>
+</div>
+</div>
+<div id="references" class="slide section level2">
+<h1>References</h1>
+<p>Pike, D G, T Gunnlaugsson, A G Vikingsson, G Desportes, and B Mikkelson. An Estimate of the Abundance of Long-Finned Pilot Whales Globicephala Melas From the NASS-2001 Shipboard Survey, North Atlantic Marine Mammal Commission (NAMMCO) Scientific Committee Working Group on Abundance Estimates, 2003.</p>
+<p>Schittkowski, K. NLPQL: a Fortran Subroutine for Solving Constrained Nonlinear Programming Problems. Annals of Operations Research 5 (1986): 485–500.</p>
+<p>Williams, R, and L Thomas. Distribution and Abundance of Marine Mammals in the Coastal Waters of British Columbia, Canada. Journal of Cetacean Research and Management 9, no. 1 (2007): 15.</p>
+<p>Ye, Y. Interior Algorithms for Linear, Quadratic, and Linearly Constrained Convex Programming. Stanford University, 1987.</p>
+</div>
+<div id="acknowledgements" class="slide section level2">
+<h1>Acknowledgements</h1>
+<ul>
+<li>Humpback data from Rob Williams &amp; Raincoast Conservation Foundation.</li>
+<li>Long-finned pilot whale data (NASS-2001) from Daniel Pike, Gísli Vikingsson and Bjarni Mikkelsen at the Marine Research Institute, Iceland.</li>
+</ul>
+</div>
+<div id="thanks" class="slide section level2">
+<h1>Thanks!</h1>
+<div class="quote">
+<p>Talk available at:</p>
+<a href="http://converged.yt/talks/ncsu-mixtures/talk.html">converged.yt/talks/ncsu-mixtures/talk.html</a>
+</div>
+</div>
+<div id="constraining-mixture-proportions" class="slide section level2">
+<h1>Constraining mixture proportions</h1>
+<ul>
+<li>Due to David Borchers</li>
+<li>Estimate <span class="math">\(\alpha_p\)</span> rather than <span class="math">\(\phi_j\)</span></li>
+</ul>
+<p><span class="math">\[
+\phi_j = F(\sum_{p=1}^j e^{\alpha_p}) - F(\sum_{p=1}^{j-1} e^{\alpha_p}) \qquad \text{for } 1\leq j \leq J-1
+\]</span></p>
+<p>and</p>
+<p><span class="math">\[
+\phi_J = 1-\sum_{j=1}^{J-1} \phi_j
+\]</span></p>
+<ul>
+<li><span class="math">\(F\)</span> is any continuous CDF on <span class="math">\((0,\infty]\)</span> (<span class="math">\(\Gamma(3,2)\)</span>)</li>
+<li><span class="math">\(\exp\)</span> ensures <span class="math">\(e^{\alpha_p}\geq0\)</span> <span class="math">\(\Rightarrow \alpha_p \in \mathbb{R}\)</span></li>
+<li><span class="math">\(\sum \Rightarrow\)</span> ordered the <span class="math">\(\phi_j\)</span></li>
+<li>CDF ensures that the <span class="math">\(\phi_j\)</span>s sum to <span class="math">\(1\)</span>.</li>
+</ul>
+</div>
+<div id="constraining-mixture-proportions-1" class="slide section level2">
+<h1>Constraining mixture proportions</h1>
+<div class="figure">
+<img src="phidia.png" />
+</div>
+</div>
+</body>
+</html>
