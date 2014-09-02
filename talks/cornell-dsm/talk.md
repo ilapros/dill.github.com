@@ -384,6 +384,20 @@ $$
 
   * Utility functions: variance estimation, plotting, prediction etc
 
+## Distance sampling software
+
+  * Distance for Windows
+     - Easy to use Windows software
+     - Len Thomas, Eric Rexstad, Laura Marshall
+  * `Distance` R package
+     - Simple way to fit detection functions
+     - Me! 
+  * `mrds` R package
+     - More complex analyses - double observer surveys
+     - Jeff Laake, me 
+
+<div align="right"><img src="images/logo-big.gif" height=250px></div>
+
 ## Randomised quantile residuals
 
   * Goodness of fit testing
@@ -399,26 +413,4 @@ $$
 ## `rqgam.check`
 
 ![](images/rqcheck.png)
-
-## {.cover}
-
-<img src="images/davecub.jpg" class="cover">
-
-## {.cover}
-
-<img src="images/outwindow.jpg" class="cover">
-
-## Distance sampling software
-
-  * Distance for Windows
-     - Easy to use Windows software
-     - Len Thomas, Eric Rexstad, Laura Marshall
-  * `Distance` R package
-     - Simple way to fit detection functions
-     - Me! 
-  * `mrds` R package
-     - More complex analyses - double observer surveys
-     - Jeff Laake, me 
-
-<div align="right"><img src="images/logo-big.gif" height=250px></div>
 
