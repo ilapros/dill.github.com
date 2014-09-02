@@ -391,6 +391,43 @@ Case study II - black bears in Alaska
 <li>Estimating temporal trends</li>
 </ul>
 </div>
+<div id="distance-sampling-software" class="slide section level2">
+<h1>Distance sampling software</h1>
+<ul>
+<li>Distance for Windows
+<ul>
+<li>Easy to use Windows software</li>
+<li>Len Thomas, Eric Rexstad, Laura Marshall</li>
+</ul></li>
+<li><code>Distance</code> R package
+<ul>
+<li>Simple way to fit detection functions</li>
+<li>Me!</li>
+</ul></li>
+<li><code>mrds</code> R package
+<ul>
+<li>More complex analyses - double observer surveys</li>
+<li>Jeff Laake, me</li>
+</ul></li>
+</ul>
+<div align="right">
+<img src="images/logo-big.gif" height=250px>
+</div>
+</div>
+<div id="the-dsm-package" class="slide section level2">
+<h1>The <code>dsm</code> package</h1>
+<ul>
+<li>Design “inspired by” (“stolen from”) <code>mgcv</code></li>
+<li>Easy to build simple models, possible to build complex ones</li>
+<li><p>Syntax example:</p>
+<pre><code>model &lt;- dsm(count ~ s(x,k=10) + s(depth,k=6),
+             detection.function,
+             segment.data,
+             observation.data,
+             family=negbin(theta=0.1))</code></pre></li>
+<li><p>Utility functions: variance estimation, plotting, prediction etc</p></li>
+</ul>
+</div>
 <div id="acknowledgements" class="slide section level2">
 <h1>Acknowledgements</h1>
 <ul>
@@ -424,20 +461,6 @@ Talk available at<br/><a href="http://converged.yt/talks/cornell-dsm/talk.html">
 <li>Winiarski, KJ, DL Miller, PWC Paton, and SR McWilliams. A Spatial Conservation Prioritization Approach for Protecting Marine Birds Given Proposed Offshore Wind Energy Development. Biological Conservation 169 (2014): 79–88.</li>
 </ul>
 </div>
-<div id="the-dsm-package" class="slide section level2">
-<h1>The <code>dsm</code> package</h1>
-<ul>
-<li>Design “inspired by” (“stolen from”) <code>mgcv</code></li>
-<li>Easy to build simple models, possible to build complex ones</li>
-<li><p>Syntax example:</p>
-<pre><code>model &lt;- dsm(count ~ s(x,k=10) + s(depth,k=6),
-             detection.function,
-             segment.data,
-             observation.data,
-             family=negbin(theta=0.1))</code></pre></li>
-<li><p>Utility functions: variance estimation, plotting, prediction etc</p></li>
-</ul>
-</div>
 <div id="randomised-quantile-residuals" class="slide section level2">
 <h1>Randomised quantile residuals</h1>
 <ul>
@@ -458,37 +481,6 @@ Talk available at<br/><a href="http://converged.yt/talks/cornell-dsm/talk.html">
 <h1><code>rqgam.check</code></h1>
 <div class="figure">
 <img src="images/rqcheck.png" />
-</div>
-</div>
-<div id="section-14" class="slide section level2 cover">
-<h1></h1>
-<p><img src="images/davecub.jpg" class="cover"></p>
-</div>
-<div id="section-15" class="slide section level2 cover">
-<h1></h1>
-<p><img src="images/outwindow.jpg" class="cover"></p>
-</div>
-<div id="distance-sampling-software" class="slide section level2">
-<h1>Distance sampling software</h1>
-<ul>
-<li>Distance for Windows
-<ul>
-<li>Easy to use Windows software</li>
-<li>Len Thomas, Eric Rexstad, Laura Marshall</li>
-</ul></li>
-<li><code>Distance</code> R package
-<ul>
-<li>Simple way to fit detection functions</li>
-<li>Me!</li>
-</ul></li>
-<li><code>mrds</code> R package
-<ul>
-<li>More complex analyses - double observer surveys</li>
-<li>Jeff Laake, me</li>
-</ul></li>
-</ul>
-<div align="right">
-<img src="images/logo-big.gif" height=250px>
 </div>
 </div>
 </body>
