@@ -342,6 +342,34 @@ $$
   * Two-stage models can be useful!
   * Estimating temporal trends
 
+## Distance sampling software
+
+  * Distance for Windows
+     - Easy to use Windows software
+     - Len Thomas, Eric Rexstad, Laura Marshall
+  * `Distance` R package
+     - Simple way to fit detection functions
+     - Me! 
+  * `mrds` R package
+     - More complex analyses - double observer surveys
+     - Jeff Laake, me 
+
+<div align="right"><img src="images/logo-big.gif" height=250px></div>
+
+## The `dsm` package
+
+  * Design "inspired by" ("stolen from") `mgcv`
+  * Easy to build simple models, possible to build complex ones
+  * Syntax example:
+
+        model <- dsm(count ~ s(x,k=10) + s(depth,k=6),
+                     detection.function,
+                     segment.data,
+                     observation.data,
+                     family=negbin(theta=0.1))
+
+  * Utility functions: variance estimation, plotting, prediction etc
+
 
 
 
@@ -369,34 +397,6 @@ $$
   * Winiarski, KJ, ML Burt, Eric Rexstad, DL Miller, CL Trocki, PWC Paton, and SR McWilliams. Integrating Aerial and Ship Surveys of Marine Birds Into a Combined Density Surface Model: a Case Study of Wintering Common Loons. The Condor 116, no. 2 (2014): 149–161. 
   * Winiarski, KJ, DL Miller, PWC Paton, and SR McWilliams. A Spatial Conservation Prioritization Approach for Protecting Marine Birds Given Proposed Offshore Wind Energy Development. Biological Conservation 169 (2014): 79–88.
 
-
-## The `dsm` package
-
-  * Design "inspired by" ("stolen from") `mgcv`
-  * Easy to build simple models, possible to build complex ones
-  * Syntax example:
-
-        model <- dsm(count ~ s(x,k=10) + s(depth,k=6),
-                     detection.function,
-                     segment.data,
-                     observation.data,
-                     family=negbin(theta=0.1))
-
-  * Utility functions: variance estimation, plotting, prediction etc
-
-## Distance sampling software
-
-  * Distance for Windows
-     - Easy to use Windows software
-     - Len Thomas, Eric Rexstad, Laura Marshall
-  * `Distance` R package
-     - Simple way to fit detection functions
-     - Me! 
-  * `mrds` R package
-     - More complex analyses - double observer surveys
-     - Jeff Laake, me 
-
-<div align="right"><img src="images/logo-big.gif" height=250px></div>
 
 ## Randomised quantile residuals
 
