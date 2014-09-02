@@ -1,0 +1,8 @@
+Species distribution model,Best model by REml,Deviance explained (%),Number of segments,Model type
+Alcid spp.,"s(gchl_winter, 1.53) + s(distancelandkm, 2.38) + s(gchl_fall, 2.97) ",6.67%,2067,DSM
+Common eider,"depthm + s(x, y, 3.94)",37.87%,2067,PAM
+Northern gannet,"s(depthm, k = 12) + s(x, y, 5.9) ",48.32%,1179,DSM
+Common loon,"s(gchl_long, 3.6) + depthm + s(y, 2.53) ",35.87%,2019,DSM
+Petrel spp.,"depthm + s(y, 4.03) ",11.18%,1836,DSM
+Scoter spp.,"s(depthm, 2.56) + s(x, y, k = 10)",26.78%,2067,PAM
+Tern spp.,"s(depthm, 3.27) + x + y ",35.81%,1836,DSM
