@@ -445,7 +445,7 @@ Funding from Alaska Department of Fish and Game
 
 ## Thanks!
 
-<div class="quote">Talk available at<br/>[http://converged.yt/talks/meta-dsm-all/talk.html](http://converged.yt/talks/meta-dsm-all/talk.html)</div>
+<div class="quote">Slides available at<br/>[http://converged.yt/talks/meta-dsm-all/talk.html](http://converged.yt/talks/meta-dsm-all/talk.html)</div>
 
 
 ## References
