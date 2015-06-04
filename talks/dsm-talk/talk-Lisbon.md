@@ -123,16 +123,36 @@ $$
 
 <small><i>Ursus</i> from <a href="http://phylopic.org/name/9c912370-8905-41f7-b3a3-9fdd99aff88c">PhyloPic</a>.</small>
 
+## Two options for response
+
+<h2>$n_j$ - raw counts per segment</h2>
+
+$$
+\mathbb{E}(n_j) = A_j \hat{p}_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
+$$
+
+
+&nbsp;
+
+<h2>$\hat{n}_j$ - H-T estimate per segment</h2>
+
+$$
+\hat{n}_j = \sum_{i \text{ in segment } j} \frac{s_i}{\hat{p}_i}
+$$
+
+$$
+\mathbb{E}(\hat{n}_j) = A_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
+$$
 
 ## Generalized additive models (in two pages) (I)
 
 If we are modelling counts:
 
 $$
-\mathbb{E}(n_j) = A_j\exp \left\{ \beta_0 + \sum_k f_k(z_{jk}) \right\}
+\mathbb{E}(\hat{n}_j) = A_j\exp \left\{ \beta_0 + \sum_k f_k(z_{jk}) \right\}
 $$
 
-  * $n_j$ has some count distribution (quasi-Poisson, Tweedie, negative binomial, ziP)
+  * $\hat{n}_j$ has some count distribution (quasi-Poisson, Tweedie, negative binomial, ziP)
   * $A_j$ is area of segment
   * $f_k$ are *smooth* functions (splines $\Rightarrow f_k(x)=\sum_l \beta_l b_l(x)$)
   * $f_k$ can just be fixed effects $\Rightarrow$ GLM
@@ -154,26 +174,6 @@ $$
 
 <small>Fitting via REML, see Wood (2011).</small>
 
-## Two options for response
-
-<h2>$n_j$ - raw counts per segment</h2>
-
-$$
-\mathbb{E}(n_j) = A_j \hat{p}_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
-$$
-
-
-&nbsp;
-
-<h2>$\hat{n}_j$ - H-T estimate per segment</h2>
-
-$$
-\hat{n}_j = \sum_{i \text{ in segment } j} \frac{s_i}{\hat{p}_i}
-$$
-
-$$
-\mathbb{E}(\hat{n}_j) = A_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
-$$
 
 ## Response distributions
 
@@ -351,12 +351,17 @@ $$
 <img src="images/bl-map-0.01.png" height=700px>
 
 
+##
+
+<div class="quote">Conclusions</div>
 
 ## Conclusion
 
+  * Detectability
   * Flexible spatial models
      - GLMs + random effects + smooths + other extras
      - autocorrelation can be modelled
+     - accounting for uncertainty
   * Large, heterogeneous areas
   * Spatial component is v. helpful for managers
   * Two-stage models can be useful!

@@ -3,60 +3,84 @@ title: Vague script for DSM talk
 
 ---
 
-## 2-5
+#
+
+"title slide"
+
+#
+
 I'm interested in three ecological questions, these represent the research I've been involved with to date. They are:
 
+#
+
   1. "How many animals are there?" -- aka abundance estimation
+
+#
+
   2. "Where are all the animals?" -- aka spatial modelling
+
+#
+
   3. "Why are they there?" -- investigation of covariate relationships
 
-## 6
+#
 
 I'm mostly involved with the development of "density surface models", that is: explicit spatial models, based on data collected as part of distance sampling surveys.
 
-## 7
+#
 
 This flow diagam shows how one might conceptualise the modelling process in DSMs and roughly shows how I'll proceed in this talk. First we have count data collected from transects (I'll only talk about line transects here). We then adjust this data based on detecability (and sometime availability) using distance sampling methods (detection functions). From this detection (and availability) corrected data, we build a spatial model with the counts as the response and covariates as the explanatory variables. We then check the resulting model conforms to our assumptions, makes biological sense and refine it if not. Once we're happy with the fitted model, we can perform inference: calculate abundaces and corresponding variances.
 
 
-## 8
+#
 
 Now we need to account for detectability.
 
 
-## 9
+#
 
 This is line transect distance sampling in one slide. Each grey point is an animal. Once they are observed they turn blue, the observer walks/drives/steams/flies down the line (highlighting them in red) and records the distances to the objects from the line.
 
 We would expect that animals clsoe to the line will be easier to see than those which are further away -- this is reflected in the histogram on the right where there is a peak at zero distance and then a fall off with increasing distance.
 
-## 10
+#
 
 We take this histogram and fit a detection function to the distances, modelling the shape of the drop-off with increasing distance. Integrating the distance out of the detection function gives us the average probability of detection. We can then use the probability to form a Horvtiz-Thompson-like estimator of abundance in a given area.
 
-## 11
+#
 
 This is an example of a fitted detection function.
 
-## 12
+#
 
 There are a number of extensions to the standard methodology. They include things like including other factors that might affect detectability (e.g. time of day or observer). Or perception and availability bias, particularly pertinent in marine surveys when the study taxa can dive or be difficult to sight due to sea conditions. We also have a number of different functional forms for the detection function (which I'll talk about next). Finally we can account for observers not recording distances correctly.
 
 
-## 13
+#
 
 The standard forms for the detection function can be problematic as is seem in these two plots. One of our assumptions is that probability of detection decreases with distance *monotonically*. This is somewhat evident in the left figure but particularly in the right figure when the detection function is plotted for quantiles of the covariate included. These cases can't be easily constrained via optimisation, so a new formulation was required.
 
-## 14
+#
 
 As part of work during my masters and PhD, I developed a mixture model approach to modelling the detection function. On the left, the black line is a weighted combination of the dotted lines -- each of which is monotonic, leading to a monotonic resulting function. This formulation allows for flexible modelling without possible nasty features hiding in the margins of the model.
 
 Published in PLoS ONE this year.
 
 
-## 15
+#
 
 Once we have the count data per transect, we split the transects up into *segments*. So in this diagram we translate the group of three bears into a count of "3" for that segment.
+
+
+#
+
+Now I glossed over in the previous slide what the response was there just saying "count". There are two options I'll talk about here:
+
+  1. Using the "raw" counts -- just adding up the number of animals in the segment. In that case we see that the segment area $A_j$ is multiplied by $\hat{p}_j}$, giving an *effective area* to multiply the density (in the $\exp$).
+  2. By first calculating the Hovitz-Thompson estimator of the abundance using the detection probabilities from the detection function.
+
+I tend to prefer the former when it's possible, as it's closer to the quantity we actually observed. The latter is useful when covariates are included in the detection function -- we can use individual level covariates with the former as the sample units don't match.
+
 
 ## 16-17
 
@@ -73,15 +97,6 @@ Simon Wood's book has (almost) everything you'd need to know.
 Those smooth functions are governed by penalties. The penalty defines the functional form of the spline basis, but also controls the estimated form of the smooth. We change the "wigglyness" by estimating a smoothing parameter. The left panel gives a model with well chosen smoothing parameter (black line estimates blue), the middle panel shows what happens when the smoothing parameter is too small (interpolation) and the right panel when the smoothing parameter is too big (too smooth).
 
 Selecting the smoothing parameter done by REML.
-
-## 19
-
-Now I glossed over in the previous slide what the response was there just saying "count". There are two options I'll talk about here:
-
-  1. Using the "raw" counts -- just adding up the number of animals in the segment. In that case we see that the segment area $A_j$ is multiplied by $\hat{p}_j}$, giving an *effective area* to multiply the density (in the $\exp$).
-  2. By first calculating the Hovitz-Thompson estimator of the abundance using the detection probabilities from the detection function.
-
-I tend to prefer the former when it's possible, as it's closer to the quantity we actually observed. The latter is useful when covariates are included in the detection function -- we can use individual level covariates with the former as the sample units don't match.
 
 ## 20
 

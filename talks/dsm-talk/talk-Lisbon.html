@@ -147,14 +147,33 @@ Spatially explicit models
 </div>
 <p><small><i>Ursus</i> from <a href="http://phylopic.org/name/9c912370-8905-41f7-b3a3-9fdd99aff88c">PhyloPic</a>.</small></p>
 </div>
+<div id="two-options-for-response" class="slide section level2">
+<h1>Two options for response</h1>
+<h2>
+<span class="math">\(n_j\)</span> - raw counts per segment
+</h2>
+<p><span class="math">\[
+\mathbb{E}(n_j) = A_j \hat{p}_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
+\]</span></p>
+<p> </p>
+<h2>
+<span class="math">\(\hat{n}_j\)</span> - H-T estimate per segment
+</h2>
+<p><span class="math">\[
+\hat{n}_j = \sum_{i \text{ in segment } j} \frac{s_i}{\hat{p}_i}
+\]</span></p>
+<p><span class="math">\[
+\mathbb{E}(\hat{n}_j) = A_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
+\]</span></p>
+</div>
 <div id="generalized-additive-models-in-two-pages-i" class="slide section level2">
 <h1>Generalized additive models (in two pages) (I)</h1>
 <p>If we are modelling counts:</p>
 <p><span class="math">\[
-\mathbb{E}(n_j) = A_j\exp \left\{ \beta_0 + \sum_k f_k(z_{jk}) \right\}
+\mathbb{E}(\hat{n}_j) = A_j\exp \left\{ \beta_0 + \sum_k f_k(z_{jk}) \right\}
 \]</span></p>
 <ul>
-<li><span class="math">\(n_j\)</span> has some count distribution (quasi-Poisson, Tweedie, negative binomial, ziP)</li>
+<li><span class="math">\(\hat{n}_j\)</span> has some count distribution (quasi-Poisson, Tweedie, negative binomial, ziP)</li>
 <li><span class="math">\(A_j\)</span> is area of segment</li>
 <li><span class="math">\(f_k\)</span> are <em>smooth</em> functions (splines <span class="math">\(\Rightarrow f_k(x)=\sum_l \beta_l b_l(x)\)</span>)</li>
 <li><span class="math">\(f_k\)</span> can just be fixed effects <span class="math">\(\Rightarrow\)</span> GLM</li>
@@ -177,25 +196,6 @@ Spatially explicit models
 </h2>
 </div>
 <p><small>Fitting via REML, see Wood (2011).</small></p>
-</div>
-<div id="two-options-for-response" class="slide section level2">
-<h1>Two options for response</h1>
-<h2>
-<span class="math">\(n_j\)</span> - raw counts per segment
-</h2>
-<p><span class="math">\[
-\mathbb{E}(n_j) = A_j \hat{p}_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
-\]</span></p>
-<p> </p>
-<h2>
-<span class="math">\(\hat{n}_j\)</span> - H-T estimate per segment
-</h2>
-<p><span class="math">\[
-\hat{n}_j = \sum_{i \text{ in segment } j} \frac{s_i}{\hat{p}_i}
-\]</span></p>
-<p><span class="math">\[
-\mathbb{E}(\hat{n}_j) = A_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
-\]</span></p>
 </div>
 <div id="response-distributions" class="slide section level2">
 <h1>Response distributions</h1>
@@ -397,13 +397,21 @@ Inference
 <h1>CV map</h1>
 <p><img src="images/bl-map-0.01.png" height=700px></p>
 </div>
+<div id="section-18" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Conclusions
+</div>
+</div>
 <div id="conclusion" class="slide section level2">
 <h1>Conclusion</h1>
 <ul>
+<li>Detectability</li>
 <li>Flexible spatial models
 <ul>
 <li>GLMs + random effects + smooths + other extras</li>
 <li>autocorrelation can be modelled</li>
+<li>accounting for uncertainty</li>
 </ul></li>
 <li>Large, heterogeneous areas</li>
 <li>Spatial component is v. helpful for managers</li>
@@ -450,7 +458,7 @@ Inference
 <div id="acknowledgements" class="slide section level2">
 <h1>Acknowledgements</h1>
 <ul>
-<li>St Andrews: Len Thomas, Eric Rexstad, Laura Marshall</li>
+<li>St Andrews: Eric Rexstad, Len Thomas, Laura Marshall</li>
 <li>CSIRO: Mark Bravington, Natalie Kelly</li>
 <li>Alaska: Earl Becker, Becky Strauch, Mike Litzen, Dave Filkill</li>
 </ul>
@@ -479,7 +487,7 @@ Slides available at<br/><a href="http://converged.yt/talks/dsm-talk/talk-Lisbon.
 <li>Wood, SN, MV Bravington, &amp; SL Hedley (2008). Soap film smoothing. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 70(5), 931–955.</li>
 </ul>
 </div>
-<div id="section-18" class="slide section level2">
+<div id="section-19" class="slide section level2">
 <h1></h1>
 <div class="quote">
 Appendices
