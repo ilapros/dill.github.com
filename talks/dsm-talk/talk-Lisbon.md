@@ -3,7 +3,7 @@
 <p align="center"><big>Recent advances in spatial modelling of distance sampling surveys</big><br/><br/>
 David L Miller<br/>CREEM, University of St Andrews<br/><br/>
 Universidade de Lisboa<small><br/>
-Lisboa, Portugal<br/>
+Lisbon, Portugal<br/>
 12 June 2015</small>
 <br/>
 <br/>
@@ -16,7 +16,7 @@ Lisboa, Portugal<br/>
 
 ##
 
-<div class="quote">Ecological questions</div>
+<div class="bigquote">Ecological questions</div>
 
 ##
 
@@ -29,6 +29,25 @@ Lisboa, Portugal<br/>
 ##
 
 <div class="bigquote">Why are they there?</div>
+
+##
+
+<div class="bigquote">Practical question</div>
+
+
+##
+
+<div class="quote">How can we do this?</div>
+
+. . .
+
+<div class="quote"><br/>(Statistical methods)</div>
+
+
+. . .
+
+<div class="quote"><br/><br/>(Software)</div>
+
 
 ##
 
@@ -53,6 +72,9 @@ Lisboa, Portugal<br/>
 
 <small>Hedley and Buckland (2004). Miller et al (2014).</small>
 
+
+
+
 ##
 
 <div class="quote">Detectability</div>
@@ -67,7 +89,7 @@ Lisboa, Portugal<br/>
 ## Detection functions
 
   * Fit to the histogram
-  * Model $\mathbb{P} \left[ \text{animal detected } \vert \text{ object at distance } y\right] = g(y;\boldsymbol{\theta})$
+  * Model $\mathbb{P} \left[ \text{animal detected } \vert \text{ animal at distance } y\right] = g(y;\boldsymbol{\theta})$
   * Calculate the average probability of detection:
 
 $$
@@ -87,9 +109,9 @@ $$
 ![](images/df.png)
 
 
-## Distance sampling
+## Distance sampling (extensions)
 
-  * Extend $\mathbb{P} \left[ \text{animal detected } \vert \text{ object at distance } y, \text{ observed covariates}\right] = g(y, \mathbf{z};\boldsymbol{\theta})$
+  * Extend $\mathbb{P} \left[ \text{animal detected } \vert \text{ animal at distance } y, \text{ observed covariates}\right] = g(y, \mathbf{z};\boldsymbol{\theta})$
   * Perception bias ($g(0)<1$)
   * Availability bias
   * Detection function formulations
@@ -275,8 +297,17 @@ $$
 
 ##
 
-<div class="quote">Model checking</div>
+<div class="quote">Model selection & checking</div>
 
+
+## Model selection
+
+  * All possible subsets - expensive; stepwise - path dependence
+  * Term selection by shrinkage to zero effect (Marra & Wood, 2011)
+  * Approximate $p$-values (Marra and Wood, 2012)
+
+
+<div align="center"><img src="images/somesmooths.png" width=900px></div>
 
 ## Residual checking
 
@@ -418,6 +449,8 @@ Funding from Alaska Department of Fish and Game
 
   * Burt, ML, DL Borchers, KJ Jenkins, & TA Marques (2014). Using mark-recapture distance sampling methods on line transect surveys. Methods in Ecology and Evolution, 5(11), 1180–1191.
   * Dunn, PK, and GK Smyth. Randomized Quantile Residuals. Journal of Computational and Graphical Statistics 5, no. 3 (1996): 236–244.
+  * Marra, G, & Wood, SN (2011). Practical variable selection for generalized additive models. Computational Statistics and Data Analysis, 55(7), 2372–2387.
+  * Marra, G and SN Wood (2012). Coverage properties of confidence intervals for generalized additive model components. Scandinavian Journal of Statistics 39(1), 53–74.
   * Miller, DL, ML Burt, EA Rexstad and L Thomas. Spatial Models for Distance Sampling Data: Recent Developments and Future Directions. Methods in Ecology and Evolution 4, no. 11 (2013): 1001–1010.
   * Miller, DL, & L Thomas (2015). Mixture models for distance sampling detection functions. PLoS ONE.
   * Miller, DL, & SN Wood (2014). Finite area smoothing with generalized distance splines. Environmental and Ecological Statistics, 21(4), 715–731.
