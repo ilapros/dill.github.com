@@ -311,7 +311,11 @@ $$
 
 ## Residual checking
 
-![](images/check.png)
+<div align="center"><img src="images/gamcheck.png" width=700px></div>
+
+## Residual checking
+
+<div align="center"><img src="images/check.png" width=700px></div>
 
 ## Randomised quantile residuals
 
@@ -324,7 +328,7 @@ $$
 
 ## `rqgam.check`
 
-![](images/rqcheck.png)
+<div align="center"><img src="images/rqcheck.png" width=700px></div>
 
 
 ## Concurvity
