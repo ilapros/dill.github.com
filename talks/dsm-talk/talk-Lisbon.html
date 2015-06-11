@@ -147,7 +147,7 @@ Detectability
 <div id="mixture-model-detection-functions" class="slide section level2">
 <h1>Mixture model detection functions</h1>
 <p><img src="images/pilot-nonmono.png"><br/></p>
-<p><small>Data from Bjarni Mikkelsen, Gísli Vikingsson. Marine Research Institute, Iceland.</small></p>
+<p><small>Data from Daniel Pike, Bjarni Mikkelsen and Gísli Vikingsson. Marine Research Institute, Iceland.</small></p>
 </div>
 <div id="mixture-model-detection-functions-1" class="slide section level2">
 <h1>Mixture model detection functions</h1>
@@ -172,21 +172,25 @@ Spatially explicit models
 <div id="two-options-for-response" class="slide section level2">
 <h1>Two options for response</h1>
 <h2>
-<span class="math">\(n_j\)</span> - raw counts per segment
+<span class="math">\(n_j\)</span>
 </h2>
-<p><span class="math">\[
-\mathbb{E}(n_j) = A_j \hat{p}_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
-\]</span></p>
+<ul>
+<li>raw counts per segment</li>
+<li>model offset is <em>effective area</em> (<span class="math">\(A_j \hat{p}_j\)</span>)</li>
+</ul>
 <p> </p>
 <h2>
-<span class="math">\(\hat{n}_j\)</span> - H-T estimate per segment
+<span class="math">\(\hat{n}_j\)</span>
 </h2>
+<ul>
+<li>Horvitz-Thompson estimate per segment</li>
+</ul>
 <p><span class="math">\[
 \hat{n}_j = \sum_{i \text{ in segment } j} \frac{s_i}{\hat{p}_i}
 \]</span></p>
-<p><span class="math">\[
-\mathbb{E}(\hat{n}_j) = A_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
-\]</span></p>
+<ul>
+<li>model offset is then area (<span class="math">\(A_j\)</span>)</li>
+</ul>
 </div>
 <div id="generalized-additive-models-in-two-pages-i" class="slide section level2">
 <h1>Generalized additive models (in two pages) (I)</h1>
@@ -224,7 +228,8 @@ Spatially explicit models
 <ul>
 <li>“Classically”: quasi-Poisson (I’ve not seen data like this)</li>
 <li>Lately: Tweedie, negative binomial</li>
-<li>In <code>mgcv</code> we can now estimate parameters via <code>tw()</code> and <code>nb()</code></li>
+<li>Exponential family <em>given</em> power parameter</li>
+<li>(<code>mgcv</code> can now estimate power parameters via <code>tw()</code> and <code>nb()</code>)</li>
 </ul>
 <div class="figure">
 <img src="images/nbtweedied.png" />
@@ -417,13 +422,11 @@ Inference
 <li>Refit model with “extra” term</li>
 </ul>
 <p><span class="math">\[
-\log\left[ \mathbb{E}(n_j) \right] = \log\left[A_j p_j(\boldsymbol{\hat{\theta}})\right] + \left[\frac{ \partial \log p(\boldsymbol{\theta})}{\partial\boldsymbol{\theta}} \Big\vert_{\boldsymbol{\theta} = \hat{\boldsymbol{\theta}}}\right] \boldsymbol{\gamma} + \beta_0 + \sum_k f_k(z_{jk})
+\log\left[ \mathbb{E}(n_j) \right] = \log\left[A_j p_j(\boldsymbol{\hat{\theta}})\right] + \color{red}{\left[\frac{ \partial \log p(\boldsymbol{\theta})}{\partial\boldsymbol{\theta}} \Big\vert_{\boldsymbol{\theta} = \hat{\boldsymbol{\theta}}}\right] \boldsymbol{\gamma}} + \beta_0 + \sum_k f_k(z_{jk})
 \]</span></p>
-<p>Extra term:</p>
-<p><span class="math">\[
-\left[\frac{ \partial \log p(\boldsymbol{\theta})}{\partial\boldsymbol{\theta}} \Big\vert_{\boldsymbol{\theta} = \hat{\boldsymbol{\theta}}}\right] \boldsymbol{\gamma}
-\]</span></p>
-<p><em>random effect</em> – fix the corresponding variance matrix <span class="math">\(\boldsymbol{\gamma} \sim N(0,-\mathbf{H}^{-1}_\theta)\)</span></p>
+<ul>
+<li><em>random effect</em> – fix the corresponding variance matrix <span class="math">\(\boldsymbol{\gamma} \sim N(0,-\mathbf{H}^{-1}_\theta)\)</span></li>
+</ul>
 <p><small>Williams et al (2011). Bravington, Hedley and Miller (in prep)</small></p>
 </div>
 <div id="cv-map" class="slide section level2">

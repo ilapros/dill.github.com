@@ -122,7 +122,7 @@ $$
 
 <img src="images/pilot-nonmono.png"><br/>
 
-<small>Data from Bjarni Mikkelsen, Gísli Vikingsson. Marine Research Institute, Iceland.</small>
+<small>Data from Daniel Pike, Bjarni Mikkelsen and Gísli Vikingsson. Marine Research Institute, Iceland.</small>
 
 ## Mixture model detection functions
 
@@ -169,24 +169,23 @@ $$
 
 ## Two options for response
 
-<h2>$n_j$ - raw counts per segment</h2>
+<h2>$n_j$</h2>
 
-$$
-\mathbb{E}(n_j) = A_j \hat{p}_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
-$$
+  - raw counts per segment
+  - model offset is *effective area* ($A_j \hat{p}_j$)
 
 
 &nbsp;
 
-<h2>$\hat{n}_j$ - H-T estimate per segment</h2>
+<h2>$\hat{n}_j$</h2>
+
+  - Horvitz-Thompson estimate per segment
 
 $$
 \hat{n}_j = \sum_{i \text{ in segment } j} \frac{s_i}{\hat{p}_i}
 $$
 
-$$
-\mathbb{E}(\hat{n}_j) = A_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
-$$
+  - model offset is then area ($A_j$)
 
 ## Response distributions
 

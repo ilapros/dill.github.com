@@ -126,7 +126,7 @@ $$
 
 <img src="images/pilot-nonmono.png"><br/>
 
-<small>Data from Bjarni Mikkelsen, Gísli Vikingsson. Marine Research Institute, Iceland.</small>
+<small>Data from Daniel Pike, Bjarni Mikkelsen and Gísli Vikingsson. Marine Research Institute, Iceland.</small>
 
 ## Mixture model detection functions
 
@@ -147,24 +147,23 @@ $$
 
 ## Two options for response
 
-<h2>$n_j$ - raw counts per segment</h2>
+<h2>$n_j$</h2>
 
-$$
-\mathbb{E}(n_j) = A_j \hat{p}_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
-$$
+  - raw counts per segment
+  - model offset is *effective area* ($A_j \hat{p}_j$)
 
 
 &nbsp;
 
-<h2>$\hat{n}_j$ - H-T estimate per segment</h2>
+<h2>$\hat{n}_j$</h2>
+
+  - Horvitz-Thompson estimate per segment
 
 $$
 \hat{n}_j = \sum_{i \text{ in segment } j} \frac{s_i}{\hat{p}_i}
 $$
 
-$$
-\mathbb{E}(\hat{n}_j) = A_j \exp \left\{  \beta_0 + \sum_k f_k(z_{jk}) \right\}
-$$
+  - model offset is then area ($A_j$)
 
 ## Generalized additive models (in two pages) (I)
 
@@ -201,7 +200,8 @@ $$
 
   * "Classically": quasi-Poisson (I've not seen data like this)
   * Lately: Tweedie, negative binomial
-  * In `mgcv` we can now estimate parameters via `tw()` and `nb()`
+  * Exponential family *given* power parameter
+  * (`mgcv` can now estimate power parameters via `tw()` and `nb()`)
 
 ![](images/nbtweedied.png)
 
@@ -362,16 +362,10 @@ $$
   * Refit model with "extra" term
 
 $$
-\log\left[ \mathbb{E}(n_j) \right] = \log\left[A_j p_j(\boldsymbol{\hat{\theta}})\right] + \left[\frac{ \partial \log p(\boldsymbol{\theta})}{\partial\boldsymbol{\theta}} \Big\vert_{\boldsymbol{\theta} = \hat{\boldsymbol{\theta}}}\right] \boldsymbol{\gamma} + \beta_0 + \sum_k f_k(z_{jk})
+\log\left[ \mathbb{E}(n_j) \right] = \log\left[A_j p_j(\boldsymbol{\hat{\theta}})\right] + \color{red}{\left[\frac{ \partial \log p(\boldsymbol{\theta})}{\partial\boldsymbol{\theta}} \Big\vert_{\boldsymbol{\theta} = \hat{\boldsymbol{\theta}}}\right] \boldsymbol{\gamma}} + \beta_0 + \sum_k f_k(z_{jk})
 $$
 
-Extra term:
-
-$$
-\left[\frac{ \partial \log p(\boldsymbol{\theta})}{\partial\boldsymbol{\theta}} \Big\vert_{\boldsymbol{\theta} = \hat{\boldsymbol{\theta}}}\right] \boldsymbol{\gamma}
-$$
-
-*random effect* -- fix the corresponding variance matrix $\boldsymbol{\gamma} \sim N(0,-\mathbf{H}^{-1}_\theta)$
+  * *random effect* -- fix the corresponding variance matrix $\boldsymbol{\gamma} \sim N(0,-\mathbf{H}^{-1}_\theta)$
 
 
 <small>Williams et al (2011). Bravington, Hedley and Miller (in prep)</small>
