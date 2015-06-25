@@ -103,7 +103,7 @@ $$
 
 ## Detection functions
 
-![](df.png)
+![](images/df.png)
 
 ## Criteria for detection functions
 
