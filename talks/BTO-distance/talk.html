@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="slidy.css" />
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div class="slide section level2">
+
+<p align="center">
+<big>Distance sampling<br/>and<br/> detection function modelling<br>in <code>Distance</code></big><br/><br/> David L Miller<br/>CREEM, University of St Andrews<br/><br/> British Trust for Ornithology<small><br/> Thetford, UK<br/> 26 June 2015</small> <br/> <br/> <img class="bot" src="images/logo-big.gif" height=160><br/> <img class="bot" src="images/03-foundation-colour.png" height=160>
+</p>
+</div>
+<div id="who-is-this-guy" class="slide section level2">
+<h1>Who is this guy?</h1>
+<ul>
+<li>Statistician by training (St Andrews)</li>
+<li>PhD University of Bath, w. Simon Wood</li>
+<li>Postdoc, University of Rhode Island</li>
+<li>Research fellow at CREEM</li>
+<li>Developer of distance sampling software</li>
+</ul>
+</div>
+<div id="section" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Ecological questions
+</div>
+</div>
+<div id="section-1" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+How many animals are there?
+</div>
+</div>
+<div id="section-2" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Where are all the animals?
+</div>
+</div>
+<div id="section-3" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Why are they there?
+</div>
+</div>
+<div id="section-4" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Distance sampling
+</div>
+</div>
+<div id="line-transect-distance-sampling" class="slide section level2">
+<h1>Line transect distance sampling</h1>
+<div class="figure">
+<img src="images/distance-animation.gif" />
+
+</div>
+</div>
+<div id="point-transect-distance-sampling" class="slide section level2">
+<h1>Point transect distance sampling</h1>
+<p><img src="figure/unnamed-chunk-1-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="detection-functions" class="slide section level2">
+<h1>Detection functions</h1>
+<ul>
+<li>Compute a “correction factor” to estimate abundance</li>
+<li>Model <span class="math">\(\mathbb{P} \left[ \text{animal detected } \vert \text{ object at distance } y\right] = g(y;\boldsymbol{\theta})\)</span></li>
+<li>Calculate the average probability of detection:</li>
+</ul>
+<p><span class="math">\[
+P_a = \int_0^w g(y;\boldsymbol{\theta}) \pi_y(y) \text{d}y
+\]</span></p>
+<p>(where <span class="math">\(\pi_y(y)\)</span> tells you about geometry of the sampler)</p>
+<ul>
+<li>Horvitz-Thompson-type estimators <span class="math">\(\Rightarrow \hat{N}\)</span></li>
+</ul>
+</div>
+<div id="detection-functions-1" class="slide section level2">
+<h1>Detection functions</h1>
+<div class="figure">
+<img src="df.png" />
+
+</div>
+</div>
+<div id="criteria-for-detection-functions" class="slide section level2">
+<h1>Criteria for detection functions</h1>
+<ol style="list-style-type: decimal">
+<li>flexible (<em>wide variety of shapes</em>)</li>
+<li>efficient (<em>few parameters)</em></li>
+<li>flat at 0 distance (<em>detect what’s in front of you)</em></li>
+<li>monotonic non-increasing with increasing <span class="math">\(y\)</span> (<em>not easier to see far away things)</em></li>
+</ol>
+</div>
+<div id="some-example-detection-functions" class="slide section level2">
+<h1>Some example detection functions</h1>
+<div class="figure">
+<img src="images/dfopts.png" />
+
+</div>
+</div>
+<div id="modelling" class="slide section level2">
+<h1>Modelling</h1>
+<ul>
+<li>Detection function is fixed – many shapes</li>
+<li>Estimate parameters by maximum likelihood</li>
+<li>Select number of adjustments by forward-AIC</li>
+<li>Model checking by goodness-of-fit testing</li>
+<li>Can include covariates other than distance</li>
+</ul>
+</div>
+<div id="section-5" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Case study: Amakihi
+</div>
+</div>
+<div id="getting-software" class="slide section level2">
+<h1>Getting software</h1>
+<p>To get the latest versions:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)
+devtools::<span class="kw">install_github</span>(<span class="st">&quot;DistanceDevelopment/Distance&quot;</span>)
+devtools::<span class="kw">install_github</span>(<span class="st">&quot;DistanceDevelopment/mrds&quot;</span>)</code></pre>
+</div>
+<div id="amakihi-hemignathus-virens-survey" class="slide section level2">
+<h1>Amakihi (<em>Hemignathus virens</em>) survey</h1>
+<ul>
+<li>Data from Marques et al (2007), data from Steve Fancy (NPS)</li>
+<li>1485 observations (1243 post-truncation)</li>
+<li>41 point transects, 1992-1995</li>
+</ul>
+<div align="center">
+<img src="images/amakihi.jpg" height=350px>
+</div>
+<p><small>Photo: <a href="https://www.flickr.com/photos/50838842@N06/7123149677">USFWS Flickr</a></small></p>
+</div>
+<div id="amakihi-hemignathus-virens-data" class="slide section level2">
+<h1>Amakihi (<em>Hemignathus virens</em>) data</h1>
+<ul>
+<li>3 covariates:
+<ul>
+<li>observer (a three level factor)</li>
+<li>minutes after sunrise (continuous)</li>
+<li>hours after sunrise (a six level factor).</li>
+</ul></li>
+<li>Data on figshare <a href="http://figshare.com/articles/Amakihi_point_transect_data/1293039"><code>http://figshare.com/articles/Amakihi_point_transect_data/1293039</code></a></li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># read the data from figshare</span>
+amakihi &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;http://files.figshare.com/1870557/amakihi.csv&quot;</span>)
+<span class="kw">head</span>(amakihi)</code></pre>
+<pre><code>##    survey object distance obs mas has observed
+## 1 July 92      1       40 TJS  50   1        1
+## 2 July 92      2       60 TJS  50   1        1
+## 3 July 92      3       45 TJS  50   1        1
+## 4 July 92      4      100 TJS  50   1        1
+## 5 July 92      5      125 TJS  50   1        1
+## 6 July 92      6      120 TJS  50   1        1</code></pre>
+</div>
+<div id="inspecting-the-distane-data" class="slide section level2">
+<h1>Inspecting the distane data</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(amakihi$distance, <span class="dt">main=</span><span class="st">&quot;Histogram of distances&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Distance (m)&quot;</span>)</code></pre>
+<p><img src="figure/unnamed-chunk-4-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="inspecting-the-covariates" class="slide section level2">
+<h1>Inspecting the covariates</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))
+<span class="kw">hist</span>(amakihi$has, <span class="dt">main=</span><span class="st">&quot;Histogram of hours after sunrise&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Hours after sunrise&quot;</span>)
+<span class="kw">hist</span>(amakihi$mas, <span class="dt">main=</span><span class="st">&quot;Histogram of minutes after sunrise&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Minutes after sunrise&quot;</span>)
+<span class="kw">barplot</span>(<span class="kw">table</span>(amakihi$obs), <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Histogram of observer&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Observer&quot;</span>)</code></pre>
+<p><img src="figure/unnamed-chunk-5-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="fitting-some-models" class="slide section level2">
+<h1>Fitting some models</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(Distance)</code></pre>
+<pre><code>## Loading required package: mrds
+## This is mrds 2.1.13
+## Built: R 3.2.0; ; 2015-06-24 16:41:23 UTC; unix</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">am.hn &lt;-<span class="st"> </span><span class="kw">ds</span>(amakihi, <span class="dt">truncation=</span><span class="fl">82.5</span>, <span class="dt">transect=</span><span class="st">&quot;point&quot;</span>)</code></pre>
+<pre><code>## Starting AIC adjustment term selection.
+## Fitting half-normal key function
+## Key only models do not require monotonicity contraints. Not constraining model for monotonicity.
+## AIC= 10833.841
+## Fitting half-normal key function with cosine(2) adjustments
+## AIC= 10820.154
+## Fitting half-normal key function with cosine(2,3) adjustments
+## AIC= 10809.39
+## Fitting half-normal key function with cosine(2,3,4) adjustments
+## AIC= 10799.122
+## Fitting half-normal key function with cosine(2,3,4,5) adjustments
+## AIC= 10799.101
+## No survey area information supplied, only estimating detection function.</code></pre>
+</div>
+<div id="plotting-a-detection-function" class="slide section level2">
+<h1>Plotting a detection function</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(am.hn, <span class="dt">breaks=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="fl">82.5</span>,<span class="dt">len=</span><span class="dv">20</span>))</code></pre>
+<p><img src="figure/unnamed-chunk-7-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="section-6" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Yuck!
+</div>
+</div>
+<div id="model-summaries" class="slide section level2">
+<h1>Model summaries</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(am.hn)</code></pre>
+<pre><code>## 
+## Summary for distance analysis 
+## Number of observations :  1243 
+## Distance range         :  0  -  82.5 
+## 
+## Model : Half-normal key function with cosine adjustment terms of order 2,3,4,5 
+## 
+## Strict monotonicity constraints were enforced.
+## AIC   : 10799.1 
+## 
+## Detection function parameters
+## Scale Coefficients:  
+##             estimate         se
+## (Intercept) 3.567027 0.02196773
+## 
+## Adjustment term parameter(s):  
+##                 estimate         se
+## cos, order 2  0.22318534 0.05009086
+## cos, order 3 -0.15643873 0.04238821
+## cos, order 4  0.13645401 0.04225342
+## cos, order 5 -0.05150686 0.04007988
+## 
+##                         Estimate           SE        CV
+## Average p              0.2816676   0.03745138 0.1329631
+## N in covered region 4413.0033196 596.27949902 0.1351188</code></pre>
+</div>
+<div id="model-checking-truncation" class="slide section level2">
+<h1>Model checking: truncation</h1>
+<ul>
+<li>Here truncate at 82.5m.</li>
+<li>Generally, a trade-off
+<ul>
+<li>don’t want to “waste” data</li>
+<li>truncation can increase <span class="math">\(p\)</span> (less area)</li>
+<li>but will reduce precision (fewer observations)</li>
+</ul></li>
+<li>No hard-and-fast rules</li>
+<li>LJT: <span class="math">\(g(w) \approx 0.15\)</span> “okay”</li>
+</ul>
+</div>
+<div id="model-checking-q-q-plot" class="slide section level2">
+<h1>Model checking: Q-Q plot</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ds.gof</span>(am.hn)</code></pre>
+<p><img src="figure/unnamed-chunk-9-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="model-checking-goodness-of-fit-tests" class="slide section level2">
+<h1>Model checking: goodness-of-fit tests</h1>
+<ul>
+<li>Kolmogorov-Smirnov
+<ul>
+<li>“what’s the largest vertical distance between a point and the y = x line?”</li>
+</ul></li>
+<li>Cramer-von Mises
+<ul>
+<li>“what’s the sum of all the distances between a point and the y = x line?”</li>
+</ul></li>
+</ul>
+<pre><code>Distance sampling Kolmogorov-Smirnov test
+Test statistic =  0.026715  P =  0.33756
+
+Distance sampling Cramer-von Mises test (unweighted)
+Test statistic =  0.10577  P =  0.55731</code></pre>
+</div>
+<div id="model-checking-goodness-of-fit-tests-1" class="slide section level2">
+<h1>Model checking: goodness-of-fit tests</h1>
+<div align="center">
+<img src="images/dolphin-hr-gof-plot-1.png" width=650px>
+</div>
+</div>
+<div id="model-checking-monotonicity" class="slide section level2">
+<h1>Model checking: monotonicity</h1>
+<ul>
+<li>“always more difficult to see things further away”</li>
+<li>maths: <span class="math">\(g(x_i) &gt; g(x_{i+1})\)</span></li>
+<li>check with <code>check.mono</code></li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">check.mono</span>(am.hn$ddf, <span class="dt">plot=</span><span class="ot">TRUE</span>)</code></pre>
+<p><img src="figure/unnamed-chunk-10-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="model-checking-monotonicity-when-bad-things-happen" class="slide section level2">
+<h1>Model checking: monotonicity (when bad things happen)</h1>
+<pre class="sourceCode r"><code class="sourceCode r">am.hn.bad &lt;-<span class="st"> </span><span class="kw">ds</span>(amakihi, <span class="dt">truncation=</span><span class="fl">82.5</span>, <span class="dt">transect=</span><span class="st">&quot;point&quot;</span>,
+                <span class="dt">monotonicity=</span><span class="st">&quot;none&quot;</span>, <span class="dt">order=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))
+mrds::<span class="kw">check.mono</span>(am.hn.bad$ddf, <span class="dt">plot=</span><span class="ot">TRUE</span>)</code></pre>
+<p><img src="figure/unnamed-chunk-12-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="more-models---hazard-rate" class="slide section level2">
+<h1>More models - hazard-rate</h1>
+<pre class="sourceCode r"><code class="sourceCode r">am.hr &lt;-<span class="st"> </span><span class="kw">ds</span>(amakihi, <span class="dt">truncation=</span><span class="fl">82.5</span>, <span class="dt">transect=</span><span class="st">&quot;point&quot;</span>, <span class="dt">key=</span><span class="st">&quot;hr&quot;</span>)</code></pre>
+<pre><code>## Starting AIC adjustment term selection.
+## Fitting hazard-rate key function
+## Key only models do not require monotonicity contraints. Not constraining model for monotonicity.
+## AIC= 10807.556
+## Fitting hazard-rate key function with cosine(2) adjustments
+## AIC= 10809.12
+## 
+## 
+## hazard-rate key function selected!
+## No survey area information supplied, only estimating detection function.</code></pre>
+</div>
+<div id="more-models---hazard-rate-with-covariates" class="slide section level2">
+<h1>More models - hazard-rate with covariates</h1>
+<pre class="sourceCode r"><code class="sourceCode r">am.hr.oh &lt;-<span class="st"> </span><span class="kw">ds</span>(amakihi, <span class="dt">truncation=</span><span class="fl">82.5</span>, <span class="dt">transect=</span><span class="st">&quot;point&quot;</span>,
+               <span class="dt">key=</span><span class="st">&quot;hr&quot;</span>, <span class="dt">formula=</span>~obs+has)</code></pre>
+<pre><code>## Cannot perform AIC adjustment term selection when covariates are used.
+## Fitting hazard-rate key function
+## AIC= 10777.321
+## No survey area information supplied, only estimating detection function.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">am.hr.o &lt;-<span class="st"> </span><span class="kw">ds</span>(amakihi, <span class="dt">truncation=</span><span class="fl">82.5</span>, <span class="dt">transect=</span><span class="st">&quot;point&quot;</span>,
+              <span class="dt">key=</span><span class="st">&quot;hr&quot;</span>, <span class="dt">formula=</span>~obs)</code></pre>
+<pre><code>## Cannot perform AIC adjustment term selection when covariates are used.
+## Fitting hazard-rate key function
+## AIC= 10778.45
+## No survey area information supplied, only estimating detection function.</code></pre>
+</div>
+<div id="hazard-rate-with-covariates-summary" class="slide section level2">
+<h1>Hazard-rate with covariates <code>summary</code></h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(am.hr.oh)</code></pre>
+<pre><code>## 
+## Summary for distance analysis 
+## Number of observations :  1243 
+## Distance range         :  0  -  82.5 
+## 
+## Model : Hazard-rate key function 
+## AIC   : 10777.32 
+## 
+## Detection function parameters
+## Scale Coefficients:  
+##                estimate         se
+## (Intercept)  3.21330485 0.12098538
+## obsTJS       0.51791982 0.09637891
+## obsTKP       0.09446539 0.17554195
+## has         -0.05083283 0.02791237
+## 
+## Shape parameters:  
+##              estimate         se
+## (Intercept) 0.8837793 0.06324849
+## 
+##                         Estimate           SE         CV
+## Average p              0.3183308   0.02013125 0.06324002
+## N in covered region 3904.7429181 264.06817639 0.06762754</code></pre>
+</div>
+<div id="plotting-a-detection-function-1" class="slide section level2">
+<h1>Plotting a detection function</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
+<span class="kw">plot</span>(am.hr, <span class="dt">breaks=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="fl">82.5</span>,<span class="dt">len=</span><span class="dv">20</span>))
+<span class="kw">plot</span>(am.hr.oh, <span class="dt">breaks=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="fl">82.5</span>,<span class="dt">len=</span><span class="dv">20</span>))</code></pre>
+<p><img src="figure/unnamed-chunk-16-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="estimating-abundance" class="slide section level2">
+<h1>Estimating abundance</h1>
+<ul>
+<li>Simple <code>flatfile</code> format</li>
+<li>Duck nest data</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">ducknests &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;http://distancesampling.org/R/vignettes/ducknests.csv&quot;</span>)
+<span class="kw">head</span>(ducknests)</code></pre>
+<pre><code>##      Region.Label Area Sample.Label Effort distance
+## 1 Monte_Vista_NWR    0            1 128.75     0.06
+## 2 Monte_Vista_NWR    0            1 128.75     0.07
+## 3 Monte_Vista_NWR    0            1 128.75     0.04
+## 4 Monte_Vista_NWR    0            1 128.75     0.01
+## 5 Monte_Vista_NWR    0            1 128.75     0.37
+## 6 Monte_Vista_NWR    0            1 128.75     0.36</code></pre>
+</div>
+<div id="duck-nest-abundance" class="slide section level2">
+<h1>Duck nest abundance</h1>
+<p>Horvitz-Thompson-like estimator</p>
+<pre class="sourceCode r"><code class="sourceCode r">halfnorm.ducks &lt;-<span class="st"> </span><span class="kw">ds</span>(ducknests, <span class="dt">key=</span><span class="st">&quot;hn&quot;</span>, <span class="dt">adjustment=</span><span class="st">&quot;cos&quot;</span>,
+                     <span class="dt">convert.units =</span> <span class="fl">0.001</span>)</code></pre>
+<pre><code>## Starting AIC adjustment term selection.
+## Fitting half-normal key function
+## Key only models do not require monotonicity contraints. Not constraining model for monotonicity.
+## AIC= 928.134
+## Fitting half-normal key function with cosine(2) adjustments
+## AIC= 929.872
+## 
+## 
+## half-normal key function selected!</code></pre>
+</div>
+<div id="duck-nest-results" class="slide section level2">
+<h1>Duck nest results</h1>
+<pre class="sourceCode r"><code class="sourceCode r">halfnorm.ducks$dht</code></pre>
+<pre><code>## 
+## Summary statistics:
+##            Region  Area CoveredArea Effort   n  k        ER       se.ER
+## 1 Monte_Vista_NWR 12.36       12.36   2575 534 20 0.2073786 0.007970756
+##        cv.ER
+## 1 0.03843576
+## 
+## Density:
+##   Label Estimate       se         cv     lcl      ucl       df
+## 1 Total 49.69687 2.936725 0.05909276 44.2033 55.87319 99.55688</code></pre>
+</div>
+<div id="horvitz-thompson" class="slide section level2">
+<h1>Horvitz-Thompson</h1>
+<div class="quote">
+<p><span class="math">\[
+\hat{N} = \sum_{i=1}^n \frac{s_i}{\hat{p}_i}
+\]</span></p>
+</div>
+</div>
+<div id="summary" class="slide section level2">
+<h1>Summary</h1>
+<ul>
+<li><code>Distance</code> makes building models easy</li>
+<li>Model checking</li>
+<li>Many models possible (all in AIC framework)</li>
+<li>Estimate abundance</li>
+<li>Examples at <a href="http://distancesampling.org/R">distancesampling.org/R</a></li>
+</ul>
+</div>
+<div id="in-the-works" class="slide section level2">
+<h1>In the works</h1>
+<ul>
+<li>New software <code>Distance2</code></li>
+<li>A “book” <a href="http://converged.yt/RDistanceBook">converged.yt/RDistanceBook</a></li>
+<li><code>readdst</code> to convert Distance for Windows projects</li>
+</ul>
+</div>
+<div id="thanks" class="slide section level2">
+<h1>Thanks!</h1>
+<div class="quote">
+<p>Talk available at:</p>
+<p><a href="http://converged.yt/talks/BTO-distance/talk.html">converged.yt/talks/BTO-distance/talk.html</a></p>
+</div>
+</div>
+<div id="references" class="slide section level2">
+<h1>References</h1>
+<p>Buckland, S. T., Anderson, D. R., Burnham, K. P., Laake, J. L., Borchers, D. L., &amp; Thomas, L. (2001). Introduction to Distance Sampling. Oxford University Press.</p>
+<p>Buckland, S. T., Anderson, D. R., Burnham, K. P., Laake, J. L., Borchers, D. L., &amp; Thomas, L. (2004). Advanced Distance Sampling. Oxford University Press.</p>
+<p>Marques, T. A., Thomas, L., Fancy, S. G., &amp; Buckland, S. T. (2007). Improving estimates of bird density using multiple-covariate distance sampling. The Auk, 124(4).</p>
+<p>Thomas, L., Buckland, S. T., Rexstad, E. A., Laake, J. L., Strindberg, S., Hedley, S. L., et al. (2010). Distance software: design and analysis of distance sampling surveys for estimating population size. Journal of Applied Ecology, 47(1), 5–14.</p>
+</div>
+</body>
+</html>
