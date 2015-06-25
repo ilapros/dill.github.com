@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="slidy.css" />
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div id="section" class="slide section level2">
+<h1></h1>
+<p align="center">
+<big>Spatial modelling of distance sampling surveys</big><br/><br/> David L Miller<br/>CREEM, University of St Andrews<br/><br/> British Trust for Ornithology<small><br/> Thetford, UK<br/> 26 June 2015</small> <br/> <br/> <br/> <br/> <br/> <img class="bot" src="images/logo-big.gif" height=160><br/> <img class="bot" src="images/03-foundation-colour.png" height=160>
+</p>
+</div>
+<div id="section-1" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Ecological questions
+</div>
+</div>
+<div id="section-2" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+How many animals are there?
+</div>
+</div>
+<div id="section-3" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Where are all the animals?
+</div>
+</div>
+<div id="section-4" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Why are they there?
+</div>
+</div>
+<div id="section-5" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Density surface models
+</div>
+<div class="incremental">
+<div class="quote">
+<br/>(Spatial models that account for detectability)
+</div>
+</div>
+<div class="incremental">
+<div class="quote">
+<br/><br/>(…and more)
+</div>
+</div>
+</div>
+<div id="geq-2-stage-models" class="slide section level2 cover">
+<h1><span class="math">\(\geq 2\)</span>-stage models</h1>
+<p><br/> <br/> <br/> <img class="cover" src="images/dsm-flow2.png"></p>
+<p><small>Hedley and Buckland (2004). Miller et al (2014).</small></p>
+</div>
+<div id="section-6" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Spatially explicit models
+</div>
+</div>
+<div id="data-setup" class="slide section level2">
+<h1>Data setup</h1>
+<div align="center">
+<img src="images/dsmproc.png">
+</div>
+<p><small><i>Ursus</i> from <a href="http://phylopic.org/name/9c912370-8905-41f7-b3a3-9fdd99aff88c">PhyloPic</a>.</small></p>
+</div>
+<div id="two-options-for-response" class="slide section level2">
+<h1>Two options for response</h1>
+<h2>
+<span class="math">\(n_j\)</span>
+</h2>
+<ul>
+<li>raw counts per segment</li>
+<li>model offset is <em>effective area</em> (<span class="math">\(A_j \hat{p}_j\)</span>)</li>
+</ul>
+<p> </p>
+<h2>
+<span class="math">\(\hat{n}_j\)</span>
+</h2>
+<ul>
+<li>Horvitz-Thompson estimate per segment</li>
+</ul>
+<p><span class="math">\[
+\hat{n}_j = \sum_{i \text{ in segment } j} \frac{s_i}{\hat{p}_i}
+\]</span></p>
+<ul>
+<li>model offset is then area (<span class="math">\(A_j\)</span>)</li>
+</ul>
+</div>
+<div id="generalized-additive-models-in-two-pages-i" class="slide section level2">
+<h1>Generalized additive models (in two pages) (I)</h1>
+<p>If we are modelling counts:</p>
+<p><span class="math">\[
+\mathbb{E}(\hat{n}_j) = A_j\exp \left\{ \beta_0 + \sum_k f_k(z_{jk}) \right\}
+\]</span></p>
+<ul>
+<li><span class="math">\(\hat{n}_j\)</span> has some count distribution (quasi-Poisson, Tweedie, negative binomial, ziP)</li>
+<li><span class="math">\(A_j\)</span> is area of segment</li>
+<li><span class="math">\(f_k\)</span> are <em>smooth</em> functions (splines <span class="math">\(\Rightarrow f_k(x)=\sum_l \beta_l b_l(x)\)</span>)</li>
+<li><span class="math">\(f_k\)</span> can just be fixed effects <span class="math">\(\Rightarrow\)</span> GLM</li>
+<li>Add-in random effects, correlation structures <span class="math">\(\Rightarrow\)</span> GAMM</li>
+<li>Wood (2006) is a good intro book</li>
+</ul>
+</div>
+<div id="generalized-additive-models-in-two-pages-ii" class="slide section level2">
+<h1>Generalized additive models (in two pages) (II)</h1>
+<div align="center">
+<img src="images/splines.png" width=800px>
+</div>
+<p>Minimise distance between data and model <em>while minimizing</em>:</p>
+<p><span class="math">\[
+\lambda_k \int_\Omega \frac{\partial^2 f_k(z_k)}{\partial z_k^2} \text{ d}z_k
+\]</span></p>
+<div align="center">
+<h2>
+“just wiggly enough”
+</h2>
+</div>
+<p><small>Fitting via REML, see Wood (2011).</small></p>
+</div>
+<div id="response-distributions" class="slide section level2">
+<h1>Response distributions</h1>
+<ul>
+<li>“Classically”: quasi-Poisson (I’ve not seen data like this)</li>
+<li>Lately: Tweedie, negative binomial</li>
+<li>Exponential family <em>given</em> power parameter</li>
+<li>(<code>mgcv</code> can now estimate power parameters via <code>tw()</code> and <code>nb()</code>)</li>
+</ul>
+<div class="figure">
+<img src="images/nbtweedied.png" />
+
+</div>
+</div>
+<div id="model-selection" class="slide section level2">
+<h1>Model selection</h1>
+<ul>
+<li>All possible subsets - expensive; stepwise - path dependence</li>
+<li>Term selection by shrinkage to zero effect (Marra &amp; Wood, 2011)</li>
+<li>Approximate <span class="math">\(p\)</span>-values (Marra and Wood, 2012)</li>
+</ul>
+<div align="center">
+<img src="images/somesmooths.png" width=900px>
+</div>
+</div>
+<div id="section-7" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Software:<br/><code>dsm</code> package
+</div>
+</div>
+<div id="the-dsm-package" class="slide section level2">
+<h1>The <code>dsm</code> package</h1>
+<ul>
+<li>Design “inspired by” (“stolen from”) <code>mgcv</code></li>
+<li>Easy to build simple models, possible to build complex ones</li>
+<li>Utility functions: variance estimation, plotting, prediction etc</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(devtools)
+<span class="co"># get the latest version</span>
+devtools::<span class="kw">install_github</span>(<span class="st">&quot;DistanceDevelopment/dsm&quot;</span>)</code></pre>
+</div>
+<div id="dsm-syntax" class="slide section level2">
+<h1><code>dsm</code> syntax</h1>
+<ul>
+<li><p>Syntax example:</p>
+<pre><code>model &lt;- dsm(count ~ s(x,k=10) + s(depth,k=6),
+             detection_function,
+             segment_data,
+             observation_data,
+             family=tw())</code></pre></li>
+</ul>
+</div>
+<div id="section-8" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Case study:<br/>Rhode Island seabirds
+</div>
+</div>
+<div id="ri-seabirds" class="slide section level2">
+<h1>RI seabirds</h1>
+<ul>
+<li>Aerial survey</li>
+<li>2 years of effort</li>
+<li>Transects off RI coast, nr Block Island, Long Island sound</li>
+<li><strong>binned</strong> distances – 3 bins</li>
+</ul>
+</div>
+<div id="ri-transects" class="slide section level2">
+<h1>RI transects</h1>
+<div align="center">
+<img src="images/ri-transects.png" width=700px>
+</div>
+</div>
+<div id="ri-seabirds---aims" class="slide section level2">
+<h1>RI seabirds - Aims</h1>
+<ul>
+<li>Wind development in RI/MA waters</li>
+<li>Map of usage</li>
+<li>Estimate uncertainty</li>
+<li>Combine maps (Zonation)</li>
+</ul>
+<div align="center">
+<img src="images/loon.jpg" width=580px>
+</div>
+<p><small>Photo by <a href="http://www.flickr.com/photos/jackanapes/44534740/in/photolist-4WfCm-5fGWY-5kcwt-gYsVe-gYsVf-rfrFy-wk8SY-Bbkf9-CJGoH-JAwGP-WnzZb-2KrNkj-3YEz3W-49jRDt-49jSgD-49jThH-4eYB5g-4f3AbJ-4iejaL-4iejgf-4nFVgg-4rqKb8-4znidm-4BSyxi-4BWPZw-4Dtb18-4DxqB5-4DxqMY-4EBCuB-4EGy24-4EGy8F-4ELPWu-4KM4T1-5byKfc-5dK7xM-5BmTVz-5GpYcr-5GpZw2-5MEqxV-5Pkq76-76qvBB-76qvNH-76uqKf-7qJ5CU-7v8iXi-7vngHz-dTvFyn-dN222q-dN1Nuj-8oFmQZ-8oFmXD/">jackanapes on flickr</a> (<a href="http://creativecommons.org/licenses/by-nc-nd/2.0/deed.en_GB">CC BY-NC-ND</a>)</small></p>
+</div>
+<div id="load-the-data" class="slide section level2">
+<h1>Load the data</h1>
+<p>See also <a href="http://github.com/dill/MEPS-analysis">github.com/dill/MEPS-analysis</a></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;http://converged.yt/talks/BTO-dsm/loon-data.RData&quot;</span>))</code></pre>
+</div>
+<div id="segment-data" class="slide section level2">
+<h1>Segment data</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(seg)</code></pre>
+<pre><code>##     Sample.Label SeasonYear       Date Surveyed. Wind.speed Wind.direction
+## 1 101-10/12/2010 Winter1011 10/12/2010       Yes         &lt;5              N
+## 3 101-09/12/2011 Winter1112 09/12/2011       Yes      10-15             SW
+## 4 101-28/01/2012 Winter1112 28/01/2012       Yes       5-10             SW
+## 5 102-10/12/2010 Winter1011 10/12/2010       Yes         &lt;5              N
+## 7 102-28/01/2012 Winter1112 28/01/2012       Yes       5-10             SW
+## 8 102-09/12/2011 Winter1112 09/12/2011       Yes      10-15             SW
+##         Weather Visibility Waveheight Whitecaps Observer_Left
+## 1 Partly Cloudy         &gt;5         &lt;1   Minimal            KW
+## 3 Partly Cloudy         &gt;5        2-3   Minimal            KW
+## 4         Sunny         &gt;5        1-2   Minimal            KW
+## 5 Partly Cloudy         &gt;5         &lt;1   Minimal            KW
+## 7         Sunny         &gt;5        1-2   Minimal            KW
+## 8 Partly Cloudy         &gt;5        2-3   Minimal            KW
+##   Observer_Right Onsurvey_Left Onsurvey_Right Glare_Left Glare_Right
+## 1             JV           Yes            Yes   Moderate        None
+## 3             EJ           Yes            Yes       None     Minimal
+## 4             EJ           Yes            Yes       None        None
+## 5             JV           Yes            Yes   Moderate        None
+## 7             EJ           Yes            Yes       None        None
+## 8             EJ           Yes            Yes       None     Minimal
+##   Observerconditions_Left Observerconditions_Right Comments Season Year
+## 1                    Good                Excellent          Winter 2010
+## 3                    Good                     Good          Winter 2011
+## 4               Excellent                Excellent          Winter 2012
+## 5                    Good                Excellent          Winter 2010
+## 7               Excellent                Excellent          Winter 2012
+## 8                    Good                     Good          Winter 2011
+##       gchl eff.sides        tx       ty        bx        by         x
+## 1 3.568708         1 -44.23136 14.42102 -44.09166 12.153487 -44.16151
+## 3 5.528956         1 -44.23136 14.42102 -44.09166 12.153487 -44.16151
+## 4 5.528956         1 -44.23136 14.42102 -44.09166 12.153487 -44.16151
+## 5 3.179644         1 -44.09166 12.15349 -43.95196  9.885946 -44.02181
+## 7 4.356627         1 -44.09166 12.15349 -43.95196  9.885946 -44.02181
+## 8 4.356627         1 -44.09166 12.15349 -43.95196  9.885946 -44.02181
+##          y   Effort     depth    depthm    slope roughness phimedian
+## 1 13.28725 2269.998  -66.9324 -20.83643 1.131463  1.352299  1.057448
+## 3 13.28725 2269.998  -66.9324 -20.83643 1.131463  1.352299  1.057448
+## 4 13.28725 2269.998  -66.9324 -20.83643 1.131463  1.352299  1.057448
+## 5 11.01972 2269.998 -129.5995 -39.91604 0.651089  0.522652  1.872487
+## 7 11.01972 2269.998 -129.5995 -39.91604 0.651089  0.522652  1.872487
+## 8 11.01972 2269.998 -129.5995 -39.91604 0.651089  0.522652  1.872487
+##   distancelandkm gchl_winter gchl_spring gchl_summer gchl_fall      fcpi
+## 1       1.755095    4.441985    8.242430   15.327192  6.308177 0.5833333
+## 3       1.755095    4.441985    8.242430   15.327192  6.308177 0.5833333
+## 4       1.755095    4.441985    8.242430   15.327192  6.308177 0.5833333
+## 5       3.875946    3.721898    6.793428    7.609529  5.299252 0.4666667
+## 7       3.875946    3.721898    6.793428    7.609529  5.299252 0.4666667
+## 8       3.875946    3.721898    6.793428    7.609529  5.299252 0.4666667
+##   gchl_long Transect.Label
+## 1  8.449691              1
+## 3  8.449691              1
+## 4  8.449691              1
+## 5  6.066381              1
+## 7  6.066381              1
+## 8  6.066381              1</code></pre>
+</div>
+<div id="observation-data" class="slide section level2">
+<h1>Observation data</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(obs.loons)</code></pre>
+<pre><code>##           Date     Time Species Group Location Bin Observer Length size
+## 106 17/02/2011 18991230    COLO  Loon On Water   A       JV   7448    1
+## 301 28/01/2012 18991230    COLO  Loon On Water   A    Ellen   7448    1
+## 446 23/02/2011 18991230    COLO  Loon On Water   A       KW   7448    1
+## 457 07/02/2011 18991230    COLO  Loon On Water   A       KW   7448    1
+## 814 23/02/2011 18991230    COLO  Loon On Water   B       JV   7448    1
+## 830 09/01/2012 18991230    COLO  Loon On Water   A       KW   7448    1
+##     object          x         y distbegin distend distance Season Year
+## 106    106 -17.525139 -33.33390        44     163      119 Winter 2011
+## 301    301 -10.015215 -27.73880        44     163      119 Winter 2012
+## 446    446  -3.793853 -25.40426        44     163      119 Winter 2011
+## 457    457 -10.447177 -25.32420        44     163      119 Winter 2011
+## 814    814 -14.415200 -21.22522       164     432      268 Winter 2011
+## 830    830  27.030791 -21.05565        44     163      119 Winter 2012
+##     SeasonYear Transect.Label    Sample.Label
+## 106 Winter1011              8  819-17/02/2011
+## 301 Winter1112             10 1022-28/01/2012
+## 446 Winter1011             12 1222-23/02/2011
+## 457 Winter1011             10 1021-07/02/2011
+## 814 Winter1011              9  919-23/02/2011
+## 830 Winter1112             21 2122-09/01/2012</code></pre>
+</div>
+<div id="fit-a-detection-function" class="slide section level2">
+<h1>Fit a detection function</h1>
+<ul>
+<li>Hazard-rate with group size as a covariate</li>
+<li>More on this in Winiarski et al (2013)</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(Distance)</code></pre>
+<pre><code>## Loading required package: mrds
+## This is mrds 2.1.13
+## Built: R 3.2.0; ; 2015-06-24 16:41:23 UTC; unix</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">hr.df.size &lt;-<span class="st"> </span><span class="kw">ds</span>(obs.loons, <span class="dt">formula=</span>~size, <span class="dt">key=</span><span class="st">&quot;hr&quot;</span>,
+                 <span class="dt">truncation=</span><span class="kw">list</span>(<span class="dt">right=</span><span class="dv">1000</span>, <span class="dt">left=</span><span class="dv">44</span>))</code></pre>
+<pre><code>## Columns &quot;distbegin&quot; and &quot;distend&quot; in data: performing a binned analysis...
+## Cannot perform AIC adjustment term selection when covariates are used.
+## Fitting hazard-rate key function
+## AIC= 1580.124
+## No survey area information supplied, only estimating detection function.</code></pre>
+</div>
+<div id="fitted-detection-function" class="slide section level2">
+<h1>Fitted detection function</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(hr.df.size)</code></pre>
+<p><img src="figure/unnamed-chunk-6-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="plotting-observations" class="slide section level2">
+<h1>Plotting observations</h1>
+<p><img src="figure/unnamed-chunk-7-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="plotting-observations-per-season-year" class="slide section level2">
+<h1>Plotting observations per season-year</h1>
+<p><img src="figure/unnamed-chunk-8-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="spatial-covariates---chlorophyll" class="slide section level2">
+<h1>Spatial covariates - Chlorophyll</h1>
+<p><img src="figure/unnamed-chunk-9-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="spatial-covariates---depth" class="slide section level2">
+<h1>Spatial covariates - Depth</h1>
+<p><img src="figure/unnamed-chunk-10-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="spatial-model" class="slide section level2">
+<h1>Spatial model</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dsm)</code></pre>
+<pre><code>## Loading required package: mgcv
+## Loading required package: nlme
+## This is mgcv 1.8-6. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.
+## This is dsm 2.2.8
+## Built: R 3.2.0; ; 2015-06-25 13:24:11 UTC; unix</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">loon.model.hr &lt;-<span class="st"> </span><span class="kw">dsm</span>(Nhat~<span class="kw">s</span>(gchl_long, <span class="dt">k=</span><span class="dv">10</span>)+
+<span class="st">                          </span><span class="kw">s</span>(depthm, <span class="dt">k=</span><span class="dv">10</span>)+
+<span class="st">                          </span><span class="kw">s</span>(y, <span class="dt">k=</span><span class="dv">10</span>),
+                     hr.df.size, seg, obs.loons,
+                     <span class="dt">family=</span><span class="kw">nb</span>(), <span class="dt">availability=</span><span class="fl">0.7</span>,
+                     <span class="dt">method=</span><span class="st">&quot;REML&quot;</span>)</code></pre>
+</div>
+<div id="dsm-summary" class="slide section level2">
+<h1><code>dsm</code> summary</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(loon.model.hr)</code></pre>
+<pre><code>## 
+## Family: Negative Binomial(0.105) 
+## Link function: log 
+## 
+## Formula:
+## Nhat ~ s(gchl_long, k = 10) + s(depthm, k = 10) + s(y, k = 10) + 
+##     offset(off.set)
+## 
+## Parametric coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -14.62165    0.07504  -194.9   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Approximate significance of smooth terms:
+##                edf Ref.df Chi.sq  p-value    
+## s(gchl_long) 4.347  5.357  68.39 6.51e-13 ***
+## s(depthm)    4.111  5.160  28.08 4.41e-05 ***
+## s(y)         4.125  5.147  42.56 6.20e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## R-sq.(adj) =  0.077   Deviance explained = 29.7%
+## -REML = 3183.2  Scale est. = 1         n = 2067</code></pre>
+</div>
+<div id="plotting-smooth-terms" class="slide section level2">
+<h1>Plotting smooth terms</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(loon.model.hr, <span class="dt">pages=</span><span class="dv">1</span>)</code></pre>
+<p><img src="figure/unnamed-chunk-13-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="section-9" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Model checking
+</div>
+</div>
+<div id="residual-checking" class="slide section level2">
+<h1>Residual checking</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gam.check</span>(loon.model.hr)</code></pre>
+<p><img src="figure/unnamed-chunk-14-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="randomised-quantile-residuals" class="slide section level2">
+<h1>Randomised quantile residuals</h1>
+<ul>
+<li>Count data is nasty for goodness of fit</li>
+<li>Dunn &amp; Smyth (1996)</li>
+<li>Back transform for <strong>exactly</strong> Normal residuals</li>
+<li>Fewer problems with artefacts</li>
+<li><code>dsm::rqgam.check</code></li>
+<li>(Thanks to Natalie Kelly at CSIRO for the tip)</li>
+</ul>
+</div>
+<div id="rqgam.check" class="slide section level2">
+<h1><code>rqgam.check</code></h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rqgam.check</span>(loon.model.hr)</code></pre>
+<p><img src="figure/unnamed-chunk-15-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="section-10" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Inference
+</div>
+</div>
+<div id="prediction-grid" class="slide section level2">
+<h1>Prediction grid</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(pred)</code></pre>
+<pre><code>##   OBJECTID_1 Join_Cou_1 TARGET_F_1 LONGITUDE LATITUDE roughness phimedian
+## 0          1          1          0 -71.68000 40.92203  0.082416  2.223548
+## 1          2          1          1 -71.65626 40.92207  0.050347  2.340658
+## 2          3          1          2 -71.63251 40.92209  0.056074  2.440206
+## 3          4          1          3 -71.60877 40.92212  0.042995  2.498072
+## 4          5          1          4 -71.58502 40.92214  0.036595  2.540494
+## 5          6          1          5 -71.56128 40.92215  0.038354  2.552859
+##   latitude_2 longitude1         x         y distancelandkm cellaream
+## 0     40.925   -71.6750 -28.56647 -27.57289       71.51344     4e+06
+## 1     40.925   -71.6625 -26.57151 -27.56911       76.54190     4e+06
+## 2     40.925   -71.6375 -24.57647 -27.56578       81.77255     4e+06
+## 3     40.925   -71.6125 -22.58151 -27.56300       81.74481     4e+06
+## 4     40.925   -71.5875 -20.58648 -27.56077       81.65078     4e+06
+## 5     40.925   -71.5625 -18.59145 -27.55911       82.07670     4e+06
+##   chl_fall chl_winter chl_spring chl_summer gchl_winter gchl_spring
+## 0 2.449310   2.251554   2.457058   1.263831    2.098199    2.337756
+## 1 2.456197   2.339274   2.354573   1.281547    2.182396    2.233763
+## 2 2.149591   2.934982   2.307914   1.075004    2.540287    2.192996
+## 3 2.136389   2.824368   2.576211   0.887268    2.430343    2.412229
+## 4 1.814823   2.608232   2.541746   0.872087    2.357794    2.397891
+## 5 2.518508   2.439878   2.220565   0.851456    2.329046    2.083287
+##   gchl_summer gchl_fall    depthm     depth    slope       fcpi gchl_long
+## 0   1.1652222  2.275435 -50.41504 -165.4037 0.127724 0.03333333  1.647738
+## 1   1.1777266  2.264136 -50.42341 -165.4311 0.033266 0.03333333  1.607348
+## 2   1.0211105  2.099305 -51.29684 -168.2967 0.058634 0.01666667  1.542477
+## 3   0.8770048  2.075592 -52.78529 -173.1801 0.020804 0.04166667  1.569906
+## 4   0.8577625  1.777506 -53.22737 -174.6305 0.067070 0.02500000  1.548057
+## 5   0.8364021  2.257372 -54.21326 -177.8650 0.061565 0.02500000  1.458858
+##   width height
+## 0     2      2
+## 1     2      2
+## 2     2      2
+## 3     2      2
+## 4     2      2
+## 5     2      2</code></pre>
+</div>
+<div id="estimating-abundance" class="slide section level2">
+<h1>Estimating abundance</h1>
+<ul>
+<li>Need to specify
+<ul>
+<li>area of prediction cells</li>
+<li>all covariates used in analysis</li>
+</ul></li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">predict</span>(loon.model.hr, <span class="dt">newdata=</span>pred, <span class="dt">off.set=</span>pred$cellaream))</code></pre>
+<pre><code>## [1] 5844.445</code></pre>
+</div>
+<div id="mapping-abundance" class="slide section level2">
+<h1>Mapping abundance</h1>
+<p><img src="figure/unnamed-chunk-18-1.png" title="" alt="" style="display: block; margin: auto;" /></p>
+</div>
+<div id="estimating-uncertainty" class="slide section level2">
+<h1>Estimating uncertainty</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(<span class="kw">dsm.var.gam</span>(loon.model.hr, pred, <span class="dt">off.set=</span>pred$cellaream))</code></pre>
+<pre><code>## Summary of uncertainty in a density surface model calculated
+##  analytically for GAM, with delta method
+## 
+## Approximate asymptotic confidence interval:
+##       5%     Mean      95% 
+## 4419.042 5844.445 7729.626 
+## (Using delta method)
+## 
+## Point estimate                 : 5844.445 
+## Standard error                 : 809.3481 
+## CV of detection function       : 0.03710214 
+## CV from GAM                    : 0.1384816 
+## Total coefficient of variation : 0.1434</code></pre>
+</div>
+<div id="mapping-uncertainty" class="slide section level2">
+<h1>Mapping uncertainty</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">dsm.var.gam</span>(loon.model.hr, <span class="kw">split</span>(pred, <span class="dv">1</span>:<span class="kw">nrow</span>(pred)),
+                 <span class="dt">off.set=</span>pred$cellaream),
+                 <span class="dt">observations=</span><span class="ot">FALSE</span>,
+                 <span class="dt">gg.grad=</span><span class="kw">scale_fill_gradient</span>())</code></pre>
+<p><img src="figure/unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" style="display: block; margin: auto;" /></p>
+</div>
+<div id="section-11" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Conclusions
+</div>
+</div>
+<div id="conclusion" class="slide section level2">
+<h1>Conclusion</h1>
+<ul>
+<li>Detectability</li>
+<li>Flexible spatial models
+<ul>
+<li>GLMs + random effects + smooths + other extras</li>
+<li>autocorrelation can be modelled</li>
+<li>accounting for uncertainty</li>
+</ul></li>
+<li>Large, heterogeneous areas</li>
+<li>Spatial component is v. helpful for managers</li>
+<li>Two-stage models can be useful!</li>
+</ul>
+</div>
+<div id="acknowledgements" class="slide section level2">
+<h1>Acknowledgements</h1>
+<ul>
+<li>St Andrews: Eric Rexstad, Len Thomas, Laura Marshall</li>
+<li>CSIRO: Mark Bravington, Natalie Kelly</li>
+<li>Rhode Island: Kris Winiarski, Peter Paton, Scott McWilliams</li>
+</ul>
+<p>Funding from Rhode Island Department of Natural Resources.</p>
+<img src="images/kris.jpg" width=350px>
+</div>
+</div>
+<div id="thanks" class="slide section level2">
+<h1>Thanks!</h1>
+<div class="quote">
+Slides available at<br/><a href="http://converged.yt/talks/BTO-dsm/talk.html" class="uri">http://converged.yt/talks/BTO-dsm/talk.html</a>
+</div>
+</div>
+<div id="references" class="slide section level2">
+<h1>References</h1>
+<ul>
+<li>Dunn, PK, and GK Smyth. Randomized Quantile Residuals. Journal of Computational and Graphical Statistics 5, no. 3 (1996): 236–244.</li>
+<li>Marra, G, &amp; Wood, SN (2011). Practical variable selection for generalized additive models. Computational Statistics and Data Analysis, 55(7), 2372–2387.</li>
+<li>Marra, G and SN Wood (2012). Coverage properties of confidence intervals for generalized additive model components. Scandinavian Journal of Statistics 39(1), 53–74.</li>
+<li>Miller, DL, ML Burt, EA Rexstad and L Thomas. Spatial Models for Distance Sampling Data: Recent Developments and Future Directions. Methods in Ecology and Evolution 4, no. 11 (2013): 1001–1010.</li>
+<li>Williams, R, SL Hedley, TA Branch, MV Bravington, AN Zerbini, &amp; KP Findlay (2011). Chilean Blue Whales as a Case Study to Illustrate Methods to Estimate Abundance and Evaluate Conservation Status of Rare Species. Conservation Biology, 25(3), 526–535.</li>
+<li>Winiarski, KJ, ML Burt, Eric Rexstad, DL Miller, CL Trocki, PWC Paton, and SR McWilliams. Integrating Aerial and Ship Surveys of Marine Birds Into a Combined Density Surface Model: a Case Study of Wintering Common Loons. The Condor 116, no. 2 (2014): 149–161.</li>
+<li>Winiarski, KJ, DL Miller, PWC Paton, and SR McWilliams. A Spatial Conservation Prioritization Approach for Protecting Marine Birds Given Proposed Offshore Wind Energy Development. Biological Conservation 169 (2014): 79–88.</li>
+<li>Wood, SN, MV Bravington, &amp; SL Hedley (2008). Soap film smoothing. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 70(5), 931–955.</li>
+</ul>
+</div>
+<div id="section-12" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Appendices
+</div>
+</div>
+<div id="appendix---reml" class="slide section level2">
+<h1>Appendix - REML</h1>
+<div class="figure">
+<img src="images/gcvreml.png" />
+
+</div>
+</div>
+<div id="appendix---smoothing-in-less-awkward-regions" class="slide section level2">
+<h1>Appendix - Smoothing in less awkward regions</h1>
+<p><img src="images/duchonexample.png" width=900px></p>
+<ul>
+<li>“Remove” troublesome parts of the thin plate spline</li>
+<li>Do this <strong>carefully</strong> (Fourier transform)</li>
+<li>Nullspace (plane) terms replaced w. low freq</li>
+</ul>
+<p><small>Miller and Kelly (in prep)</small></p>
+</div>
+<div id="appendix---concurvity" class="slide section level2">
+<h1>Appendix - Concurvity</h1>
+<p><span class="math">\[
+\text{Altitude} = f(x,y) + \epsilon \quad \text{or} \quad \text{Chlorophyll A} = f(\text{SST}) + \epsilon
+\]</span></p>
+<ul>
+<li>Not just correlation!</li>
+<li><code>mgcv::concurvity()</code> computes measures for fitted models</li>
+</ul>
+</div>
+<div id="autocorrelation" class="slide section level2">
+<h1>Autocorrelation</h1>
+<ul>
+<li>Can use GEE/GAMM structure for autocorrelation along transects</li>
+<li><span class="math">\(\text{AR}(p)\)</span> process (“obvious” structure)</li>
+<li>In general this is unstable
+<ul>
+<li>Random effects are sparse</li>
+<li>Splines are “dense”</li>
+<li><span class="math">\(\Rightarrow\)</span> bad for optimisation</li>
+</ul></li>
+</ul>
+<div align="center">
+<img src="images/seg-tr.png" width=900px>
+</div>
+</div>
+</body>
+</html>

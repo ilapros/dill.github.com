@@ -1,0 +1,505 @@
+##
+
+<p align="center"><big>Spatial modelling of distance sampling surveys</big><br/><br/>
+David L Miller<br/>CREEM, University of St Andrews<br/><br/>
+British Trust for Ornithology<small><br/>
+Thetford, UK<br/>
+26 June 2015</small>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<img class="bot" src="images/logo-big.gif" height=160><br/>
+<img class="bot" src="images/03-foundation-colour.png" height=160></p>
+
+
+```{r knitr-setup, include=FALSE}
+knitr::opts_chunk$set(fig.align="center", cache=TRUE)
+```
+
+##
+
+<div class="bigquote">Ecological questions</div>
+
+##
+
+<div class="bigquote">How many animals are there?</div>
+
+##
+
+<div class="bigquote">Where are all the animals?</div>
+
+##
+
+<div class="bigquote">Why are they there?</div>
+
+##
+
+<div class="quote">Density surface models</div>
+
+. . .
+
+<div class="quote"><br/>(Spatial models that account for detectability)</div>
+
+
+. . .
+
+<div class="quote"><br/><br/>(...and more)</div>
+
+
+## $\geq 2$-stage models {.cover}
+
+<br/>
+<br/>
+<br/>
+<img class="cover" src="images/dsm-flow2.png">
+
+<small>Hedley and Buckland (2004). Miller et al (2014).</small>
+
+
+##
+
+<div class="quote">Spatially explicit models</div>
+
+## Data setup
+
+<div align="center"><img src="images/dsmproc.png"></div>
+
+<small><i>Ursus</i> from <a href="http://phylopic.org/name/9c912370-8905-41f7-b3a3-9fdd99aff88c">PhyloPic</a>.</small>
+
+## Two options for response
+
+<h2>$n_j$</h2>
+
+  - raw counts per segment
+  - model offset is *effective area* ($A_j \hat{p}_j$)
+
+
+&nbsp;
+
+<h2>$\hat{n}_j$</h2>
+
+  - Horvitz-Thompson estimate per segment
+
+$$
+\hat{n}_j = \sum_{i \text{ in segment } j} \frac{s_i}{\hat{p}_i}
+$$
+
+  - model offset is then area ($A_j$)
+
+## Generalized additive models (in two pages) (I)
+
+If we are modelling counts:
+
+$$
+\mathbb{E}(\hat{n}_j) = A_j\exp \left\{ \beta_0 + \sum_k f_k(z_{jk}) \right\}
+$$
+
+  * $\hat{n}_j$ has some count distribution (quasi-Poisson, Tweedie, negative binomial, ziP)
+  * $A_j$ is area of segment
+  * $f_k$ are *smooth* functions (splines $\Rightarrow f_k(x)=\sum_l \beta_l b_l(x)$)
+  * $f_k$ can just be fixed effects $\Rightarrow$ GLM
+  * Add-in random effects, correlation structures $\Rightarrow$ GAMM
+  * Wood (2006) is a good intro book
+
+
+## Generalized additive models (in two pages) (II)
+
+<div align="center"><img src="images/splines.png" width=800px></div>
+
+Minimise distance between data and model *while minimizing*:
+
+$$
+\lambda_k \int_\Omega \frac{\partial^2 f_k(z_k)}{\partial z_k^2} \text{ d}z_k
+$$
+
+<div align="center"><h2>"just wiggly enough"</h2></div>
+
+<small>Fitting via REML, see Wood (2011).</small>
+
+
+## Response distributions
+
+  * "Classically": quasi-Poisson (I've not seen data like this)
+  * Lately: Tweedie, negative binomial
+  * Exponential family *given* power parameter
+  * (`mgcv` can now estimate power parameters via `tw()` and `nb()`)
+
+![](images/nbtweedied.png)
+
+
+## Model selection
+
+  * All possible subsets - expensive; stepwise - path dependence
+  * Term selection by shrinkage to zero effect (Marra & Wood, 2011)
+  * Approximate $p$-values (Marra and Wood, 2012)
+
+
+<div align="center"><img src="images/somesmooths.png" width=900px></div>
+
+##
+
+<div class="quote">Software:<br/>`dsm` package</div>
+
+
+## The `dsm` package
+
+  * Design "inspired by" ("stolen from") `mgcv`
+  * Easy to build simple models, possible to build complex ones
+  * Utility functions: variance estimation, plotting, prediction etc
+
+```{r eval=FALSE}
+install.packages(devtools)
+# get the latest version
+devtools::install_github("DistanceDevelopment/dsm")
+```
+
+
+## `dsm` syntax
+
+  * Syntax example:
+
+        model <- dsm(count ~ s(x,k=10) + s(depth,k=6),
+                     detection_function,
+                     segment_data,
+                     observation_data,
+                     family=tw())
+
+
+##
+
+<div class="quote">Case study:<br/>Rhode Island seabirds</div>
+
+## RI seabirds
+
+  * Aerial survey
+  * 2 years of effort
+  * Transects off RI coast, nr Block Island, Long Island sound
+  * **binned** distances -- 3 bins
+
+## RI transects
+
+<div align="center"><img src="images/ri-transects.png" width=700px></div>
+
+## RI seabirds - Aims
+
+  * Wind development in RI/MA waters
+  * Map of usage
+  * Estimate uncertainty
+  * Combine maps (Zonation)
+
+<div align="center"><img src="images/loon.jpg" width=580px></div>
+
+<small>Photo by <a href="http://www.flickr.com/photos/jackanapes/44534740/in/photolist-4WfCm-5fGWY-5kcwt-gYsVe-gYsVf-rfrFy-wk8SY-Bbkf9-CJGoH-JAwGP-WnzZb-2KrNkj-3YEz3W-49jRDt-49jSgD-49jThH-4eYB5g-4f3AbJ-4iejaL-4iejgf-4nFVgg-4rqKb8-4znidm-4BSyxi-4BWPZw-4Dtb18-4DxqB5-4DxqMY-4EBCuB-4EGy24-4EGy8F-4ELPWu-4KM4T1-5byKfc-5dK7xM-5BmTVz-5GpYcr-5GpZw2-5MEqxV-5Pkq76-76qvBB-76qvNH-76uqKf-7qJ5CU-7v8iXi-7vngHz-dTvFyn-dN222q-dN1Nuj-8oFmQZ-8oFmXD/">jackanapes on flickr</a> (<a href="http://creativecommons.org/licenses/by-nc-nd/2.0/deed.en_GB">CC BY-NC-ND</a>)</small>
+
+
+## Load the data
+
+See also [github.com/dill/MEPS-analysis](http://github.com/dill/MEPS-analysis)
+
+```{r}
+load(url("http://converged.yt/talks/BTO-dsm/loon-data.RData"))
+```
+
+
+## Segment data
+
+```{r}
+head(seg)
+```
+
+## Observation data
+
+```{r}
+head(obs.loons)
+```
+
+## Fit a detection function
+
+  * Hazard-rate with group size as a covariate
+  * More on this in Winiarski et al (2013)
+
+```{r}
+library(Distance)
+hr.df.size <- ds(obs.loons, formula=~size, key="hr",
+                 truncation=list(right=1000, left=44))
+```
+
+
+## Fitted detection function
+
+```{r, fig.cap="", fig.width=9}
+plot(hr.df.size)
+```
+
+## Plotting observations
+
+```{r fig.cap="", echo=FALSE, fig.height=9.5, fig.width=9.5, results="hide", message=FALSE}
+library(ggplot2)
+p <- ggplot(obs.loons)
+p <- p + geom_point(aes(x=x,y=y,size=size),alpha=0.5)
+p <- p + geom_path(aes(x=x,y=y,group=group),data=coast)
+p <- p + p.opts.geo
+p <- p + coord_equal(xlim = xlims, ylim = ylims)
+leg.breaks <- unique(quantile(obs.loons$size))
+leg.breaks <- round(seq(leg.breaks[1],leg.breaks[2],len=5),0)
+leg.breaks <- round(leg.breaks,0)
+p <- p + scale_size(breaks=leg.breaks)
+p <- p + labs(x="km east",y="km north")
+print(p)
+```
+
+
+## Plotting observations per season-year
+
+```{r, fig.cap="", fig.width=12, results="hide", echo=FALSE}
+p <- ggplot(obs.loons)
+p <- p + geom_point(aes(x=x,y=y,size=size),alpha=0.5)
+p <- p + geom_path(aes(x=x,y=y,group=group),data=coast)
+p <- p + p.opts.geo
+p <- p + coord_equal(xlim = xlims, ylim = ylims)
+leg.breaks <- unique(quantile(obs.loons$size))
+leg.breaks <- round(seq(leg.breaks[1],leg.breaks[2],len=5),0)
+leg.breaks <- round(leg.breaks,0)
+p <- p + scale_size(breaks=leg.breaks)
+p <- p + labs(x="km east",y="km north")
+p <- p + facet_wrap(~SeasonYear)
+print(p)
+```
+
+
+## Spatial covariates - Chlorophyll
+
+```{r fig.cap="", echo=FALSE, fig.height=10, fig.width=10}
+p <- ggplot(pred)
+p <- p + geom_path(aes(x=x,y=y,group=group),data=coast)
+p <- p + geom_tile(aes(x=x, y=y, fill=gchl_long,
+                       height=height, width=width))
+p <- p + p.opts.geo
+p <- p + coord_equal(xlim = xlims, ylim = ylims)
+p <- p + scale_size(breaks=leg.breaks)
+p <- p + labs(x="km east",y="km north")
+print(p)
+```
+
+## Spatial covariates - Depth
+
+```{r fig.cap="", echo=FALSE, fig.height=10, fig.width=10}
+p <- ggplot(pred)
+p <- p + geom_path(aes(x=x,y=y,group=group),data=coast)
+p <- p + geom_tile(aes(x=x, y=y, fill=depthm,
+                       height=height, width=width))
+p <- p + p.opts.geo
+p <- p + coord_equal(xlim = xlims, ylim = ylims)
+p <- p + scale_size(breaks=leg.breaks)
+p <- p + labs(x="km east",y="km north")
+print(p)
+```
+
+
+## Spatial model
+
+```{r}
+library(dsm)
+loon.model.hr <- dsm(Nhat~s(gchl_long, k=10)+
+                          s(depthm, k=10)+
+                          s(y, k=10),
+                     hr.df.size, seg, obs.loons,
+                     family=nb(), availability=0.7,
+                     method="REML")
+```
+
+
+## `dsm` summary
+
+```{r}
+summary(loon.model.hr)
+```
+
+## Plotting smooth terms
+
+
+```{r, fig.cap="", fig.width=11, fig.height=9}
+plot(loon.model.hr, pages=1)
+```
+
+##
+
+<div class="quote">Model checking</div>
+
+
+## Residual checking
+
+```{r, fig.cap="", fig.width=9, fig.height=9, results="hide"}
+gam.check(loon.model.hr)
+```
+
+## Randomised quantile residuals
+
+  * Count data is nasty for goodness of fit
+  * Dunn & Smyth (1996)
+  * Back transform for **exactly** Normal residuals
+  * Fewer problems with artefacts
+  * `dsm::rqgam.check`
+  * (Thanks to Natalie Kelly at CSIRO for the tip)
+
+## `rqgam.check`
+
+
+```{r, fig.cap="", fig.width=9, fig.height=9, results="hide"}
+rqgam.check(loon.model.hr)
+```
+
+
+##
+
+<div class="quote">Inference</div>
+
+
+## Prediction grid
+
+```{r}
+head(pred)
+```
+
+## Estimating abundance
+
+  * Need to specify
+    - area of prediction cells
+    * all covariates used in analysis
+
+```{r}
+sum(predict(loon.model.hr, newdata=pred, off.set=pred$cellaream))
+```
+
+## Mapping abundance
+
+
+```{r fig.cap="", echo=FALSE, fig.height=10, fig.width=10}
+loon.model.predict <- predict(loon.model.hr, pred, pred$cellaream)
+loon.model.predict <- cbind(pred, N=loon.model.predict)
+p <- ggplot(loon.model.predict)
+p <- p + p.opts.geo
+p <- p + geom_polygon(aes(x=x,y=y,group=group),
+                      colour="black",fill=NA,data=coast)
+p <- p + coord_equal(xlim = xlims, ylim = ylims)
+p <- p + geom_tile(aes(x=x,y=y,fill=N,
+                       height=height, width=width))
+p <- p + scale_fill_gradient(low="white",high="black")
+p <- p + theme(axis.text.x=element_text(size=12))+
+         theme(axis.text.y=element_text(size=12))+
+         theme(axis.title.x=element_text(size=12))+
+         theme(axis.title.y=element_text(size=12))+
+         theme(title=element_text(size=14))+
+         theme(aspect.ratio=1)
+print(p)
+```
+
+## Estimating uncertainty
+
+```{r}
+summary(dsm.var.gam(loon.model.hr, pred, off.set=pred$cellaream))
+```
+
+## Mapping uncertainty
+
+```{r}
+plot(dsm.var.gam(loon.model.hr, split(pred, 1:nrow(pred)),
+                 off.set=pred$cellaream),
+                 observations=FALSE,
+                 gg.grad=scale_fill_gradient())
+```
+
+
+
+
+##
+
+<div class="quote">Conclusions</div>
+
+## Conclusion
+
+  * Detectability
+  * Flexible spatial models
+     - GLMs + random effects + smooths + other extras
+     - autocorrelation can be modelled
+     - accounting for uncertainty
+  * Large, heterogeneous areas
+  * Spatial component is v. helpful for managers
+  * Two-stage models can be useful!
+
+
+
+
+
+
+## Acknowledgements
+
+  * St Andrews: Eric Rexstad, Len Thomas, Laura Marshall
+  * CSIRO: Mark Bravington, Natalie Kelly
+  * Rhode Island: Kris Winiarski, Peter Paton, Scott McWilliams
+
+Funding from Rhode Island Department of Natural Resources.
+
+<img src="images/kris.jpg" width=350px></div>
+
+
+## Thanks!
+
+<div class="quote">Slides available at<br/>[http://converged.yt/talks/BTO-dsm/talk.html](http://converged.yt/talks/BTO-dsm/talk.html)</div>
+
+
+## References
+
+  * Dunn, PK, and GK Smyth. Randomized Quantile Residuals. Journal of Computational and Graphical Statistics 5, no. 3 (1996): 236–244.
+  * Marra, G, & Wood, SN (2011). Practical variable selection for generalized additive models. Computational Statistics and Data Analysis, 55(7), 2372–2387.
+  * Marra, G and SN Wood (2012). Coverage properties of confidence intervals for generalized additive model components. Scandinavian Journal of Statistics 39(1), 53–74.
+  * Miller, DL, ML Burt, EA Rexstad and L Thomas. Spatial Models for Distance Sampling Data: Recent Developments and Future Directions. Methods in Ecology and Evolution 4, no. 11 (2013): 1001–1010.
+  * Williams, R, SL Hedley, TA Branch, MV Bravington, AN Zerbini, & KP Findlay (2011). Chilean Blue Whales as a Case Study to Illustrate Methods to Estimate Abundance and Evaluate Conservation Status of Rare Species. Conservation Biology, 25(3), 526–535.
+  * Winiarski, KJ, ML Burt, Eric Rexstad, DL Miller, CL Trocki, PWC Paton, and SR McWilliams. Integrating Aerial and Ship Surveys of Marine Birds Into a Combined Density Surface Model: a Case Study of Wintering Common Loons. The Condor 116, no. 2 (2014): 149–161.
+  * Winiarski, KJ, DL Miller, PWC Paton, and SR McWilliams. A Spatial Conservation Prioritization Approach for Protecting Marine Birds Given Proposed Offshore Wind Energy Development. Biological Conservation 169 (2014): 79–88.
+  * Wood, SN, MV Bravington, & SL Hedley (2008). Soap film smoothing. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 70(5), 931–955.
+
+
+##
+
+<div class="quote">Appendices</div>
+
+
+## Appendix - REML
+
+
+![](images/gcvreml.png)
+
+
+
+## Appendix - Smoothing in less awkward regions
+
+<img src="images/duchonexample.png" width=900px>
+
+  * "Remove" troublesome parts of the thin plate spline
+  * Do this **carefully** (Fourier transform)
+  * Nullspace (plane) terms replaced w. low freq
+
+<small>Miller and Kelly (in prep)</small>
+
+## Appendix - Concurvity
+
+$$
+\text{Altitude} = f(x,y) + \epsilon \quad \text{or} \quad \text{Chlorophyll A} = f(\text{SST}) + \epsilon
+$$
+
+  * Not just correlation!
+  * `mgcv::concurvity()` computes measures for fitted models
+
+## Autocorrelation
+
+  * Can use GEE/GAMM structure for autocorrelation along transects
+  * $\text{AR}(p)$ process ("obvious" structure)
+  * In general this is unstable
+    * Random effects are sparse
+    * Splines are "dense"
+    * $\Rightarrow$ bad for optimisation
+
+<div align="center"><img src="images/seg-tr.png" width=900px></div>
