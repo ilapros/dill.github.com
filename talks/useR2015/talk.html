@@ -113,16 +113,19 @@ Software
 <li>Optimality issues either way?</li>
 <li>Propagation of uncertainty “hard”?</li>
 </ul></li>
-<li>Model checking</li>
-<li>Fitting non-complicated models</li>
+<li>Thorough model checking</li>
+<li>Fitting non-complicated models
+<ul>
+<li>(Many simple vs. one giant)</li>
+</ul></li>
 </ul>
 </div>
 <div id="proposal" class="slide section level2">
 <h1>Proposal</h1>
 <ul>
-<li>Simplification of workflow</li>
 <li>Easier to understand (process-based)</li>
-<li>Less time waiting (and shorter waiting)</li>
+<li>Simplification of workflow</li>
+<li>Less time waiting (and shorter waits)</li>
 <li>Diagnostics as we go</li>
 <li>Let’s do more of this!</li>
 </ul>
@@ -170,6 +173,7 @@ Case study:<br/>distance sampling
 <div id="mark-recapture-distance-sampling" class="slide section level2">
 <h1>Mark-recapture distance sampling</h1>
 <ul>
+<li>Buckland et al (2004), Borchers et al (1998)</li>
 <li>DS assumes <span class="math">\(g(0)=1\)</span> (i.e. see everything right infront of you)</li>
 <li>Use 2 observers, set up trials</li>
 <li>Add an extra likelihood <em>component</em>, account for this
@@ -177,16 +181,15 @@ Case study:<br/>distance sampling
 <li>binomial, mark-recapture</li>
 </ul></li>
 </ul>
+<div class="quote">
 <p><span class="math">\[
 \mathcal{L} = \mathcal{L}_g \mathcal{L}_\Omega
 \]</span></p>
 </div>
+</div>
 <div id="mark-recapture-distance-sampling-animation" class="slide section level2">
 <h1>Mark-recapture distance sampling animation</h1>
-<div class="figure">
-<img src="images/mrds-animation.gif" />
-
-</div>
+<p><img src="images/mrds-animation.gif"></p>
 <p><small>Code for animation at <A href="https://gist.github.com/dill/2b0c120d5484d338d8ef">https://gist.github.com/dill/2b0c120d5484d338d8ef</a></small></p>
 </div>
 <div id="section-8" class="slide section level2">
@@ -197,14 +200,17 @@ Partition in likelihood == partition in software
 </div>
 <div id="syntax-example" class="slide section level2">
 <h1>Syntax example</h1>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># MR model</span>
-mr.io &lt;-<span class="st"> </span><span class="kw">mrds</span>(golftee.data, <span class="dt">truncation=</span><span class="kw">list</span>(<span class="dt">right=</span><span class="dv">4</span>),
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(Distance2)
+<span class="co"># MR model</span>
+mr.io &lt;-<span class="st"> </span><span class="kw">mrds</span>(data, <span class="dt">truncation=</span><span class="dv">4</span>,
               <span class="dt">model=</span><span class="kw">mr</span>(<span class="dt">mode=</span><span class="st">&quot;io&quot;</span>, <span class="dt">formula=</span>~distance))
+## do checking of mr part
 
 <span class="co"># DS model</span>
-ds1 &lt;-<span class="st"> </span><span class="kw">ds</span>(golftee.data, <span class="dt">truncation=</span><span class="kw">list</span>(<span class="dt">right=</span><span class="dv">4</span>))
+ds1 &lt;-<span class="st"> </span><span class="kw">ds</span>(data, <span class="dt">truncation=</span><span class="dv">4</span>)
+## do checking of ds part
 
-<span class="co"># add them together</span>
+<span class="co"># &quot;add&quot; them together</span>
 mrds.io &lt;-<span class="st"> </span>mr.io +<span class="st"> </span>ds1</code></pre>
 </div>
 <div id="section-9" class="slide section level2">
@@ -221,20 +227,26 @@ mrds.io &lt;-<span class="st"> </span>mr.io +<span class="st"> </span>ds1</code>
 <ul>
 <li>likelihood</li>
 <li>AIC</li>
-<li>update classes/functions</li>
+<li>update classes/functions (<code>summary</code>, <code>predict</code> etc)</li>
 </ul></li>
 <li>clearer interface for users
 <ul>
 <li>(likelihood components add on log scale)</li>
 </ul></li>
 </ul>
+<p><small>“Inspired” (“stolen”) from <code>ggplot2</code></small></p>
 </div>
 <div id="can-we-do-this-for-other-model-classes" class="slide section level2">
 <h1>Can we do this for other model classes?</h1>
 <ul>
-<li>Distance sampling good for this</li>
-<li>Componentised likelihood (thanks to David Borchers)</li>
-<li>What about other models?</li>
+<li>Distance sampling good for this
+<ul>
+<li>Componentised likelihoods (thanks to David Borchers)</li>
+</ul></li>
+<li>What about other models?
+<ul>
+<li>Where (conditional) independence is not required</li>
+</ul></li>
 </ul>
 </div>
 <div id="something-like" class="slide section level2">
@@ -250,8 +262,11 @@ mod_AR1 &lt;- mod + corAR1(form=~sample|group)</code></pre>
 <div id="conclusion" class="slide section level2">
 <h1>Conclusion</h1>
 <ul>
-<li>Do folks think this kind of thing is useful?</li>
+<li>Do folks think this kind of thing is useful?
+<ul>
 <li>In which areas is it useful?</li>
+</ul></li>
+<li>Avoid optimality issues by refitting “full” model at end?</li>
 <li>Encourage users to perform model checking?</li>
 <li>Don’t just fit the most complicated model?</li>
 </ul>
@@ -261,6 +276,16 @@ mod_AR1 &lt;- mod + corAR1(form=~sample|group)</code></pre>
 <div class="quote">
 Talk available:<br/><a href="http://converged.yt/talks/useR2015/talk.html">http://converged.yt/talks/useR2015/talk.html</a>
 </div>
+</div>
+<div id="references" class="slide section level2">
+<h1>References</h1>
+<ul>
+<li>Buckland, S. T., Anderson, D. R., Burnham, K. P., Laake, J. L., Borchers, D. L., &amp; Thomas, L. (2001). Introduction to Distance Sampling. OUP.</li>
+<li>Buckland, S. T., Anderson, D. R., Burnham, K. P., Laake, J. L., Borchers, D. L., &amp; Thomas, L. (2004). Advanced Distance Sampling. OUP.</li>
+<li>Borchers, D. L., Buckland, S. T., Goedhart, P. W., Clarke, E. D., &amp; Hedley, S. L. (1998). Horvitz-Thompson Estimators for Double-Platform Line Transect Surveys. Biometrics, 54(4), 1221. http://doi.org/10.2307/2533652</li>
+<li>Borchers, D. L., Buckland, S. T., &amp; Zucchini, W. (2002). Estimating Animal Abundance: Closed populations. Springer.</li>
+<li>Miller, D. L., Burt, M. L., Rexstad, E. A., &amp; Thomas, L. (2013). Spatial models for distance sampling data: recent developments and future directions. Methods in Ecology and Evolution, 4(11), 1001–1010. http://doi.org/10.1111/2041-210X.12105</li>
+</ul>
 </div>
 </body>
 </html>
