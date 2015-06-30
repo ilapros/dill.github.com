@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="slidy.css" />
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div id="section" class="slide section level2">
+<h1></h1>
+<p align="center">
+<big>Building ecological models bit-by-bit</big><br/><br/> David L Miller<br/>CREEM, University of St Andrews<br/><br/> <small>useR! 2015<br/> Ålborg, Denmark<br/> 1 July 2015</small> <br/> <br/> <br/> <br/> <br/> <img class="bot" src="images/logo-big.gif" height=160><br/> <img class="bot" src="images/03-foundation-colour.png" height=160>
+</p>
+</div>
+<div id="section-1" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Motivation
+</div>
+</div>
+<div id="section-2" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Ecological questions
+</div>
+</div>
+<div id="section-3" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+How many animals are there?
+</div>
+</div>
+<div id="section-4" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+How?
+</div>
+</div>
+<div id="section-5" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Statistical methods
+</div>
+<div class="incremental">
+<div class="quote">
+<br/>(Usable by ecologists)
+</div>
+</div>
+</div>
+<div id="section-6" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Software
+</div>
+<div class="incremental">
+<div class="quote">
+<br/>(Usable by ecologists)
+</div>
+</div>
+</div>
+<div id="current-trends-biased-sample" class="slide section level2">
+<h1>Current trends (biased sample)</h1>
+<ul>
+<li>Big (BIG) (Bayesian?) models</li>
+<li>Encapsulate many processes</li>
+<li>“Throw everything in and see what happens”</li>
+<li>(Perceived) Workflow:
+<ol style="list-style-type: decimal">
+<li>Formulate a giant likelihood</li>
+<li>Wait for a long time</li>
+<li>…</li>
+<li>Get results/diagnostics</li>
+<li>Optional: repeat (convergence/model checking fails)</li>
+</ol></li>
+</ul>
+</div>
+<div id="anti-trends" class="slide section level2">
+<h1>Anti-trends</h1>
+<ul>
+<li><span class="math">\(\geq 2\)</span> stage modelling
+<ul>
+<li>Optimality issues either way?</li>
+<li>Propagation of uncertainty “hard”?</li>
+</ul></li>
+<li>Model checking</li>
+<li>Fitting non-complicated models</li>
+</ul>
+</div>
+<div id="proposal" class="slide section level2">
+<h1>Proposal</h1>
+<ul>
+<li>Simplification of workflow</li>
+<li>Easier to understand (process-based)</li>
+<li>Less time waiting (and shorter waiting)</li>
+<li>Diagnostics as we go</li>
+<li>Let’s do more of this!</li>
+</ul>
+</div>
+<div id="section-7" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Case study:<br/>distance sampling
+</div>
+</div>
+<div id="distance-sampling-in-1-slide" class="slide section level2">
+<h1>Distance sampling (in 1 slide)</h1>
+<div class="figure">
+<img src="images/distance-animation.gif" />
+
+</div>
+<p><small>Code for animation at <A href="https://gist.github.com/dill/2b0c120d5484d338d8ef">https://gist.github.com/dill/2b0c120d5484d338d8ef</a></small></p>
+</div>
+<div id="modelling-detection" class="slide section level2">
+<h1>Modelling detection</h1>
+<ul>
+<li>Model <span class="math">\(\mathbb{P} \left[ \text{animal detected } \vert \text{ object at distance } y\right] = g(y;\boldsymbol{\theta})\)</span></li>
+<li>Calculate the average probability of detection:</li>
+</ul>
+<p><span class="math">\[
+\hat{p}_i = \frac{1}{w} \int_0^w g(y; \mathbf{z}_i, \boldsymbol{\hat{\theta}})  \text{d}y
+\]</span></p>
+<ul>
+<li>Horvitz-Thompson-type estimators:</li>
+</ul>
+<p><span class="math">\[
+\hat{N} = \sum_{i=1}^n \frac{s_i}{\hat{p}_i}
+\]</span></p>
+<ul>
+<li>(or model-based estimators see Miller et al (2013))</li>
+</ul>
+</div>
+<div id="detection-function" class="slide section level2">
+<h1>Detection function</h1>
+<div class="figure">
+<img src="images/df.png" />
+
+</div>
+</div>
+<div id="mark-recapture-distance-sampling" class="slide section level2">
+<h1>Mark-recapture distance sampling</h1>
+<ul>
+<li>DS assumes <span class="math">\(g(0)=1\)</span> (i.e. see everything right infront of you)</li>
+<li>Use 2 observers, set up trials</li>
+<li>Add an extra likelihood <em>component</em>, account for this
+<ul>
+<li>binomial, mark-recapture</li>
+</ul></li>
+</ul>
+<p><span class="math">\[
+\mathcal{L} = \mathcal{L}_g \mathcal{L}_\Omega
+\]</span></p>
+</div>
+<div id="mark-recapture-distance-sampling-animation" class="slide section level2">
+<h1>Mark-recapture distance sampling animation</h1>
+<div class="figure">
+<img src="images/mrds-animation.gif" />
+
+</div>
+<p><small>Code for animation at <A href="https://gist.github.com/dill/2b0c120d5484d338d8ef">https://gist.github.com/dill/2b0c120d5484d338d8ef</a></small></p>
+</div>
+<div id="section-8" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Partition in likelihood == partition in software
+</div>
+</div>
+<div id="syntax-example" class="slide section level2">
+<h1>Syntax example</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># MR model</span>
+mr.io &lt;-<span class="st"> </span><span class="kw">mrds</span>(golftee.data, <span class="dt">truncation=</span><span class="kw">list</span>(<span class="dt">right=</span><span class="dv">4</span>),
+              <span class="dt">model=</span><span class="kw">mr</span>(<span class="dt">mode=</span><span class="st">&quot;io&quot;</span>, <span class="dt">formula=</span>~distance))
+
+<span class="co"># DS model</span>
+ds1 &lt;-<span class="st"> </span><span class="kw">ds</span>(golftee.data, <span class="dt">truncation=</span><span class="kw">list</span>(<span class="dt">right=</span><span class="dv">4</span>))
+
+<span class="co"># add them together</span>
+mrds.io &lt;-<span class="st"> </span>mr.io +<span class="st"> </span>ds1</code></pre>
+</div>
+<div id="section-9" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+<code>+</code> is a really useful operator
+</div>
+</div>
+<div id="let-do-the-work" class="slide section level2">
+<h1>Let <code>+</code> do the work</h1>
+<ul>
+<li>define <code>+.class</code></li>
+<li>let <code>+</code> compute the resulting components
+<ul>
+<li>likelihood</li>
+<li>AIC</li>
+<li>update classes/functions</li>
+</ul></li>
+<li>clearer interface for users
+<ul>
+<li>(likelihood components add on log scale)</li>
+</ul></li>
+</ul>
+</div>
+<div id="can-we-do-this-for-other-model-classes" class="slide section level2">
+<h1>Can we do this for other model classes?</h1>
+<ul>
+<li>Distance sampling good for this</li>
+<li>Componentised likelihood (thanks to David Borchers)</li>
+<li>What about other models?</li>
+</ul>
+</div>
+<div id="something-like" class="slide section level2">
+<h1>Something like…?</h1>
+<pre class="{r}"><code># linear model
+mod &lt;- lm(response ~ x1, data=data)
+mod &lt;- mod + lm_var(x2)</code></pre>
+<p>less trivially</p>
+<pre class="{r}"><code>mod &lt;- lm(response ~ x1, data=data)
+mod_AR1 &lt;- mod + corAR1(form=~sample|group)</code></pre>
+<p><small>Refit using <code>lm</code> starting parameters?</small></p>
+</div>
+<div id="conclusion" class="slide section level2">
+<h1>Conclusion</h1>
+<ul>
+<li>Do folks think this kind of thing is useful?</li>
+<li>In which areas is it useful?</li>
+<li>Encourage users to perform model checking?</li>
+<li>Don’t just fit the most complicated model?</li>
+</ul>
+</div>
+<div id="thanks" class="slide section level2">
+<h1>Thanks!</h1>
+<div class="quote">
+Talk available:<br/><a href="http://converged.yt/talks/useR2015/talk.html">http://converged.yt/talks/useR2015/talk.html</a>
+</div>
+</div>
+</body>
+</html>
