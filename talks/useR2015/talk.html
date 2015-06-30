@@ -246,6 +246,7 @@ mrds.io &lt;-<span class="st"> </span>mr.io +<span class="st"> </span>ds1</code>
 <li>What about other models?
 <ul>
 <li>Where (conditional) independence is not required</li>
+<li>Just using <code>+</code> to “add” components</li>
 </ul></li>
 </ul>
 </div>
@@ -255,9 +256,10 @@ mrds.io &lt;-<span class="st"> </span>mr.io +<span class="st"> </span>ds1</code>
 mod &lt;- lm(response ~ x1, data=data)
 mod &lt;- mod + lm_var(x2)</code></pre>
 <p>less trivially</p>
-<pre class="{r}"><code>mod &lt;- lm(response ~ x1, data=data)
+<pre class="{r}"><code># include correkation structure in nlm
+mod &lt;- nlm(response ~ x1, data=data)
 mod_AR1 &lt;- mod + corAR1(form=~sample|group)</code></pre>
-<p><small>Refit using <code>lm</code> starting parameters?</small></p>
+<p><small>Refit using <code>nlm</code> starting parameters? See also <code>update</code>.</small></p>
 </div>
 <div id="conclusion" class="slide section level2">
 <h1>Conclusion</h1>
@@ -268,7 +270,10 @@ mod_AR1 &lt;- mod + corAR1(form=~sample|group)</code></pre>
 </ul></li>
 <li>Avoid optimality issues by refitting “full” model at end?</li>
 <li>Encourage users to perform model checking?</li>
-<li>Don’t just fit the most complicated model?</li>
+<li>Don’t just fit the most complicated model?
+<ul>
+<li>Mark Brewer “Cult of AIC” talk</li>
+</ul></li>
 </ul>
 </div>
 <div id="thanks" class="slide section level2">

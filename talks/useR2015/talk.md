@@ -190,6 +190,7 @@ mod <- mod + lm_var(x2)
 less trivially
 
 ```{r}
+# include correkation structure in nlm
 mod <- nlm(response ~ x1, data=data)
 mod_AR1 <- mod + corAR1(form=~sample|group)
 ```
@@ -204,6 +205,7 @@ mod_AR1 <- mod + corAR1(form=~sample|group)
   * Avoid optimality issues by refitting "full" model at end?
   * Encourage users to perform model checking?
   * Don't just fit the most complicated model?
+    * Mark Brewer "Cult of AIC" talk
 
 
 
