@@ -190,7 +190,8 @@ mod <- mod + lm_var(x2)
 less trivially
 
 ```{r}
-# include correkation structure in nlm
+# include correlation structure in nlm
+library(nlm)
 mod <- nlm(response ~ x1, data=data)
 mod_AR1 <- mod + corAR1(form=~sample|group)
 ```
@@ -205,7 +206,8 @@ mod_AR1 <- mod + corAR1(form=~sample|group)
   * Avoid optimality issues by refitting "full" model at end?
   * Encourage users to perform model checking?
   * Don't just fit the most complicated model?
-    * Mark Brewer "Cult of AIC" talk
+    * <a href="https://www.youtube.com/watch?v=lEDpZmq5rBw">Mark Brewer "Cult of AIC" talk</a>
+    * <a href="https://dynamicecology.wordpress.com/2012/09/11/statistical-machismo/">"Statistical Machismo" on Dynamic Ecology</a>
 
 
 

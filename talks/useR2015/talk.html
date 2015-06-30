@@ -256,7 +256,8 @@ mrds.io &lt;-<span class="st"> </span>mr.io +<span class="st"> </span>ds1</code>
 mod &lt;- lm(response ~ x1, data=data)
 mod &lt;- mod + lm_var(x2)</code></pre>
 <p>less trivially</p>
-<pre class="{r}"><code># include correkation structure in nlm
+<pre class="{r}"><code># include correlation structure in nlm
+library(nlm)
 mod &lt;- nlm(response ~ x1, data=data)
 mod_AR1 &lt;- mod + corAR1(form=~sample|group)</code></pre>
 <p><small>Refit using <code>nlm</code> starting parameters? See also <code>update</code>.</small></p>
@@ -272,7 +273,8 @@ mod_AR1 &lt;- mod + corAR1(form=~sample|group)</code></pre>
 <li>Encourage users to perform model checking?</li>
 <li>Don’t just fit the most complicated model?
 <ul>
-<li>Mark Brewer “Cult of AIC” talk</li>
+<li><a href="https://www.youtube.com/watch?v=lEDpZmq5rBw">Mark Brewer “Cult of AIC” talk</a></li>
+<li><a href="https://dynamicecology.wordpress.com/2012/09/11/statistical-machismo/">“Statistical Machismo” on Dynamic Ecology</a></li>
 </ul></li>
 </ul>
 </div>
