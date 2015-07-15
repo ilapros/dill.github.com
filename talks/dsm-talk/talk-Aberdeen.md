@@ -457,7 +457,8 @@ $$
 
 Funding from Alaska Department of Fish and Game
 
-<img src="images/mesteveearl.jpg" width=650px></div>
+<img src="images/mesteveearl.jpg" width=650px><img src="images/ADFG_logo.jpg">
+
 
 
 ## Thanks!
