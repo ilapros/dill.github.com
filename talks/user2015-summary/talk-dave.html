@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="slidy.css" />
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div class="slide section level1">
+
+<h2 id="section"></h2>
+<p align="center">
+<big>useR! 2015 highlights</big><br/><br/> David L Miller<br/><br/> CREEMcrackers<small><br/> CREEM, University of St Andrews<br/> 31 July 2015</small> <br/> <br/> <br/> <br/> <br/> <img class="bot" src="http://user2015.math.aau.dk/gfx/useR2015.png" height=200px>
+</p>
+</div>
+<div id="section-1" class="slide section level1">
+<h1></h1>
+<div class="bigquote">
+General thoughts
+</div>
+</div>
+<div id="user-2015-in-general" class="slide section level1">
+<h1>useR! 2015 in general</h1>
+<ul>
+<li>Still a weird (in a good way) conference</li>
+<li>Huge range of talks</li>
+<li>Standard of talks much higher than in previous years</li>
+<li><a href="http://user2015.math.aau.dk/oral_sessions">Complete list of talks, some with slides online</a></li>
+</ul>
+<div align="right">
+<img src="http://user2015.math.aau.dk/gfx/useR2015.png" width=500px>
+</div>
+</div>
+<div id="section-2" class="slide section level1">
+<h1></h1>
+<div class="bigquote">
+Talks I attended
+</div>
+</div>
+<div id="archivist-tools-for-storing-restoring-and-searching-for-r-objects" class="slide section level1">
+<h1><code>archivist</code>: Tools for Storing, Restoring and Searching for R Objects</h1>
+<ul>
+<li>Przemysław Biecek, University of Warsaw</li>
+<li>During analysis we create “artifacts” – subsets, aggregations, plots, models <span class="math">\(\Rightarrow\)</span> <code>git</code></li>
+<li><code>archivist</code> stores the artifacts and <em>relations between</em> them (if you use pipes <code>%a%</code>)</li>
+<li>tags are generated from <code>ggplot2</code> plots from labels, can be added for others</li>
+<li><a href="http://pbiecek.github.io/archivist/">pbiecek.github.io/archivist/</a></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/pbiecek/archivist/master/archiwum.png" width=700px></p>
+</div>
+<div id="manipulation-of-discrete-random-variables-in-r-with-discreterv" class="slide section level1">
+<h1>Manipulation of Discrete Random Variables in R with <code>discreteRV</code></h1>
+<ul>
+<li>Eric Hare, Iowa State University</li>
+<li>Bridge the gap between maths and R</li>
+<li><a href="http://journal.r-project.org/archive/2015-1/hare-buja-hofmann.pdf">Paper</a></li>
+</ul>
+<p><img src="images/rv-table.png"></p>
+</div>
+<div id="the-metacran-experiment" class="slide section level1">
+<h1>The METACRAN experiment</h1>
+<ul>
+<li>Gabor Csardi, Harvard</li>
+<li>Make things easier to find on CRAN</li>
+<li>Between github and CRAN, everything you need in one place</li>
+<li><a href="http://www.r-pkg.org">r-pkg.org</a></li>
+</ul>
+<p><img src="images/metacran.png" width=700px></p>
+</div>
+<div id="classroom-experiments" class="slide section level1">
+<h1>Classroom experiments</h1>
+<ul>
+<li>James Curran, University of Auckland (<a href="http://user2015.math.aau.dk/presentations/22.pdf">slides</a>)</li>
+<li>How to teach “modern” intro to stats?</li>
+<li>Data collection? (But not time consuming/prone to failure?)</li>
+<li>R benchmarks as non-messy experiment</li>
+</ul>
+<p><img src="images/experimental-design.png" width=600px></p>
+</div>
+<div id="tiny-data-approximate-bayesian-computation-and-the-socks-of-karl-broman" class="slide section level1">
+<h1>Tiny Data, Approximate Bayesian Computation and the Socks of Karl Broman</h1>
+<ul>
+<li>Rasmus Bååth, Lund University (<a href="http://user2015.math.aau.dk/presentations/33.pdf">slides</a>) (<a href="http://www.sumsar.net/blog/2015/07/tiny-data-and-the-socks-of-karl-broman-the-movie/">15 min talk</a>) (<a href="http://www.sumsar.net/blog/2014/10/tiny-data-and-the-socks-of-karl-broman/">blog</a>)</li>
+<li>Excellent explanation of ABC (data+generative model+prior+criteria)</li>
+</ul>
+<p><img src="images/socks.png" width=350px><img src="images/abc.png" width=550px></p>
+</div>
+<div id="section-3" class="slide section level1">
+<h1></h1>
+<ul>
+<li>“How R has changed spatial statistics”</li>
+<li>“Computational Precision and Floating-Point Arithmetic: A Teacher’s Guide to Answering FAQ 7.31”</li>
+</ul>
+</div>
+<div id="section-4" class="slide section level1">
+<h1></h1>
+<div class="bigquote">
+The talk I wish I’d attended
+</div>
+</div>
+<div id="plotting-data-as-music-videos-in-r" class="slide section level1">
+<h1>Plotting data as music videos in R</h1>
+<ul>
+<li>Thomas Levine (<a href="https://thomaslevine.com/!/user-2015/">slides/explanation</a>)</li>
+<li>We use scatterplots a lot</li>
+<li>What about using music or kebabs?</li>
+</ul>
+<p><img src="images/kebab.png" width=700px></p>
+</div>
+<div id="section-5" class="slide section level1">
+<h1></h1>
+<div class="bigquote">
+Other stuff
+</div>
+</div>
+<div id="other-stuff" class="slide section level1">
+<h1>Other stuff</h1>
+<ul>
+<li><a href="https://ropensci.org/">rOpenSci</a>
+<ul>
+<li>Access to a <strong>lot</strong> of data (NOAA, eBird, BISON, etc)</li>
+<li>Access to journals/data repositories (PLOS, figshare, ORCID, etc)</li>
+<li>Bindings to <code>git</code>, databases, <a href="https://ropensci.org/packages/">lots more</a></li>
+</ul></li>
+<li><code>leaflet</code> – interactive maps (<a href="https://rstudio.github.io/leaflet/">site</a>)
+<ul>
+<li>Not 100% sure how useful they are in an ecological setting (yet)</li>
+</ul></li>
+<li>Groundswell towards: <code>RCpp</code>, <code>dplyr</code>, <code>shiny</code>, <code>magrittr</code></li>
+</ul>
+<div align="right">
+<img src="images/ropensci.png">
+</div>
+</div>
+<div id="section-6" class="slide section level1">
+<h1></h1>
+<div class="bigquote">
+Other highlights
+</div>
+</div>
+<div id="section-7" class="slide section level1 cover">
+<h1></h1>
+<p><img class="cover" src="images/rlsberg.JPG"></p>
+</div>
+<div id="section-8" class="slide section level1 cover">
+<h1></h1>
+<p><img class="cover" src="images/axechat.JPG"></p>
+</div>
+<div id="section-9" class="slide section level1 cover">
+<h1></h1>
+<p><img class="cover" src="images/aalborg.JPG"></p>
+<div class="bigquotew">
+Thanks!
+</div>
+</div>
+</body>
+</html>
