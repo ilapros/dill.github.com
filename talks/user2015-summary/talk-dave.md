@@ -83,13 +83,6 @@ CREEM, University of St Andrews<br/>
 
 #
 
-  * "How R has changed spatial statistics"
-  * "Computational Precision and Floating-Point Arithmetic: A Teacher’s Guide to Answering FAQ 7.31"
-
-
-
-#
-
 <div class="bigquote">The talk I wish I'd attended</div>
 
 # Plotting data as music videos in R
