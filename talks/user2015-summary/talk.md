@@ -374,4 +374,4 @@ CREEM, University of St Andrews<br/>
   
 # {.cover}
 
-<img class="cover" src="images/dave.JPG">
+<img class="cover" src="images/dave.jpg">
