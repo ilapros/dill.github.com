@@ -10,8 +10,8 @@
 #open talk.html
 
 
-## make the Abderdeen talk
-pandoc -s -S -t slidy --css=slidy.css --mathjax=http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML talk-Aberdeen.md -o talk-Aberdeen.html -H jshead.html
+## make the ESA talk
+pandoc -s -S -t slidy --css=slidy.css --mathjax=http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML talk-ESA.md -o talk-ESA.html -H jshead.html
 
 # build a local version using local mathjax
 #pandoc -s -S -t slidy --css=slidy.css --mathjax=/Users/dill/sources/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML talk-Lisbon.md -o local-talk-Lisbon.html -H jshead.html

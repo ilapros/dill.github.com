@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="slidy.css" />
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div id="section" class="slide section level2">
+<h1></h1>
+<p align="center">
+<big>Recent advances in spatial modelling of distance sampling surveys</big><br/><br/> David L Miller (<code>@millerdl</code>)<br/>CREEM, University of St Andrews<br/> <a href="http://converged.yt">converged.yt</a><br/><br/> Ecological Society of America Annual Conference<small><br/> Baltimore, Maryland<br/> 10 August 2015</small> <br/> <br/> <br/> <br/> <img class="bot" src="images/logo-big.gif" height=160><br/> <img class="bot" src="images/03-foundation-colour.png" height=160>
+</p>
+</div>
+<div id="section-1" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Density surface models
+</div>
+<div class="incremental">
+<div class="quote">
+<br/>(Spatial models that account for detectability)
+</div>
+</div>
+<div class="incremental">
+<div class="quote">
+<br/><br/>(…and more)
+</div>
+</div>
+</div>
+<div id="section-2" class="slide section level2">
+<h1></h1>
+<div class="quote">
+(This talk is a rough guide)
+</div>
+<div class="incremental">
+<div class="quote">
+<br/>(Go to <a href="http://converged.yt">converged.yt</a>, “Talks”<br/>for more information and references)
+</div>
+</div>
+</div>
+<div id="geq-2-stage-models" class="slide section level2 cover">
+<h1><span class="math">\(\geq 2\)</span>-stage models</h1>
+<p><br/> <br/> <br/> <img class="cover" src="images/dsm-flow2.png"></p>
+<p><small>Hedley and Buckland (2004). Miller et al (2013).</small></p>
+</div>
+<div id="section-3" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Detectability
+</div>
+</div>
+<div id="distance-sampling---line-transects" class="slide section level2">
+<h1>Distance sampling - line transects</h1>
+<div class="figure">
+<img src="images/distance-animation.gif" />
+
+</div>
+<p><small>Code for animation at <A href="https://gist.github.com/dill/2b0c120d5484d338d8ef">https://gist.github.com/dill/2b0c120d5484d338d8ef</a></small></p>
+</div>
+<div id="detection-functions" class="slide section level2">
+<h1>Detection functions</h1>
+<div align="center">
+<img src="images/df-hist-together.png">
+</div>
+</div>
+<div id="detection-functions-1" class="slide section level2">
+<h1>Detection functions</h1>
+<ul>
+<li>“Fit to the histogram”</li>
+<li>Model <span class="math">\(\mathbb{P} \left[ \text{animal detected } \vert \text{ animal at distance } y\right] = g(y;\boldsymbol{\theta})\)</span></li>
+<li>Calculate the average probability of detection:</li>
+</ul>
+<p><span class="math">\[
+\hat{p}_i = \frac{1}{w} \int_0^w g(y; \boldsymbol{\hat{\theta}}) \text{d}y
+\]</span></p>
+<ul>
+<li>Horvitz-Thompson-type estimators:</li>
+</ul>
+<p><span class="math">\[
+\hat{N} = \sum_{i=1}^n \frac{s_i}{\hat{p}_i}
+\]</span></p>
+<p><small>(where <span class="math">\(s_i\)</span> are group/cluster sizes)</small></p>
+</div>
+<div id="distance-sampling-extensions" class="slide section level2">
+<h1>Distance sampling (extensions)</h1>
+<ul>
+<li>Covariates that affect detectability (Marques et al, 2007)</li>
+<li>Perception bias (<span class="math">\(g(0)&lt;1\)</span>) (Burt et al, 2014)</li>
+<li>Availability bias (Winiarski et al, 2013; Borchers et al, 2013)</li>
+<li>Detection function formulations (Miller and Thomas, 2015)</li>
+<li>Measurement error (Marques, 2004)  
+<div align="center">
+<img src="images/covar-df.png" width=780px>
+</div></li>
+</ul>
+<p><small>Figure from Marques et al (2007)</small></p>
+</div>
+<div id="section-4" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Spatially explicit data
+</div>
+</div>
+<div id="data-setup" class="slide section level2">
+<h1>Data setup</h1>
+<div align="center">
+<img src="images/dsmproc.png">
+</div>
+<p><small><i>Ursus</i> from <a href="http://phylopic.org/name/9c912370-8905-41f7-b3a3-9fdd99aff88c">PhyloPic</a>.</small></p>
+</div>
+<div id="section-5" class="slide section level2">
+<h1></h1>
+<div align="center">
+<img src="images/ak-talk.png" height=770px>
+</div>
+</div>
+<div id="case-study---black-bears-in-ak" class="slide section level2">
+<h1>Case study - black bears in AK</h1>
+<ul>
+<li>Area of 26,482 km<sup>2</sup> (~area of VT or MA)</li>
+<li>Double observer surveys using Piper Super Cubs</li>
+<li>1238, 35km transects, 2001-2003</li>
+</ul>
+<div align="center">
+<img src="images/cub-EB-1024.JPG" height=500px>
+</div>
+</div>
+<div id="transects" class="slide section level2">
+<h1>1238 transects</h1>
+<p><img src="images/ak-transects.png" height=650px></p>
+</div>
+<div id="section-6" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Spatially explicit models
+</div>
+</div>
+<div id="spatial-model" class="slide section level2">
+<h1>Spatial model</h1>
+<div style="background-image: url(images/mgcv-inside.png); background-repeat: no-repeat; background-position: right bottom;">
+<p>If we are modelling counts:</p>
+<p><span class="math">\[
+\mathbb{E}(\hat{n}_j) = A_j\exp \left\{ \beta_0 + \sum_k f_k(z_{jk}) \right\}
+\]</span></p>
+<ul>
+<li><span class="math">\(\hat{n}_j\)</span> has some count distribution (Horvtiz-Thompson estimate)</li>
+<li><span class="math">\(A_j\)</span> is area of segment</li>
+<li><span class="math">\(f_k\)</span> are <em>smooth</em> functions (splines <span class="math">\(\Rightarrow f_k(x)=\sum_l \beta_l b_l(x)\)</span>)</li>
+<li><span class="math">\(f_k\)</span> can just be fixed effects <span class="math">\(\Rightarrow\)</span> GLM</li>
+<li>Add-in random effects, correlation structures <span class="math">\(\Rightarrow\)</span> GAMM</li>
+<li>R package <code>dsm</code></li>
+<li>Wood (2006) is a good intro book</li>
+</ul>
+<p><br/> <br/></p>
+</div>
+</div>
+<div id="section-7" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Back to those bears…
+</div>
+</div>
+<div id="section-8" class="slide section level2 cover">
+<h1></h1>
+<p><img class="cover" src="images/cov-elev.png"></p>
+</div>
+<div id="section-9" class="slide section level2 cover">
+<h1></h1>
+<p><img class="cover" src="images/cov-slope.png"></p>
+</div>
+<div id="section-10" class="slide section level2 cover">
+<h1></h1>
+<p><img class="cover" src="images/cov-aspect.png"></p>
+</div>
+<div id="bears-dont-like-to-go-too-high" class="slide section level2">
+<h1>“Bears don’t like to go too high”</h1>
+<div align="center">
+<img src="images/elevation.png">
+</div>
+</div>
+<div id="bears-like-to-sunbathe" class="slide section level2">
+<h1>“Bears like to sunbathe”</h1>
+<div align="center">
+<img src="images/slope-aspect.png">
+</div>
+</div>
+<div id="abundance-map" class="slide section level2">
+<h1>Abundance map</h1>
+<div align="center">
+<img width=800 src="images/black-map.png">
+</div>
+</div>
+<div id="section-11" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+What could go wrong?
+</div>
+</div>
+<div id="section-12" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+<em>“Of course our response distribution is correct…”</em>
+</div>
+</div>
+<div id="response-distributions" class="slide section level2">
+<h1>Response distributions</h1>
+<ul>
+<li>“Classically”: quasi-Poisson (I’ve not seen data like this)</li>
+<li>Lately: Tweedie, negative binomial</li>
+<li>Exponential family <em>given</em> power parameter</li>
+<li>(<code>mgcv</code> can now estimate power parameters via <code>tw()</code> and <code>nb()</code>)</li>
+</ul>
+<div class="figure">
+<img src="images/nbtweedied.png" />
+
+</div>
+</div>
+<div id="section-13" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+<em>“We selected the right covariates!”</em>
+</div>
+</div>
+<div id="model-selection" class="slide section level2">
+<h1>Model selection</h1>
+<ul>
+<li>All possible subsets - expensive; stepwise - path dependence</li>
+<li>Term selection by shrinkage to zero effect (Marra &amp; Wood, 2011)</li>
+<li>Approximate <span class="math">\(p\)</span>-values (Marra &amp; Wood, 2012)</li>
+</ul>
+<div align="center">
+<img src="images/somesmooths.png" width=900px>
+</div>
+</div>
+<div id="section-14" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+<em>“We removed correlated covariates!”</em>
+</div>
+</div>
+<div id="concurvity" class="slide section level2">
+<h1>Concurvity</h1>
+<p><span class="math">\[
+\text{Altitude} = f(x,y) + \epsilon \quad \text{or} \quad \text{Chlorophyll A} = f(\text{SST}) + \epsilon
+\]</span></p>
+<ul>
+<li>Not just correlation!</li>
+<li><code>mgcv::concurvity()</code> computes measures for fitted models</li>
+</ul>
+<div align="center">
+<img src="images/elevslope.png" height=450px>
+</div>
+</div>
+<div id="section-15" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+<em>“What spatial autocorrelation?”</em>
+</div>
+</div>
+<div id="autocorrelation" class="slide section level2">
+<h1>Autocorrelation</h1>
+<ul>
+<li>Can use GEE/GAMM structure for autocorrelation along transects</li>
+<li><span class="math">\(\text{AR}(p)\)</span> process (“obvious” structure)</li>
+<li>In general this is unstable
+<ul>
+<li>Random effects are sparse</li>
+<li>Splines are “dense”</li>
+<li><span class="math">\(\Rightarrow\)</span> bad for optimisation</li>
+</ul></li>
+</ul>
+<div align="center">
+<img src="images/seg-tr.png" width=900px>
+</div>
+</div>
+<div id="section-16" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+<em>“Variance was estimated correctly”</em>
+</div>
+</div>
+<div id="uncertainty-propagation" class="slide section level2">
+<h1>Uncertainty propagation</h1>
+<ul>
+<li>Major criticism of <span class="math">\(\geq2\)</span>-stage models</li>
+<li>Uncertainty from detection function AND spatial model (and…)</li>
+<li>Refit model with “extra” term – zero mean effect, variance contribution</li>
+</ul>
+<div align="center">
+<img width=500 src="images/bl-cvmap.png">
+</div>
+<p><small>Williams et al (2011). Bravington, Hedley and Miller (in prep)</small></p>
+</div>
+<div id="section-17" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Conclusions
+</div>
+</div>
+<div id="conclusions" class="slide section level2">
+<h1>Conclusions</h1>
+<ul>
+<li>Existing statistical framework (GAM)</li>
+<li>Flexible spatial models
+<ul>
+<li>Detectability</li>
+<li>GLMs + random effects + smooths + other extras</li>
+<li>autocorrelation can be modelled</li>
+<li>accounting for uncertainty</li>
+</ul></li>
+<li>Large, heterogeneous areas</li>
+<li>Spatial component is v. helpful for managers</li>
+<li>Two-stage models can be useful!
+<ul>
+<li>Distribute tasks</li>
+<li>Modular model checking</li>
+</ul></li>
+</ul>
+</div>
+<div id="the-dsm-package" class="slide section level2">
+<h1>The <code>dsm</code> package</h1>
+<ul>
+<li>Design “inspired by” (“stolen from”) <code>mgcv</code></li>
+<li>Easy to build simple models, possible to build complex ones</li>
+<li><p>Syntax example:</p>
+<pre><code>model &lt;- dsm(count ~ s(x,k=10) + s(depth,k=6),
+             detection_function,
+             segment_data,
+             observation_data,
+             family=tw())</code></pre></li>
+<li><p>Utility functions: variance estimation, plotting, prediction etc</p></li>
+</ul>
+</div>
+<div id="distance-sampling-software" class="slide section level2">
+<h1>Distance sampling software</h1>
+<div style="background-image: url(images/logo-big.gif); background-repeat: no-repeat; background-position: right bottom;">
+<ul>
+<li>Distance for Windows
+<ul>
+<li>Easy to use Windows software</li>
+<li>Len Thomas, Eric Rexstad, Laura Marshall</li>
+</ul></li>
+<li><code>Distance</code> R package
+<ul>
+<li>Simple way to fit detection functions</li>
+<li>Me!</li>
+</ul></li>
+<li><code>mrds</code> R package
+<ul>
+<li>More complex analyses - double observer surveys</li>
+<li>Jeff Laake, me <br/> <br/>
+<div align="center">
+<h1>
+<a href="http://distancesampling.org"><code>distancesampling.org</code></a>
+</h1>
+</div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="acknowledgements" class="slide section level2">
+<h1>Acknowledgements</h1>
+<ul>
+<li>St Andrews: Eric Rexstad, Len Thomas, Laura Marshall</li>
+<li>CSIRO: Mark Bravington, Natalie Kelly</li>
+<li>Alaska: Earl Becker, Becky Strauch, Mike Litzen, Dave Filkill</li>
+</ul>
+<p>Funding from Alaska Department of Fish and Game</p>
+<p><img src="images/mesteveearl.jpg" width=650px><img src="images/ADFG_logo.jpg"></p>
+</div>
+<div id="thanks" class="slide section level2">
+<h1>Thanks!</h1>
+<div class="quote">
+Slides (with extra content) available at<br/><a href="http://converged.yt/"><code>converged.yt</code></a><br/> <br/>Course at Duke in October:<br/><a href="https://nicholas.duke.edu/del/distance"><code>nicholas.duke.edu/del/distance</code></a>
+</div>
+</div>
+<div id="references" class="slide section level2">
+<h1>References</h1>
+<ul>
+<li>Borchers, DL, Zucchini, W, Heide-Jørgensen, MP, Cañadas, A, Langrock, R, Buckland, ST, &amp; Marques, TA (2013). Using hidden Markov models to deal with availability bias on line transect surveys. Biometrics, 69(3), 703–713.</li>
+<li>Burt, ML, DL Borchers, KJ Jenkins, &amp; TA Marques (2014). Using mark-recapture distance sampling methods on line transect surveys. Methods in Ecology and Evolution, 5(11), 1180–1191.</li>
+<li>Marques, TA (2004). Predicting and correcting bias caused by measurement error in line transect sampling using multiplicative error models. Biometrics, 60(3), 757–763.</li>
+<li>Marra, G, &amp; Wood, SN (2011). Practical variable selection for generalized additive models. Computational Statistics and Data Analysis, 55(7), 2372–2387.</li>
+<li>Marra, G and SN Wood (2012). Coverage properties of confidence intervals for generalized additive model components. Scandinavian Journal of Statistics 39(1), 53–74.</li>
+<li>Miller, DL, ML Burt, EA Rexstad and L Thomas. Spatial Models for Distance Sampling Data: Recent Developments and Future Directions. Methods in Ecology and Evolution 4, no. 11 (2013): 1001–1010.</li>
+<li>Williams, R, SL Hedley, TA Branch, MV Bravington, AN Zerbini, &amp; KP Findlay (2011). Chilean Blue Whales as a Case Study to Illustrate Methods to Estimate Abundance and Evaluate Conservation Status of Rare Species. Conservation Biology, 25(3), 526–535.</li>
+<li>Winiarski, KJ, ML Burt, Eric Rexstad, DL Miller, CL Trocki, PWC Paton, and SR McWilliams. Integrating Aerial and Ship Surveys of Marine Birds Into a Combined Density Surface Model: a Case Study of Wintering Common Loons. The Condor 116, no. 2 (2014): 149–161.</li>
+<li>Wood, SN (2011). Fast stable restricted maximum likelihood and marginal likelihood estimation of semiparametric generalized linear models. Journal of the Royal Statistical Society: Series B, 73(1), 3–36.</li>
+</ul>
+</div>
+<div id="section-18" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Appendices
+</div>
+</div>
+<div id="section-19" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Smoothing in awkward regions
+</div>
+</div>
+<div id="appendix---smoothing-in-awkward-regions" class="slide section level2">
+<h1>Appendix - Smoothing in awkward regions</h1>
+<p><img src="images/ramsay-leak.png" width=900px></p>
+<p>Ramsay (2002). Wood, Bravington &amp; Hedley (2008).</p>
+</div>
+<div id="appendix---miller-and-wood-2014" class="slide section level2">
+<h1>Appendix - Miller and Wood (2014)</h1>
+<p><img src="images/msg.png" width=900px></p>
+<ul>
+<li>Calculate within-area distances</li>
+<li>Use multidimensional scaling to project (high usually)</li>
+<li>Use Duchon splines for smoothing</li>
+<li>Use GCV/REML for dimension selection</li>
+</ul>
+</div>
+<div id="appendix---smoothing-in-less-awkward-regions" class="slide section level2">
+<h1>Appendix - Smoothing in less awkward regions</h1>
+<p><img src="images/duchonexample.png" width=900px></p>
+<ul>
+<li>“Remove” troublesome parts of the thin plate spline</li>
+<li>Do this <strong>carefully</strong> (Fourier transform)</li>
+<li>Nullspace (plane) terms replaced w. low freq</li>
+</ul>
+<p><small>Miller and Kelly (in prep)</small></p>
+</div>
+<div id="section-20" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+<em>“Our detection functions look great!”</em>
+</div>
+</div>
+<div id="mixture-model-detection-functions" class="slide section level2">
+<h1>Mixture model detection functions</h1>
+<p><img src="images/pilot-nonmono.png" width=780px><br/></p>
+<p><small>Data from Daniel Pike, Bjarni Mikkelsen and Gísli Vikingsson. Marine Research Institute, Iceland.</small></p>
+</div>
+<div id="mixture-model-detection-functions-1" class="slide section level2">
+<h1>Mixture model detection functions</h1>
+<p><img src="images/pilot-mono.png" width=780px></p>
+<ul>
+<li>Miller and Thomas (2015)</li>
+</ul>
+</div>
+<div id="section-21" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+<em>“Our parameter estimates are fine!”</em>
+</div>
+</div>
+<div id="smoothing-parameter-estimation-by-reml" class="slide section level2">
+<h1>Smoothing parameter estimation by REML</h1>
+<ul>
+<li>GCV tends to undersmooth (Reiss &amp; Ogden, 2009)</li>
+<li>REML much better, esp. with correlated covariates</li>
+</ul>
+<div align="center">
+<img src="images/gcvreml.png" width=800px>
+</div>
+<p><small>Taken from Wood (2011).</small></p>
+</div>
+<div id="section-22" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+<em>“Our residuals are fine!”</em>
+</div>
+</div>
+<div id="residual-checking-gam.check" class="slide section level2">
+<h1>Residual checking (<code>gam.check</code>)</h1>
+<div align="center">
+<img src="images/gamcheck.png" width=700px>
+</div>
+</div>
+<div id="residual-checking" class="slide section level2">
+<h1>Residual checking</h1>
+<div align="center">
+<img src="images/check.png" width=700px>
+</div>
+</div>
+<div id="randomised-quantile-residuals" class="slide section level2">
+<h1>Randomised quantile residuals</h1>
+<ul>
+<li>Count data is nasty for goodness of fit</li>
+<li>Dunn &amp; Smyth (1996)</li>
+<li>Back transform for <strong>exactly</strong> Normal residuals</li>
+<li>Fewer problems with artefacts</li>
+<li><code>dsm::rqgam.check</code></li>
+<li>(Thanks to Natalie Kelly at CSIRO for the tip)</li>
+</ul>
+</div>
+<div id="rqgam.check" class="slide section level2">
+<h1><code>rqgam.check</code></h1>
+<div align="center">
+<img src="images/rqcheck.png" width=700px>
+</div>
+</div>
+<div id="section-23" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+<em>“Nope, no problems with availability”</em>
+</div>
+</div>
+<div id="availability" class="slide section level2">
+<h1>Availability</h1>
+<ul>
+<li>“Simple correction factor” for diving animals (Winiarski et al 2014)</li>
+<li>Borchers &amp; co have many solutions using Hidden Markov Models</li>
+</ul>
+</div>
+<div id="more-references" class="slide section level2">
+<h1>More references</h1>
+<ul>
+<li>Dunn, PK, and GK Smyth (1996). Randomized Quantile Residuals. Journal of Computational and Graphical Statistics 5(3) 236–244.</li>
+<li>Miller, DL, &amp; L Thomas (2015). Mixture models for distance sampling detection functions. PLoS ONE.</li>
+<li>Miller, DL, &amp; SN Wood (2014). Finite area smoothing with generalized distance splines. Environmental and Ecological Statistics, 21(4), 715–731.</li>
+<li>Ramsay, T (2002) Spline smoothing over difficult regions. Journal of the Royal Statistical Society, Series B 64, 307-319.</li>
+<li>Winiarski, KJ, DL Miller, PWC Paton, and SR McWilliams (2014). A Spatial Conservation Prioritization Approach for Protecting Marine Birds Given Proposed Offshore Wind Energy Development. Biological Conservation 169 79–88.</li>
+<li>Wood, SN, MV Bravington, &amp; SL Hedley (2008). Soap film smoothing. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 70(5), 931–955.</li>
+</ul>
+</div>
+</body>
+</html>
