@@ -369,7 +369,7 @@ Funding from Alaska Department of Fish and Game
 
 ##
 
-<div class="quote">Smoothing in awkward regions</div>
+<div class="bigquote">*"Our spatial smoother fit well"*</div>
 
 ## Appendix - Smoothing in awkward regions
 
