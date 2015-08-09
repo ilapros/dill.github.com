@@ -232,8 +232,28 @@ $$
   * Not just correlation!
   * `mgcv::concurvity()` computes measures for fitted models
 
-<div align="center"><img src="images/elevslope.png" height=450px></div>
+<br/>
+<br/>
+<br/>
+<div align="center"><img width=300 src="images/cov-elev.png"><img width=300 src="images/cov-slope.png"><img width=300 src="images/cov-aspect.png"></div>
 
+
+##
+
+<div class="bigquote">*"Variance was estimated correctly"*</div>
+
+
+
+## Uncertainty propagation
+
+  * Major criticism of $\geq2$-stage models
+  * Uncertainty from detection function AND spatial model (and...)
+  * Refit model with "extra" term -- zero mean effect, variance contribution
+
+<div align="center"><img width=500 src="images/bl-cvmap.png"></div>
+
+
+<small>Williams et al (2011). Bravington, Hedley and Miller (in prep)</small>
 
 
 ##
@@ -255,41 +275,9 @@ $$
 
 ##
 
-<div class="bigquote">*"Variance was estimated correctly"*</div>
+<div class="quote">Software</div>
 
 
-
-## Uncertainty propagation
-
-  * Major criticism of $\geq2$-stage models
-  * Uncertainty from detection function AND spatial model (and...)
-  * Refit model with "extra" term -- zero mean effect, variance contribution
-
-<div align="center"><img width=500 src="images/bl-cvmap.png"></div>
-
-
-<small>Williams et al (2011). Bravington, Hedley and Miller (in prep)</small>
-
-
-
-
-##
-
-<div class="quote">Conclusions</div>
-
-## Conclusions
-
-  - Existing statistical framework (GAM)
-  * Flexible spatial models
-     - Detectability
-     - GLMs + random effects + smooths + other extras
-     - autocorrelation can be modelled
-     - accounting for uncertainty
-  * Large, heterogeneous areas
-  * Spatial component is v. helpful for managers
-  * Two-stage models can be useful!
-    * Distribute tasks
-    * Modular model checking
 
 ## The `dsm` package
 
@@ -325,6 +313,23 @@ $$
 </div>
 
 
+##
+
+<div class="quote">Conclusions</div>
+
+## Conclusions
+
+  - Existing statistical framework (GAM)
+  * Flexible spatial models
+     - Detectability
+     - GLMs + random effects + smooths + other extras
+     - autocorrelation can be modelled
+     - accounting for uncertainty
+  * Large, heterogeneous areas
+  * Spatial component is v. helpful for managers
+  * Two-stage models can be useful!
+    * Distribute tasks
+    * Modular model checking
 
 
 ## Acknowledgements

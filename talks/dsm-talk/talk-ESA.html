@@ -260,11 +260,30 @@ What could go wrong?
 <li>Not just correlation!</li>
 <li><code>mgcv::concurvity()</code> computes measures for fitted models</li>
 </ul>
+<br/> <br/> <br/>
 <div align="center">
-<img src="images/elevslope.png" height=450px>
+<img width=300 src="images/cov-elev.png"><img width=300 src="images/cov-slope.png"><img width=300 src="images/cov-aspect.png">
 </div>
 </div>
 <div id="section-15" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+<em>“Variance was estimated correctly”</em>
+</div>
+</div>
+<div id="uncertainty-propagation" class="slide section level2">
+<h1>Uncertainty propagation</h1>
+<ul>
+<li>Major criticism of <span class="math">\(\geq2\)</span>-stage models</li>
+<li>Uncertainty from detection function AND spatial model (and…)</li>
+<li>Refit model with “extra” term – zero mean effect, variance contribution</li>
+</ul>
+<div align="center">
+<img width=500 src="images/bl-cvmap.png">
+</div>
+<p><small>Williams et al (2011). Bravington, Hedley and Miller (in prep)</small></p>
+</div>
+<div id="section-16" class="slide section level2">
 <h1></h1>
 <div class="bigquote">
 <em>“What spatial autocorrelation?”</em>
@@ -286,49 +305,11 @@ What could go wrong?
 <img src="images/seg-tr.png" width=900px>
 </div>
 </div>
-<div id="section-16" class="slide section level2">
-<h1></h1>
-<div class="bigquote">
-<em>“Variance was estimated correctly”</em>
-</div>
-</div>
-<div id="uncertainty-propagation" class="slide section level2">
-<h1>Uncertainty propagation</h1>
-<ul>
-<li>Major criticism of <span class="math">\(\geq2\)</span>-stage models</li>
-<li>Uncertainty from detection function AND spatial model (and…)</li>
-<li>Refit model with “extra” term – zero mean effect, variance contribution</li>
-</ul>
-<div align="center">
-<img width=500 src="images/bl-cvmap.png">
-</div>
-<p><small>Williams et al (2011). Bravington, Hedley and Miller (in prep)</small></p>
-</div>
 <div id="section-17" class="slide section level2">
 <h1></h1>
 <div class="quote">
-Conclusions
+Software
 </div>
-</div>
-<div id="conclusions" class="slide section level2">
-<h1>Conclusions</h1>
-<ul>
-<li>Existing statistical framework (GAM)</li>
-<li>Flexible spatial models
-<ul>
-<li>Detectability</li>
-<li>GLMs + random effects + smooths + other extras</li>
-<li>autocorrelation can be modelled</li>
-<li>accounting for uncertainty</li>
-</ul></li>
-<li>Large, heterogeneous areas</li>
-<li>Spatial component is v. helpful for managers</li>
-<li>Two-stage models can be useful!
-<ul>
-<li>Distribute tasks</li>
-<li>Modular model checking</li>
-</ul></li>
-</ul>
 </div>
 <div id="the-dsm-package" class="slide section level2">
 <h1>The <code>dsm</code> package</h1>
@@ -371,6 +352,32 @@ Conclusions
 </ul>
 </div>
 </div>
+<div id="section-18" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Conclusions
+</div>
+</div>
+<div id="conclusions" class="slide section level2">
+<h1>Conclusions</h1>
+<ul>
+<li>Existing statistical framework (GAM)</li>
+<li>Flexible spatial models
+<ul>
+<li>Detectability</li>
+<li>GLMs + random effects + smooths + other extras</li>
+<li>autocorrelation can be modelled</li>
+<li>accounting for uncertainty</li>
+</ul></li>
+<li>Large, heterogeneous areas</li>
+<li>Spatial component is v. helpful for managers</li>
+<li>Two-stage models can be useful!
+<ul>
+<li>Distribute tasks</li>
+<li>Modular model checking</li>
+</ul></li>
+</ul>
+</div>
 <div id="acknowledgements" class="slide section level2">
 <h1>Acknowledgements</h1>
 <ul>
@@ -401,13 +408,13 @@ Slides (with extra content) available at<br/><a href="http://converged.yt/"><cod
 <li>Wood, SN (2011). Fast stable restricted maximum likelihood and marginal likelihood estimation of semiparametric generalized linear models. Journal of the Royal Statistical Society: Series B, 73(1), 3–36.</li>
 </ul>
 </div>
-<div id="section-18" class="slide section level2">
+<div id="section-19" class="slide section level2">
 <h1></h1>
 <div class="bigquote">
 Appendices
 </div>
 </div>
-<div id="section-19" class="slide section level2">
+<div id="section-20" class="slide section level2">
 <h1></h1>
 <div class="quote">
 Smoothing in awkward regions
@@ -438,7 +445,7 @@ Smoothing in awkward regions
 </ul>
 <p><small>Miller and Kelly (in prep)</small></p>
 </div>
-<div id="section-20" class="slide section level2">
+<div id="section-21" class="slide section level2">
 <h1></h1>
 <div class="bigquote">
 <em>“Our detection functions look great!”</em>
@@ -456,7 +463,7 @@ Smoothing in awkward regions
 <li>Miller and Thomas (2015)</li>
 </ul>
 </div>
-<div id="section-21" class="slide section level2">
+<div id="section-22" class="slide section level2">
 <h1></h1>
 <div class="bigquote">
 <em>“Our parameter estimates are fine!”</em>
@@ -473,7 +480,7 @@ Smoothing in awkward regions
 </div>
 <p><small>Taken from Wood (2011).</small></p>
 </div>
-<div id="section-22" class="slide section level2">
+<div id="section-23" class="slide section level2">
 <h1></h1>
 <div class="bigquote">
 <em>“Our residuals are fine!”</em>
@@ -508,7 +515,7 @@ Smoothing in awkward regions
 <img src="images/rqcheck.png" width=700px>
 </div>
 </div>
-<div id="section-23" class="slide section level2">
+<div id="section-24" class="slide section level2">
 <h1></h1>
 <div class="bigquote">
 <em>“Nope, no problems with availability”</em>
