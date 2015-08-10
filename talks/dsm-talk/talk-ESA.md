@@ -132,6 +132,8 @@ $$
 ## Spatial model
 <div style="background-image: url(images/mgcv-inside.png); background-repeat: no-repeat; background-position: right bottom;">
 
+  * Generalized Additive Models (GAMs)
+
 $$
 \mathbb{E}(\hat{n}_j) = A_j\exp \left\{ \beta_0 + \sum_k f_k(z_{jk}) \right\}
 $$
