@@ -132,19 +132,17 @@ $$
 ## Spatial model
 <div style="background-image: url(images/mgcv-inside.png); background-repeat: no-repeat; background-position: right bottom;">
 
-If we are modelling counts:
-
 $$
 \mathbb{E}(\hat{n}_j) = A_j\exp \left\{ \beta_0 + \sum_k f_k(z_{jk}) \right\}
 $$
 
   * $\hat{n}_j$ has some count distribution (Horvtiz-Thompson estimate)
-  * $A_j$ is area of segment
   * $f_k$ are *smooth* functions (splines $\Rightarrow f_k(x)=\sum_l \beta_l b_l(x)$)
   * $f_k$ can just be fixed effects $\Rightarrow$ GLM
   * Add-in random effects, correlation structures $\Rightarrow$ GAMM
+  * $A_j$ is area of segment
   * R package `dsm`
-  * Wood (2006) is a good intro book
+  * Wood (2006) is a good intro to GAMs
 
 <br/>
 <br/>
@@ -213,8 +211,8 @@ $$
 ## Model selection
 
   * All possible subsets - expensive; stepwise - path dependence
-  * Term selection by shrinkage to zero effect (Marra & Wood, 2011)
   * Approximate $p$-values (Marra & Wood, 2012)
+  * Term selection by shrinkage to zero effect (Marra & Wood, 2011)
 
 
 <div align="center"><img src="images/somesmooths.png" width=900px></div>
@@ -263,8 +261,8 @@ $$
 
 ## Autocorrelation
 
-  * Can use GEE/GAMM structure for autocorrelation along transects
   * $\text{AR}(p)$ process ("obvious" structure)
+  * Can use GEE/GAMM structure for autocorrelation along transects
   * In general this is unstable
     * Random effects are sparse
     * Splines are "dense"
@@ -298,15 +296,15 @@ $$
 ## Distance sampling software
 
 <div style="background-image: url(images/logo-big.gif); background-repeat: no-repeat; background-position: right bottom;">
-  * Distance for Windows
-     - Easy to use Windows software
-     - Len Thomas, Eric Rexstad, Laura Marshall
   * `Distance` R package
      - Simple way to fit detection functions
      - Me!
   * `mrds` R package
      - More complex analyses - double observer surveys
      - Jeff Laake, me
+  * Distance for Windows
+     - Easy to use Windows software
+     - Len Thomas, Eric Rexstad, Laura Marshall
 <br/>
 <br/>
 <div align="center"><h1>[`distancesampling.org`](http://distancesampling.org)</h1></div>

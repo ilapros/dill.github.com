@@ -151,18 +151,17 @@ Spatially explicit models
 <div id="spatial-model" class="slide section level2">
 <h1>Spatial model</h1>
 <div style="background-image: url(images/mgcv-inside.png); background-repeat: no-repeat; background-position: right bottom;">
-<p>If we are modelling counts:</p>
 <p><span class="math">\[
 \mathbb{E}(\hat{n}_j) = A_j\exp \left\{ \beta_0 + \sum_k f_k(z_{jk}) \right\}
 \]</span></p>
 <ul>
 <li><span class="math">\(\hat{n}_j\)</span> has some count distribution (Horvtiz-Thompson estimate)</li>
-<li><span class="math">\(A_j\)</span> is area of segment</li>
 <li><span class="math">\(f_k\)</span> are <em>smooth</em> functions (splines <span class="math">\(\Rightarrow f_k(x)=\sum_l \beta_l b_l(x)\)</span>)</li>
 <li><span class="math">\(f_k\)</span> can just be fixed effects <span class="math">\(\Rightarrow\)</span> GLM</li>
 <li>Add-in random effects, correlation structures <span class="math">\(\Rightarrow\)</span> GAMM</li>
+<li><span class="math">\(A_j\)</span> is area of segment</li>
 <li>R package <code>dsm</code></li>
-<li>Wood (2006) is a good intro book</li>
+<li>Wood (2006) is a good intro to GAMs</li>
 </ul>
 <p><br/> <br/></p>
 </div>
@@ -238,8 +237,8 @@ What could go wrong?
 <h1>Model selection</h1>
 <ul>
 <li>All possible subsets - expensive; stepwise - path dependence</li>
-<li>Term selection by shrinkage to zero effect (Marra &amp; Wood, 2011)</li>
 <li>Approximate <span class="math">\(p\)</span>-values (Marra &amp; Wood, 2012)</li>
+<li>Term selection by shrinkage to zero effect (Marra &amp; Wood, 2011)</li>
 </ul>
 <div align="center">
 <img src="images/somesmooths.png" width=900px>
@@ -292,8 +291,8 @@ What could go wrong?
 <div id="autocorrelation" class="slide section level2">
 <h1>Autocorrelation</h1>
 <ul>
-<li>Can use GEE/GAMM structure for autocorrelation along transects</li>
 <li><span class="math">\(\text{AR}(p)\)</span> process (“obvious” structure)</li>
+<li>Can use GEE/GAMM structure for autocorrelation along transects</li>
 <li>In general this is unstable
 <ul>
 <li>Random effects are sparse</li>
@@ -329,11 +328,6 @@ Software
 <h1>Distance sampling software</h1>
 <div style="background-image: url(images/logo-big.gif); background-repeat: no-repeat; background-position: right bottom;">
 <ul>
-<li>Distance for Windows
-<ul>
-<li>Easy to use Windows software</li>
-<li>Len Thomas, Eric Rexstad, Laura Marshall</li>
-</ul></li>
 <li><code>Distance</code> R package
 <ul>
 <li>Simple way to fit detection functions</li>
@@ -342,7 +336,12 @@ Software
 <li><code>mrds</code> R package
 <ul>
 <li>More complex analyses - double observer surveys</li>
-<li>Jeff Laake, me <br/> <br/>
+<li>Jeff Laake, me</li>
+</ul></li>
+<li>Distance for Windows
+<ul>
+<li>Easy to use Windows software</li>
+<li>Len Thomas, Eric Rexstad, Laura Marshall <br/> <br/>
 <div align="center">
 <h1>
 <a href="http://distancesampling.org"><code>distancesampling.org</code></a>
