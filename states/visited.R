@@ -48,7 +48,7 @@ gotem <- c(
 #           "north dakota"           ,
            "ohio"                           ,
 #           "oklahoma"         ,
-#           "oregon"                         ,
+           "oregon"                         ,
            "pennsylvania",
            "rhode island",
            "south carolina"     ,
