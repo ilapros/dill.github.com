@@ -60,16 +60,20 @@ gotem <- c(
            "virginia:chesapeake"        ,
            "virginia:chincoteague"          ,
            "virginia:main"         ,
-#           "washington:san juan island"     ,
-#           "washington:lopez island"      ,
-#           "washington:orcas island"        ,
-#           "washington:whidbey island"    ,
-#           "washington:main"                ,
+           "washington:san juan island"     ,
+           "washington:lopez island"      ,
+           "washington:orcas island"        ,
+           "washington:whidbey island"    ,
+           "washington:main"                ,
 #           "west virginia"      ,
 #           "wisconsin"                      ,
 #           "wyoming"                        ,
 NA
           )
+
+got_count <- length(unique(sub("(\\w+):.*","\\1", gotem[!is.na(gotem)])))
+cat("visited: ", got_count, "\n\n")
+
 
 # add in alaska
 #ak <- map("world2Hires",region="usa:Alaska",plot=FALSE)
@@ -82,13 +86,8 @@ ak$x <- (ak$x*contr-110)
 ak$y <- (ak$y*contr+20)
 
 # colour the ones I've been through
-been <- c("Delaware",
-          "washington:san juan island"     ,
-          "washington:lopez island"      ,
-          "washington:orcas island"        ,
-          "washington:whidbey island"    ,
-          "washington:main"
-         )
+#been <- c("Delaware"
+#         )
 
 
 # open the device
@@ -102,9 +101,9 @@ lines(ak$x,ak$y)
 
 map("state",regions=gotem,add=T,fill=TRUE,col="red")
 
-map("state",regions=been,add=T,fill=TRUE,col="blue")
+#map("state",regions=been,add=T,fill=TRUE,col="blue")
 
-legend(-95,25,c("visited","travelled through\n (train/airport)"),c("red","blue"),bty="n")
+#legend(-95,25,c("visited","travelled through\n (train/airport)"),c("red","blue"),bty="n")
 
 dev.off()
 
