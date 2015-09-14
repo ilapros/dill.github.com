@@ -289,18 +289,3 @@ $$
   * Williams, R, SL Hedley, TA Branch, MV Bravington, AN Zerbini, & KP Findlay (2011). Chilean Blue Whales as a Case Study to Illustrate Methods to Estimate Abundance and Evaluate Conservation Status of Rare Species. Conservation Biology, 25(3), 526–535.
   * Winiarski, KJ, ML Burt, Eric Rexstad, DL Miller, CL Trocki, PWC Paton, and SR McWilliams. Integrating Aerial and Ship Surveys of Marine Birds Into a Combined Density Surface Model: a Case Study of Wintering Common Loons. The Condor 116, no. 2 (2014): 149–161.
 
-##
-
-<div class="bigquote">Appendices</div>
-
-
-## More references
-
-  * Burt, ML, DL Borchers, KJ Jenkins, & TA Marques (2014). Using mark-recapture distance sampling methods on line transect surveys. Methods in Ecology and Evolution, 5(11), 1180–1191.
-  * Dunn, PK, and GK Smyth (1996). Randomized Quantile Residuals. Journal of Computational and Graphical Statistics 5(3) 236–244.
-  * Miller, DL, & L Thomas (2015). Mixture models for distance sampling detection functions. PLoS ONE.
-  * Miller, DL, & SN Wood (2014). Finite area smoothing with generalized distance splines. Environmental and Ecological Statistics, 21(4), 715–731.
-  * Ramsay, T (2002) Spline smoothing over difficult regions. Journal of the Royal Statistical Society, Series B 64, 307-319.
-  * Winiarski, KJ, DL Miller, PWC Paton, and SR McWilliams (2014). A Spatial Conservation Prioritization Approach for Protecting Marine Birds Given Proposed Offshore Wind Energy Development. Biological Conservation 169 79–88.
-  * Wood, SN, MV Bravington, & SL Hedley (2008). Soap film smoothing. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 70(5), 931–955.
-  * Wood, SN (2011). Fast stable restricted maximum likelihood and marginal likelihood estimation of semiparametric generalized linear models. Journal of the Royal Statistical Society: Series B, 73(1), 3–36.
