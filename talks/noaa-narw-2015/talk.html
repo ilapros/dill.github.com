@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="slidy.css" />
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div id="section" class="slide section level2">
+<h1></h1>
+<p align="center">
+<big>Spatial models integrating two survey platforms</big><br/><br/> David L Miller<br/>CREEM, University of St Andrews<br/> <a href="http://converged.yt">converged.yt</a><br/><br/> National Oceaonographic and Atmospheric Administration<small><br/> Visual and Passive Acoustic Data Integration Modeling Workshop<br/> Woods Hole, Massachusetts<br/> 15 September 2015</small> <br/> <br/> <br/> <br/> <img class="bot" src="images/03-foundation-colour.png" height=160>
+</p>
+</div>
+<div id="this-talk" class="slide section level2">
+<h1>This talk</h1>
+<ul>
+<li>Some practical issues</li>
+<li>Rhode Island case study</li>
+<li>Not much model detail (but do ask me about this!)</li>
+<li>More about “model independent” checking</li>
+<li>Diagnostics etc</li>
+</ul>
+</div>
+<div id="section-1" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Case study:<br/>Common loons in Rhode Island
+</div>
+</div>
+<div id="a-common-loon-gavia-immer" class="slide section level2">
+<h1>A common loon (<em>Gavia immer</em>)</h1>
+<div align="center">
+<img src="images/loon.jpg" width=780px>
+</div>
+<p><small>Photo by <a href="http://www.flickr.com/photos/jackanapes/44534740/in/photolist-4WfCm-5fGWY-5kcwt-gYsVe-gYsVf-rfrFy-wk8SY-Bbkf9-CJGoH-JAwGP-WnzZb-2KrNkj-3YEz3W-49jRDt-49jSgD-49jThH-4eYB5g-4f3AbJ-4iejaL-4iejgf-4nFVgg-4rqKb8-4znidm-4BSyxi-4BWPZw-4Dtb18-4DxqB5-4DxqMY-4EBCuB-4EGy24-4EGy8F-4ELPWu-4KM4T1-5byKfc-5dK7xM-5BmTVz-5GpYcr-5GpZw2-5MEqxV-5Pkq76-76qvBB-76qvNH-76uqKf-7qJ5CU-7v8iXi-7vngHz-dTvFyn-dN222q-dN1Nuj-8oFmQZ-8oFmXD/">jackanapes on flickr</a> (<a href="http://creativecommons.org/licenses/by-nc-nd/2.0/deed.en_GB">CC BY-NC-ND</a>)</small></p>
+</div>
+<div id="osamp" class="slide section level2">
+<h1>OSAMP</h1>
+<ul>
+<li>Ocean Special Area Management Plan</li>
+<li>Windfarm development nr. Block Island</li>
+<li>Part of state-wide EIA</li>
+<li>Potential pre-impact survey</li>
+</ul>
+</div>
+<div id="section-2" class="slide section level2 cover">
+<h1></h1>
+<p><img class="cover" src="images/condor-paper.png"></p>
+</div>
+<div id="rhode-island-surveys" class="slide section level2">
+<h1>Rhode Island Surveys</h1>
+<ul>
+<li>2 platforms</li>
+<li>Ship-based surveys
+<ul>
+<li>8 grids of zig-zag randomly located</li>
+<li>10 days – 2 December 2009 - 13 February 2010</li>
+<li>Single observer distance sampling</li>
+</ul></li>
+<li>Aerial surveys
+<ul>
+<li>24 transects</li>
+<li>9 days – 2 December 2009 - 22 February 2010</li>
+<li>Strip transects</li>
+</ul></li>
+</ul>
+</div>
+<div id="section-3" class="slide section level2">
+<h1></h1>
+<p><img src="images/surveys.png"></p>
+</div>
+<div id="section-4" class="slide section level2">
+<h1></h1>
+<div class="quote">
+How do we integrate this data?
+</div>
+</div>
+<div id="considerations" class="slide section level2">
+<h1>Considerations</h1>
+<ul>
+<li>Detectability</li>
+<li>Availability</li>
+<li>Effort</li>
+<li>Overlap (temporal and spatial)</li>
+<li>Variance estimation</li>
+</ul>
+</div>
+<div id="section-5" class="slide section level2">
+<h1></h1>
+<div class="quote">
+Density surface models
+</div>
+<div class="incremental">
+<div class="quote">
+<br/>(Spatial models that account for detectability)
+</div>
+</div>
+<div class="incremental">
+<div class="quote">
+<br/><br/>(…and more)
+</div>
+</div>
+</div>
+<div id="geq-2-stage-models" class="slide section level2 cover">
+<h1><span class="math">\(\geq 2\)</span>-stage models</h1>
+<p><br/> <br/> <br/> <img class="cover" src="images/dsm-flow.png"></p>
+<p><small>Hedley and Buckland (2004). Miller et al (2013).</small></p>
+</div>
+<div id="section-6" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Detectability
+</div>
+</div>
+<div id="distance-sampling---line-transects" class="slide section level2">
+<h1>Distance sampling - line transects</h1>
+<div class="figure">
+<img src="images/distance-animation.gif" />
+
+</div>
+<p><small>Code for animation at <A href="https://gist.github.com/dill/2b0c120d5484d338d8ef">https://gist.github.com/dill/2b0c120d5484d338d8ef</a></small></p>
+</div>
+<div id="detection-functions" class="slide section level2">
+<h1>Detection functions</h1>
+<div align="center">
+<img src="images/df.png">
+</div>
+</div>
+<div id="detection-functions-1" class="slide section level2">
+<h1>Detection functions</h1>
+<div class="upquote">
+<p><span class="math">\(\mathbb{P} \left[ \text{animal detected } \vert \text{ animal at distance } y\right]\)</span></p>
+<p>Integrate out distance: <span class="math">\[
+\hat{p}_i = \frac{1}{w} \int_0^w g(y; \boldsymbol{\hat{\theta}}, z_i) \text{d}y
+\]</span></p>
+</div>
+</div>
+<div id="section-7" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+or…
+</div>
+</div>
+<div id="section-8" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+<span class="math">\(p=1\)</span>
+</div>
+</div>
+<div id="section-9" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Availability
+</div>
+</div>
+<div id="availability-correction" class="slide section level2">
+<h1>Availability correction</h1>
+<ul>
+<li>Simple correction
+<ul>
+<li>Ford &amp; Gieg (1995) quantified diving habits in RI waters</li>
+</ul></li>
+<li>More complicated stuff
+<ul>
+<li>Borchers, Langrock &amp; co have many solutions using Hidden Markov Models</li>
+</ul></li>
+<li>(Different for different platforms?)</li>
+</ul>
+<p><br/></p>
+<p><img src="images/hmm.png" width=500px><img src="images/roo2.jpg" width=200px></p>
+</div>
+<div id="section-10" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Effort
+</div>
+</div>
+<div id="data-setup" class="slide section level2">
+<h1>Data setup</h1>
+<div align="center">
+<img src="images/dsmproc.png" width=700px>
+</div>
+<p><small><i>Gavia immer</i> from <a href="http://phylopic.org/image/ae2506e3-b97d-45d7-a3f9-1bfb1567e1b1/">PhyloPic</a>.</small></p>
+</div>
+<div id="effort" class="slide section level2">
+<h1>Effort</h1>
+<ul>
+<li>“Simple” here</li>
+<li>Strip transects == line transects w. <span class="math">\(p=1\)</span> (nesting)</li>
+<li>Always surveying surface (effort equivalence)</li>
+<li>(More complex with different “types” of data)</li>
+<li>(Need to find equivalency?)</li>
+</ul>
+</div>
+<div id="section-11" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Overlap
+</div>
+</div>
+<div id="overlap" class="slide section level2">
+<h1>Overlap</h1>
+<ul>
+<li>Ensure we’re not combining apples and oranges</li>
+<li>Are counts/unit effort reasonable?</li>
+<li>Compare overlapping &amp; non-overlapping areas</li>
+<li>Quantile-quantile plots – Kologorov-Smirnov tests (Cramer-von Mises?)</li>
+<li>Sensitivity – leave-<span class="math">\(k\)</span>-out cross-validation</li>
+</ul>
+<p><img src="images/bigqq.png" width=700px></p>
+</div>
+<div id="section-12" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Spatially explicit models
+</div>
+</div>
+<div id="spatial-model" class="slide section level2">
+<h1>Spatial model</h1>
+<div style="background-image: url(images/mgcv-inside.png); background-repeat: no-repeat; background-position: right bottom;">
+<ul>
+<li>Generalized Additive Models (GAMs)</li>
+</ul>
+<p><span class="math">\[
+\mathbb{E}(\hat{n}_j) = A_j\exp \left\{ \beta_0 + \sum_k f_k(z_{jk}) \right\}
+\]</span></p>
+<ul>
+<li><span class="math">\(\hat{n}_j \sim\)</span> count distribution (raw or Horvtiz-Thompson estimate)</li>
+<li><span class="math">\(f_k\)</span> are <em>smooth</em> functions (splines <span class="math">\(\Rightarrow f_k(x)=\sum_l \beta_l b_l(x)\)</span>)</li>
+<li><span class="math">\(f_k\)</span> can just be fixed effects <span class="math">\(\Rightarrow\)</span> GLM</li>
+<li>Add-in random effects, correlation structures <span class="math">\(\Rightarrow\)</span> GAMM</li>
+<li><span class="math">\(A_j\)</span> is area of segment</li>
+<li>R package <code>dsm</code></li>
+<li>Wood (2006) is a good intro to GAMs</li>
+</ul>
+<p><br/> <br/></p>
+</div>
+</div>
+<div id="section-13" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Variance estimation
+</div>
+</div>
+<div id="uncertainty-propagation" class="slide section level2">
+<h1>Uncertainty propagation</h1>
+<ul>
+<li>Major criticism of <span class="math">\(\geq2\)</span>-stage models</li>
+<li>Uncertainty from detection function AND spatial model (and…)</li>
+<li>Refit model with “extra” term – zero mean effect, variance contribution</li>
+<li>Williams et al (2011). Bravington, Hedley and Miller (in prep)</li>
+</ul>
+</div>
+<div id="section-14" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Conclusions
+</div>
+</div>
+<div id="conclusions" class="slide section level2">
+<h1>Conclusions</h1>
+<ul>
+<li>Existing statistical framework (GAM)</li>
+<li>Flexible spatial models
+<ul>
+<li>Detectability</li>
+<li>GLMs + random effects + smooths + other extras</li>
+<li>autocorrelation can be modelled</li>
+<li>accounting for uncertainty</li>
+</ul></li>
+<li>Large, heterogeneous areas</li>
+<li>Spatial component is v. helpful for managers</li>
+<li>Two-stage models can be useful!
+<ul>
+<li>Distribute tasks</li>
+<li>Modular model checking</li>
+</ul></li>
+</ul>
+</div>
+<div id="acknowledgements" class="slide section level2">
+<h1>Acknowledgements</h1>
+<ul>
+<li>St Andrews: Eric Rexstad, Louise Burt</li>
+<li>Rhode Island: Kris Winiarski (now UMass), Peter Paton, Scott McWilliams, Carol Trocki</li>
+<li>Funding State of Rhode Island for the Ocean Special Area Management Plan</li>
+</ul>
+<p><img src="images/er26_.jpg"> <img src="images/lb9_.jpg"> <img src="images/kris.jpg" width=150px> <img src="images/PeterPaton_small.jpg" width=150px> <img src="images/ScottMcWilliams_small.jpg" width=150px></p>
+</div>
+<div id="thanks" class="slide section level2">
+<h1>Thanks!</h1>
+<div class="quote">
+Slides available at<br/><a href="http://converged.yt/"><code>converged.yt</code></a><br/> <br/>Course at Duke in October:<br/><a href="https://nicholas.duke.edu/del/distance"><code>nicholas.duke.edu/del/distance</code></a>
+</div>
+</div>
+<div id="references" class="slide section level2">
+<h1>References</h1>
+<ul>
+<li>Borchers, DL, Zucchini, W, Heide-Jørgensen, MP, Cañadas, A, Langrock, R, Buckland, ST, &amp; Marques, TA (2013). Using hidden Markov models to deal with availability bias on line transect surveys. Biometrics, 69(3), 703–713.</li>
+<li>Ford, T. B., and J. A. Gieg (1995). Winter behavior of the Common Loon. Journal of Field Ornithology 66:22–29.</li>
+<li>Miller, DL, ML Burt, EA Rexstad and L Thomas. Spatial Models for Distance Sampling Data: Recent Developments and Future Directions. Methods in Ecology and Evolution 4, no. 11 (2013): 1001–1010.</li>
+<li>Williams, R, SL Hedley, TA Branch, MV Bravington, AN Zerbini, &amp; KP Findlay (2011). Chilean Blue Whales as a Case Study to Illustrate Methods to Estimate Abundance and Evaluate Conservation Status of Rare Species. Conservation Biology, 25(3), 526–535.</li>
+<li>Winiarski, KJ, ML Burt, Eric Rexstad, DL Miller, CL Trocki, PWC Paton, and SR McWilliams. Integrating Aerial and Ship Surveys of Marine Birds Into a Combined Density Surface Model: a Case Study of Wintering Common Loons. The Condor 116, no. 2 (2014): 149–161.</li>
+</ul>
+</div>
+<div id="section-15" class="slide section level2">
+<h1></h1>
+<div class="bigquote">
+Appendices
+</div>
+</div>
+<div id="more-references" class="slide section level2">
+<h1>More references</h1>
+<ul>
+<li>Burt, ML, DL Borchers, KJ Jenkins, &amp; TA Marques (2014). Using mark-recapture distance sampling methods on line transect surveys. Methods in Ecology and Evolution, 5(11), 1180–1191.</li>
+<li>Dunn, PK, and GK Smyth (1996). Randomized Quantile Residuals. Journal of Computational and Graphical Statistics 5(3) 236–244.</li>
+<li>Miller, DL, &amp; L Thomas (2015). Mixture models for distance sampling detection functions. PLoS ONE.</li>
+<li>Miller, DL, &amp; SN Wood (2014). Finite area smoothing with generalized distance splines. Environmental and Ecological Statistics, 21(4), 715–731.</li>
+<li>Ramsay, T (2002) Spline smoothing over difficult regions. Journal of the Royal Statistical Society, Series B 64, 307-319.</li>
+<li>Winiarski, KJ, DL Miller, PWC Paton, and SR McWilliams (2014). A Spatial Conservation Prioritization Approach for Protecting Marine Birds Given Proposed Offshore Wind Energy Development. Biological Conservation 169 79–88.</li>
+<li>Wood, SN, MV Bravington, &amp; SL Hedley (2008). Soap film smoothing. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 70(5), 931–955.</li>
+<li>Wood, SN (2011). Fast stable restricted maximum likelihood and marginal likelihood estimation of semiparametric generalized linear models. Journal of the Royal Statistical Society: Series B, 73(1), 3–36.</li>
+</ul>
+</div>
+</body>
+</html>
