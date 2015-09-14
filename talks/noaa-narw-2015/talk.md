@@ -239,6 +239,7 @@ $$
   * Williams et al (2011). Bravington, Hedley and Miller (in prep)
 
 
+<img src="images/loon-cv.png" width=500px>
 
 ##
 
