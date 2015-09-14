@@ -191,7 +191,7 @@ $$
   * Ensure we're not combining apples and oranges
   * Are counts/unit effort reasonable?
   * Compare overlapping & non-overlapping areas
-  * Quantile-quantile plots -- Kologorov-Smirnov tests (Cramer-von Mises?)
+  * Quantile-quantile plots -- Kolmogorov-Smirnov tests (Cramer-von Mises?)
   * Sensitivity -- leave-$k$-out cross-validation
 
 <img src="images/bigqq.png" width=700px>
@@ -247,17 +247,17 @@ $$
 
 ## Conclusions
 
+  * Ensure that data are compatible *before* modelling
+  * Equivalency in effort tricky for non-trivial cases
+  * Two-stage models can be useful!
+    * Distribute tasks
+    * Modular model checking
   - Existing statistical framework (GAM)
   * Flexible spatial models
      - Detectability
      - GLMs + random effects + smooths + other extras
      - autocorrelation can be modelled
      - accounting for uncertainty
-  * Large, heterogeneous areas
-  * Spatial component is v. helpful for managers
-  * Two-stage models can be useful!
-    * Distribute tasks
-    * Modular model checking
 
 
 ## Acknowledgements
@@ -288,4 +288,5 @@ $$
   * Miller, DL, ML Burt, EA Rexstad and L Thomas. Spatial Models for Distance Sampling Data: Recent Developments and Future Directions. Methods in Ecology and Evolution 4, no. 11 (2013): 1001–1010.
   * Williams, R, SL Hedley, TA Branch, MV Bravington, AN Zerbini, & KP Findlay (2011). Chilean Blue Whales as a Case Study to Illustrate Methods to Estimate Abundance and Evaluate Conservation Status of Rare Species. Conservation Biology, 25(3), 526–535.
   * Winiarski, KJ, ML Burt, Eric Rexstad, DL Miller, CL Trocki, PWC Paton, and SR McWilliams. Integrating Aerial and Ship Surveys of Marine Birds Into a Combined Density Surface Model: a Case Study of Wintering Common Loons. The Condor 116, no. 2 (2014): 149–161.
+  * Wood, S. (2006). Generalized Additive Models. CRC Press. 
 
