@@ -3,7 +3,7 @@
 <p align="center"><big>Spatial models integrating two survey platforms</big><br/><br/>
 David L Miller<br/>CREEM, University of St Andrews<br/>
 [converged.yt](http://converged.yt)<br/><br/>
-National Oceaonic and Atmospheric Administration<small><br/>
+National Oceanic and Atmospheric Administration<small><br/>
 Visual and Passive Acoustic Data Integration Modeling Workshop<br/>
 Woods Hole, Massachusetts<br/>
 15 September 2015</small>
