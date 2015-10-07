@@ -6,3 +6,4 @@ pandoc -s -S -t slidy --css=slidy.css --mathjax=http://cdn.mathjax.org/mathjax/l
 # build a local version using local mathjax
 #pandoc -s -S -t slidy --css=slidy.css --mathjax=/Users/dill/sources/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML talk.md -o local-talk.html -H jshead.html
 
+pandoc -s -S -t beamer talk.md -o talk.pdf
