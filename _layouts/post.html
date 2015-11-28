@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+  <title>converged.yt</title>
+
+   <style type="text/css">
+
+.container { width: 950px; margin: 0 auto; }
+#topl { float: left; margin-right: 10px; width: 560px; background:#C1CDCD; padding: 3px;}
+#topr { float: left; width: 360px; margin-right: 0; background:#C1CDCD; padding: 5px;}
+#botl { float: left; margin-right: 10px; width: 560px; background:#C1CDCD; padding: 3px; }
+#botr { float: left; margin-right: 10px; margin-right: 0; width: 460px; background:#C1CDCD; padding: 3px;} 
+#mid { float: left; margin-right: 10px; margin-right: 0; width: 950px; height: 20px } 
+#title { float: center; margin-right: 10px; margin-right: 0; width: 950px; text-align:right; } 
+
+
+h2 {font-family:helvetica,arial; font-size: 45px}
+h3 {font-family:helvetica,arial; font-size: 20px; text-align:right;}
+h4 {font-family:helvetica,arial; text-align:right;}
+p {font-family:helvetica,arial; font-size: 12px}
+
+   </style>
+
+    <!--[if IE]>
+        <style type="text/css">
+            div.post div.quote span.quote big.quote {
+                line-height: 40px;
+            }
+        </style>
+    <![endif]-->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8130624-2']);
+      _gaq.push(['_trackPageview']);
+
+  (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                })();
+
+</script>
+</head>
+<body>
+
+<div class='container'>
+  <div id="title">
+      <h2>converged.yt</h2>
+  </div>
+</div>
+
+<div class='container'>
+  <div id="topl">
+      <h3><a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></h3>
+{{ content }}
+      <p></p>
+
+  </div>
+  <div id="topr">
+      <h3>Posts</h3>
+    {% for post in site.posts %}
+      <li><a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+    {% endfor %}
+
+  </div>
+</div>
+
+<div class='container'>
+  <div id="mid"><p></p>
+  </div>
+</div>
+
+<div class='container'>
+  <div id="mid"><p></p>
+  </div>
+</div>
+
+</body>
+</html
+
