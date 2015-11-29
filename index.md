@@ -5,6 +5,7 @@ layout: home
 
 ### Biography
 
+**NEWS**: As of January 2016 I will be moving to the [National Oceanic and Atmospheric Administration](http://noaa.gov)'s [Northeast Fisheries Science Centre](http://nefsc.noaa.gov/) in Woods Hole, Massachusetts as a member of the Protected Species Branch. More updates coming soon.
 
 I am a research fellow (postdoc) within the Research Unit for Wildlife Population Assessment ([RUWPA](http://www.ruwpa.st-and.ac.uk/about.php)) at the University of St Andrews where I work on building software and methods for calculating the abundances of biological populations (put simply: I count animals, using statistics and computers). My main interests are models for detection ([accounting for how observers might miss seeing animals, usually involving their distance](http://distancesampling.org/whatisds.html)) and building spatial models (where are the animals, and how do they relate to biological factors like vegetation cover and sea depth?).
 
