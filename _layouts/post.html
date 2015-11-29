@@ -55,17 +55,16 @@ p {font-family:helvetica,arial; font-size: 12px}
 
 <div class='container'>
   <div id="topl">
-      <h3><a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></h3>
-{{ content }}
-      <p></p>
-
+      <h3>{{ page.title }}</h3>
+      <p>{{ content }}</p>
   </div>
   <div id="topr">
-      <h3>Posts</h3>
+      <h3>Other posts</h3>
+    <p>
     {% for post in site.posts %}
-      <li><a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+      <a href="{{ site.baseurl }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     {% endfor %}
-
+    </p>
   </div>
 </div>
 
