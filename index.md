@@ -58,6 +58,8 @@ Course materials from the course "Spatial models for distance sampling data" giv
 
 #### In print
 
+Dias, FS, DL Miller, TA Marques, J Marcelino, MC Cerdeira, JO Cerdeira, MN Bugalho. Conservation zones promote oak regeneration and shrub diversity in certified Mediterranean oak woodlands. Accepted for publication in *Biological Conservation*.
+
 Miller, DL and L Thomas (2015). Mixture models for distance sampling detection functions. *PLOS ONE*. [DOI](http://dx.doi.org/10.1371/journal.pone.0118726). (Open Access!)
 
 Miller, DL and SN Wood (2014). Finite area smoothing with generalized distance splines. *Environmental and Ecological Statistics* [DOI](http://dx.doi.org/10.1007/s10651-014-0277-4). [PDF](papers/fa.pdf). <a href="papers/fa-webappendix.pdf">Appendix</a>. Software implementation as package <code>msg</code>, above.
@@ -74,7 +76,6 @@ Marra, G, DL Miller and L Zanin (2011). Modelling the spatiotemporal distributio
 
 #### Submitted/under review
 
-Dias, FS, DL Miller, TA Marques, J Marcelino, MC Cerdeira, JO Cerdeira, MN Bugalho. Conservation zones promote oak regeneration and shrub diversity in certified Mediterranean oak woodlands. *Submitted to <s>Ecological Applications</s> <s>Journal of Applied Ecology</s> Biological Conservation*.
 
 Reiss, PT, DL Miller, P Wu and W Hua. Penalized nonparametric scalar-on-function regression via principal coordinates. *Submitted to Journal of Computational and Graphical Statistics*.
 
