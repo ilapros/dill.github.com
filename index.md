@@ -58,7 +58,7 @@ Course materials from the course "Spatial models for distance sampling data" giv
 
 #### In print
 
-Dias, FS, DL Miller, TA Marques, J Marcelino, MC Cerdeira, JO Cerdeira, MN Bugalho. Conservation zones promote oak regeneration and shrub diversity in certified Mediterranean oak woodlands. Accepted for publication in *Biological Conservation*.
+Dias, FS, DL Miller, TA Marques, J Marcelino, MC Cerdeira, JO Cerdeira, MN Bugalho (2016). Conservation zones promote oak regeneration and shrub diversity in certified Mediterranean oak woodlands. Accepted for publication in *Biological Conservation* 195, 226-234. [DOI](http://dx.doi.org/10.1016/j.biocon.2016.01.009).
 
 Miller, DL and L Thomas (2015). Mixture models for distance sampling detection functions. *PLOS ONE*. [DOI](http://dx.doi.org/10.1371/journal.pone.0118726). (Open Access!)
 
