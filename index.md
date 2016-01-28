@@ -81,7 +81,7 @@ Reiss, PT, DL Miller, P Wu and W Hua. Penalized nonparametric scalar-on-function
 
 #### In preparation
 
-Miller, DL and EA Becker. Modelling black and brown bear abundance in Alaska.
+Miller, DL and EF Becker. Modelling black and brown bear abundance in Alaska.
 
 Miller, DL and N Kelly. Combatting edge effects in spatial smoothing.
 
