@@ -89,6 +89,10 @@ Bravington, MV, S Hedley and DL Miller. Estimating variance in density surface m
 
 Mannocci, M, J Roberts, DL Miller, P Halpin. Here be dragons: extrapolating cetacean densities into the unsurveyed high seas of the western North Atlantic.
 
+Witteveen, BH, DL Miller and KM Wynne. Spatiotemporal patterns of baleen whale distribution around the Kodiak Archipelago, Alaska.
+
+Dellabianca, NA, GJ Pierce, AR Rey, G Scioscia, DL Miller, MA Torres, MN Paso Viola, RNP Goodall and ACM Schiavini. Spatial models of abundance and habitat requirements of Commerson’s and Peale’s dolphin in southern Patagonian waters.
+
 ### Talks
 
 [Spatial models integrating two survey platforms](talks/noaa-narw-2015/talk.html). Talk at NOAA NEFSC Visual and Passive Acoustic Data Integration Modeling Workshop, Woods Hole, MA, 15 September 2015.
