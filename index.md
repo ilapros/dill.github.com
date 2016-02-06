@@ -93,6 +93,9 @@ Witteveen, BH, DL Miller and KM Wynne. Spatiotemporal patterns of baleen whale d
 
 Dellabianca, NA, GJ Pierce, AR Rey, G Scioscia, DL Miller, MA Torres, MN Paso Viola, RNP Goodall and ACM Schiavini. Spatial models of abundance and habitat requirements of Commerson’s and Peale’s dolphin in southern Patagonian waters.
 
+Miller, DL, E Rexstad, L Thomas, L Marshall and, JL Laake. Distance Sampling in R.
+
+
 ### Talks
 
 [Spatial models integrating two survey platforms](talks/noaa-narw-2015/talk.html). Talk at NOAA NEFSC Visual and Passive Acoustic Data Integration Modeling Workshop, Woods Hole, MA, 15 September 2015.
