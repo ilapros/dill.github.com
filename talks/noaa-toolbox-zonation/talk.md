@@ -184,6 +184,9 @@ rather than just<br/>
   * Lehtomäki, J and A Moilanen (2013). Methods and workflow for spatial conservation prioritization using Zonation. Environmental Modelling & Software 47, 128-137. http://dx.doi.org/10.1016/j.envsoft.2013.05.001.
   * Miller, DL, ML Burt, EA Rexstad and L Thomas (2013). Spatial Models for Distance Sampling Data: Recent Developments and Future Directions. Methods in Ecology and Evolution 4(11) : 1001–1010.
   * Moilanen, A, AMA Franco, RI Early, R Fox, B Wintle, CD Thomas (2005). Prioritizing multiple-use landscapes for conservation: methods for large multi-species planning problems. Proc. R. Soc. B 272 1885-1891; DOI: 10.1098/rspb.2005.3164.
+
+## References (continued)
+
  * Winiarski, KJ, DL Miller, PWC Paton, & SR McWilliams (2014). A spatial conservation prioritization approach for protecting marine birds given proposed offshore wind energy development. Biological Conservation, 169(C), 79–88. http://doi.org/10.1016/j.biocon.2013.11.004 [http://converged.yt/papers/Zonation_ms_081613.pdf](http://converged.yt/papers/Zonation_ms_081613.pdf)
   * Wintle, B.A. (2008). A review of biodiversity investment prioritization tools. A report to the Biodiversity Expert Working Group toward the development of the Investment Framework for Environmental Resources. [http://www.inffer.com.au/wp-content/uploads/2011/06/biod_tools.pdf](http://www.inffer.com.au/wp-content/uploads/2011/06/biod_tools.pdf).
 
