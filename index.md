@@ -79,6 +79,8 @@ Marra, G, DL Miller and L Zanin (2011). Modelling the spatiotemporal distributio
 
 Reiss, PT, DL Miller, P Wu and W Hua. Penalized nonparametric scalar-on-function regression via principal coordinates. *Submitted to Journal of Computational and Graphical Statistics*.
 
+Mannocci, M, J Roberts, DL Miller, P Halpin. Here be dragons: extrapolating cetacean densities into the unsurveyed high seas of the western North Atlantic. *Submitted to Ecological Applications*.
+
 #### In preparation
 
 Miller, DL and EF Becker. Modelling black and brown bear abundance in Alaska.
@@ -86,8 +88,6 @@ Miller, DL and EF Becker. Modelling black and brown bear abundance in Alaska.
 Miller, DL and N Kelly. Combatting edge effects in spatial smoothing.
 
 Bravington, MV, S Hedley and DL Miller. Estimating variance in density surface models.
-
-Mannocci, M, J Roberts, DL Miller, P Halpin. Here be dragons: extrapolating cetacean densities into the unsurveyed high seas of the western North Atlantic.
 
 Witteveen, BH, DL Miller and KM Wynne. Spatiotemporal patterns of baleen whale distribution around the Kodiak Archipelago, Alaska.
 
