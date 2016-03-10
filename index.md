@@ -76,10 +76,12 @@ Marra, G, DL Miller and L Zanin (2011). Modelling the spatiotemporal distributio
 
 #### Submitted/under review
 
-
 Reiss, PT, DL Miller, P Wu and W Hua. Penalized nonparametric scalar-on-function regression via principal coordinates. *Submitted to Journal of Computational and Graphical Statistics*.
 
 Mannocci, M, J Roberts, DL Miller, P Halpin. Here be dragons: extrapolating cetacean densities into the unsurveyed high seas of the western North Atlantic. *Submitted to Ecological Applications*.
+
+Dellabianca, NA, GJ Pierce, AR Rey, G Scioscia, DL Miller, MA Torres, MN Paso Viola, RNP Goodall and ACM Schiavini. Spatial models of abundance and habitat requirements of Commerson’s and Peale’s dolphin in southern Patagonian waters. *Submitted to PLOS ONE*.
+
 
 #### In preparation
 
@@ -91,7 +93,6 @@ Bravington, MV, S Hedley and DL Miller. Estimating variance in density surface m
 
 Witteveen, BH, DL Miller and KM Wynne. Spatiotemporal patterns of baleen whale distribution around the Kodiak Archipelago, Alaska.
 
-Dellabianca, NA, GJ Pierce, AR Rey, G Scioscia, DL Miller, MA Torres, MN Paso Viola, RNP Goodall and ACM Schiavini. Spatial models of abundance and habitat requirements of Commerson’s and Peale’s dolphin in southern Patagonian waters.
 
 Miller, DL, E Rexstad, L Thomas, L Marshall and, JL Laake. Distance Sampling in R.
 
