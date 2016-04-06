@@ -82,6 +82,7 @@ Mannocci, M, J Roberts, DL Miller, P Halpin. Here be dragons: extrapolating ceta
 
 Dellabianca, NA, GJ Pierce, AR Rey, G Scioscia, DL Miller, MA Torres, MN Paso Viola, RNP Goodall and ACM Schiavini. Spatial models of abundance and habitat requirements of Commerson’s and Peale’s dolphin in southern Patagonian waters. *Submitted to PLOS ONE*.
 
+Miller, DL, E Rexstad, L Thomas, L Marshall and, JL Laake. Distance Sampling in R. *Submitted to the Journal of Statistical Software*. [Preprint](https://github.com/dill/distance-package-paper/blob/master/paper.pdf).
 
 #### In preparation
 
@@ -91,7 +92,6 @@ Miller, DL and N Kelly. Combatting edge effects in spatial smoothing.
 
 Bravington, MV, S Hedley and DL Miller. Estimating variance in density surface models.
 
-Miller, DL, E Rexstad, L Thomas, L Marshall and, JL Laake. Distance Sampling in R.
 
 
 ### Talks
