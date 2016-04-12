@@ -78,7 +78,7 @@ Marra, G, DL Miller and L Zanin (2011). Modelling the spatiotemporal distributio
 
 Reiss, PT, DL Miller, P Wu and W Hua. Penalized nonparametric scalar-on-function regression via principal coordinates. *Submitted to Journal of Computational and Graphical Statistics*.
 
-Mannocci, M, J Roberts, DL Miller, P Halpin. Here be dragons: extrapolating cetacean densities into the unsurveyed high seas of the western North Atlantic. *Submitted to ~~Ecological Applications~~*.
+Mannocci, M, J Roberts, DL Miller, P Halpin. Extrapolating cetacean densities beyond surveyed regions to qualitatively assess human impacts on populations in the high seas *Submitted to ~~Ecological Applications~~ Conservation Biology*.
 
 Dellabianca, NA, GJ Pierce, AR Rey, G Scioscia, DL Miller, MA Torres, MN Paso Viola, RNP Goodall and ACM Schiavini. Spatial models of abundance and habitat requirements of Commerson’s and Peale’s dolphin in southern Patagonian waters. *Submitted to PLOS ONE*.
 
