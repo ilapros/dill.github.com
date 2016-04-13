@@ -166,9 +166,7 @@ Distance sampling (extensions)
 Horvitz-Thompson-like estimators
 ========================================================
 
-- Rescale the density we have
-
-- Horvitz-Thompson-type estimators:
+- Rescale the (flat) density and extrapolate
 
 $$
 \hat{N} = \frac{\text{study area}}{\text{survey area}}\sum_{i=1}^n \frac{s_i}{\hat{p}_i}
@@ -177,20 +175,7 @@ $$
 (where $s_i$ are group/cluster sizes)
 
 
-Problems with Horvitz-Thompson-like estimators
-========================================================
-
-- Take a sample in some fixed areas
-  - *Sample is representative*
-- Find density/abundance in *covered area*
-  - *Estimator is "good"*
-- Multiply up to get abundance
-  - *Sample is representative*
-- If there are different densities in different areas, stratify
-  - *Density is flat within strata, strata are define-able*
-
-
-THAT'S NOT HOW THE OCEAN WORKS
+That's not really how the ocean works
 ==================
 type:section
 
@@ -210,6 +195,12 @@ Hedley and Buckland (2004)
 
 Miller et al. (2013)
 
+DSM flow diagram
+==================
+title:false
+
+<img src="images/dsm-flow2.png" alt="DSM process flow diagram" width=100%>
+
 Data setup
 ================================================
 title:false
@@ -218,12 +209,6 @@ title:false
 
 <small>[Physeter catodon by Noah Schlottman](http://phylopic.org/image/dc76cbdb-dba5-4d8f-8cf3-809515c30dbd/)</small>
 
-
-DSM flow diagram
-==================
-title:false
-
-<img src="images/dsm-flow2.png" alt="DSM process flow diagram" width=100%>
 
 
 2 (or more)-stage models
@@ -510,7 +495,7 @@ $$
 - Bravington, Hedley & Miller (in prep)
 
 
-Communicating uncertainty
+Plotting uncertainty
 ================================================
 
 ```{r, vars, echo=FALSE}
@@ -529,6 +514,16 @@ print(p)
 - Maps of coefficient of variation (probably biased?)
 - CV for given area (better)
 - This is **hard**
+
+Communicating uncertainty
+================================================
+![](images/uncanimation.gif)
+
+***
+
+- Are animations a good way to do this?
+- 100 simulated possible distributions
+- Some features (e.g. shelf, N-S gradient) stick out
 
 
 Availability
