@@ -367,7 +367,6 @@ Let's fit a model
 ================================================
 
 ```{r loaddat, echo=FALSE}
-load("spermwhale-analysis/df-models.RData")
 load("spermwhale-analysis/sperm-data.RData")
 ```
 ```{r firstdsm, echo=TRUE}
