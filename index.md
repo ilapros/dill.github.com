@@ -96,7 +96,7 @@ Bravington, MV, S Hedley and DL Miller. Estimating variance in density surface m
 
 ### Talks
 
-[Where the whale-things are?](talks/dsm-melb/talk.html). Talk at University of Melbourne, Melbourne, Victoria, 15 April 2016.
+[Where the whale-things are?](talks/dsm-melb/talk.html). Talk at University of Melbourne, Melbourne, Victoria, 15 April 2016 [Rmd source](talks/dsm-melb/talk.Rmd).
 
 [Spatial models integrating two survey platforms](talks/noaa-narw-2015/talk.html). Talk at NOAA NEFSC Visual and Passive Acoustic Data Integration Modeling Workshop, Woods Hole, MA, 15 September 2015.
 
