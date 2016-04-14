@@ -211,15 +211,6 @@ title:false
 
 
 
-2 (or more)-stage models
-===========================
-
-- Detectability $\Rightarrow$ effective area surveyed (offset in model)
-- Multi-stage models are handy!
-- Understand (and **check**) each part
-- Split your modelling efforts amongst people
-
-
 Generalised additive models (in 1 slide)
 ================================================
 
@@ -543,6 +534,16 @@ Whales are never where you want them...
 ![](images/poles_apart_gambolling.jpg)
 
 <small>Photo from University of St Andrews Library Special Collections</small>
+
+
+2 (or more)-stage models
+===========================
+
+- Detectability $\Rightarrow$ effective area surveyed (offset in model)
+- Multi-stage models are handy!
+- Understand (and **check**) each part
+- Split your modelling efforts amongst people
+
 
 
 Conclusions
