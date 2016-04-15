@@ -102,7 +102,7 @@ title: false
 
 <img src="images/aftt-pokemon.png">
 
-Examples in this talk
+Example data in this talk
 ========================================================
 type:section
 
@@ -122,6 +122,7 @@ Example data (thanks NOAA!)
 ========================================================
 
 <img src="images/data_ships.png">
+
 
 Let's talk about detectability
 ========================================================
@@ -395,6 +396,24 @@ plot(dsm_env_tw, page=1, scale=0, lwd=3, shade=TRUE)
 par(opar)
 ```
 
+Additive vs. bivariate space
+================================================
+
+```{r addbiv, echo=FALSE, fig.height=12, fig.width=16}
+dsm_xyt_tw <- dsm(count~s(x) + s(y),
+                  ddf.obj=df_hr,
+                segment.data=segs, observation.data=obs,
+                family=tw(), method="REML")
+opar <- par(mar=c(4, 6, 4, 2) + 0.1, cex.lab=2.5, cex.axis=2.5, mfrow=c(2,3))
+plot(dsm_xyt_tw, scale=0, lwd=3, shade=TRUE, select=1)
+plot(dsm_xyt_tw, scale=0, lwd=3, shade=TRUE, select=2)
+vis.gam(dsm_xyt_tw, view=c("x","y"), plot.type="contour", too.far=0.1)
+plot(1:10,1:10, type="n", axes=FALSE, xlab="", ylab="")
+plot(1:10,1:10, type="n", axes=FALSE, xlab="", ylab="")
+plot(dsm_xy_tw, scale=0, lwd=3, scheme=2)
+par(opar)
+```
+
 So we're done? Nope.
 ================================================
 
@@ -533,7 +552,7 @@ Whales are never where you want them...
 
 ![](images/poles_apart_gambolling.jpg)
 
-<small>Photo from University of St Andrews Library Special Collections</small>
+<small>Picture from University of St Andrews Library Special Collections</small>
 
 
 2 (or more)-stage models
@@ -800,15 +819,3 @@ for(i in 1:ncol(fymat)){
 
 
 
-Reproducible plots via stenography
-====================================
-
-- Encode plot code within the image
-- via Rich FitzJohn's `stegasaur` package
-
-```
-# make a plot as a PNG file, but encode what generated it in the image
-figuredout({plot(sample(100))}, "simpleplot.png")
-# extract the information
-cat(decode("simpleplot.png"))
-```
